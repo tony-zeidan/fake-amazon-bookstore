@@ -10,7 +10,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '19'
-          distribution: 'openjdk'
+          distribution: 'coretto'
           cache: maven
       - run: mvn --batch-mode --update-snapshots verify
       - run: mkdir staging && cp target/*.jar staging
