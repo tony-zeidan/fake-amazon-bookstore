@@ -39,6 +39,18 @@ $( document ).ready(function() {
             contentType: 'application/json; charset=utf-8',
         });
     });
+
+    $("#bookimage").change(async function () {
+        console.log("called");
+        let files = $(this).prop('files');
+        if (files.length > 0) {
+            let f = await blobToBase64(files[0])
+            $("#imagepreview").attr("src", f);
+        } else {
+            $("#imagepreview").attr("src", "");
+        }
+
+    })
 });
 
 
