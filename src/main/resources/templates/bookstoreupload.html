@@ -7,6 +7,15 @@
     <script type="text/javascript" th:src="@{/js/upload.js}"></script>
 </head>
 <body>
+    <header>
+        <h1>FakeAmazonBookstore - Bookstore Administrator - Book Upload</h1>
+    </header>
+    <nav>
+        <ul>
+            <a href="owner">Home</a>
+            <a href="owner/upload">Upload</a>
+        </ul>
+    </nav>
     <form name="upl" id="uplform" action="">
         <fieldset>
             <legend>Upload Book</legend>
@@ -17,11 +26,11 @@
             <label for="bookpublisher">Publisher: </label>
             <input type="text" name="publisher" id="bookpublisher" /><br />
             <label for="bookquantity">Initial Quantity: </label>
-            <input type="text" name="quantity" id="bookquantity" /><br />
-            <label for="bookdescription">Description: </label>
+            <input type="number" name="quantity" id="bookquantity" min="0" max="10000" placeholder="0"/><br />
+            <label for="bookdescription">Description: </label><br />
             <textarea name="description" id="bookdescription"></textarea><br />
             <label for="bookimage">Image: </label>
-            <input type="file" name="image" id="bookimage" accept="image/png, image/jpeg"/><br />
+            <input type="file" name="image" id="bookimage" accept="image/png, image/jpeg"/><br /><br />
             <input type="submit" />
         </fieldset>
     </form>

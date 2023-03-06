@@ -1,45 +1,42 @@
 $( document ).ready(function() {
-    $("form#uplform").submit(function(e) {
+    $("form#uplform").submit(async function(e) {
         e.preventDefault();
         let formData = new FormData();
-
-        fileReader.onload = () => {
-            const srcData = fileReader.result;
-            console.log('base64:', srcData)
-        };
-        fileReader.readAsDataURL(imageFile);
 
         formData.append("name", $("#bookname").val());
         formData.append("publisher", $("#bookpublisher").val());
         formData.append("description", $("#bookdescription").val());
         formData.append("isbn", $("#bookisbn").val());
 
+        console.log(formData.get("name"));
+        console.log(formData.get("publisher"));
+        console.log(formData.get("description"));
+        console.log(formData.get("isbn"));
+
+
         let imageFiles = $("#bookimage").prop('files');
 
         if (imageFiles.length > 0) {
-            const fileReader = new FileReader();
-            fileReader.onload = () => {
-                let res = fileReader.result;
-                console.log("RESULT: " + res);
-                formData.append("picture", res);
-            };
-            fileReader.readAsDataURL(imageFiles[0]);
+            let res = await blobToBase64(imageFiles[0]);
+            console.log(res);
+            formData.append("picture", res);
         }
 
+        console.log(formData.get("picture"));
 
-        console.log(formData.get("bookdetails"));
-        console.log(formData.get("bookimage"));
+        let object = {};
+        formData.forEach((value, key) => object[key] = value);
+        let json = JSON.stringify(object);
 
         $.ajax({
             url: "http://localhost:8080/owneractions/upload",
             type: 'POST',
-            data: formData,
+            data: json,
             success: function (data) {
                 alert(data)
             },
-            cache: false,
-            contentType: 'application/json',
-            processData: false
+            processData: false,
+            contentType: 'application/json; charset=utf-8',
         });
     });
 });
