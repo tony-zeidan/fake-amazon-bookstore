@@ -26,10 +26,10 @@ public class BookStoreController {
 
     @GetMapping(value = "/getAllBooks", produces = "application/json")
     public ResponseEntity<List<Book>> getAllBooks() {
-        List<Book> lst = new LinkedList<>();
-        lst.add(new Book("name1", "desc1"));
-        lst.add(new Book("name2","desc2"));
-        return ResponseEntity.ok(lst);
-        //return ResponseEntity.ok((List<Book>)bookRepository.findAll());
+//        List<Book> lst = new LinkedList<>();
+//        lst.add(new Book("name1", "desc1"));
+//        lst.add(new Book("name2","desc2"));
+//        return ResponseEntity.ok(lst);
+        return ResponseEntity.ok((List<Book>)bookRepository.findAll());
     }
 }
