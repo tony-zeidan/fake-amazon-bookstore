@@ -7,5 +7,4 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/owner")
 public class BookOwnerController {
 
-
 }
