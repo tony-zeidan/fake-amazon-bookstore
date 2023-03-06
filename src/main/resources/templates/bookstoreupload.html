@@ -1,13 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
-
-<script type="text/javascript" th:src="@{/js/upload.js}" />
-
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>FakeAmazonBookstore - Owner Upload</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/upload.js}"></script>
 </head>
 <body>
-
+    <form name="upl" id="uplform" action="">
+        <fieldset>
+            <legend>Upload Book</legend>
+            <label for="bookname">Name: </label>
+            <input type="text" name="name" id="bookname" /><br />
+            <label for="bookisbn">ISBN: </label>
+            <input type="text" name="isbn" id="bookisbn" /><br />
+            <label for="bookpublisher">Publisher: </label>
+            <input type="text" name="publisher" id="bookpublisher" /><br />
+            <label for="bookquantity">Initial Quantity: </label>
+            <input type="text" name="quantity" id="bookquantity" /><br />
+            <label for="bookdescription">Description: </label>
+            <textarea name="description" id="bookdescription"></textarea><br />
+            <label for="bookimage">Image: </label>
+            <input type="file" name="image" id="bookimage" accept="image/png, image/jpeg"/><br />
+            <input type="submit" />
+        </fieldset>
+    </form>
 </body>
 </html>
