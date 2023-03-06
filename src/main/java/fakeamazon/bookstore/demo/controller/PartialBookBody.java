@@ -16,6 +16,8 @@ public class PartialBookBody {
 
     @NotNull private String name;
 
+    private String picture;
+
     public PartialBookBody() {
         quantity = 0;
         isbn = null;
@@ -70,5 +72,13 @@ public class PartialBookBody {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 }

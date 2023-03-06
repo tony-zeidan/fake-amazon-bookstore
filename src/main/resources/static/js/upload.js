@@ -2,15 +2,30 @@ $( document ).ready(function() {
     $("form#uplform").submit(function(e) {
         e.preventDefault();
         let formData = new FormData();
-        formData.append("bookdetails", new Blob([JSON.stringify({
-            name: $("#bookname").val(),
-            publisher: $("#bookpublisher").val(),
-            description: $("#bookdescription").val(),
-            isbn: $("#bookisbn").val()
-        })], {
-            type: "application/json"
-        }), )
-        formData.append("bookimage", $("#bookimage").prop('files')[0]);
+
+        fileReader.onload = () => {
+            const srcData = fileReader.result;
+            console.log('base64:', srcData)
+        };
+        fileReader.readAsDataURL(imageFile);
+
+        formData.append("name", $("#bookname").val());
+        formData.append("publisher", $("#bookpublisher").val());
+        formData.append("description", $("#bookdescription").val());
+        formData.append("isbn", $("#bookisbn").val());
+
+        let imageFiles = $("#bookimage").prop('files');
+
+        if (imageFiles.length > 0) {
+            const fileReader = new FileReader();
+            fileReader.onload = () => {
+                let res = fileReader.result;
+                console.log("RESULT: " + res);
+                formData.append("picture", res);
+            };
+            fileReader.readAsDataURL(imageFiles[0]);
+        }
+
 
         console.log(formData.get("bookdetails"));
         console.log(formData.get("bookimage"));
@@ -23,8 +38,19 @@ $( document ).ready(function() {
                 alert(data)
             },
             cache: false,
-            contentType: 'multipart/form-data',
+            contentType: 'application/json',
             processData: false
         });
     });
 });
+
+
+
+
+function blobToBase64(blob) {
+    return new Promise((resolve, _) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result);
+        reader.readAsDataURL(blob);
+    });
+}

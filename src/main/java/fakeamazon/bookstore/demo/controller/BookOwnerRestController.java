@@ -18,10 +18,10 @@ public class BookOwnerRestController {
         this.uploadService = uploadService;
     }
 
-    @PostMapping(path="owneractions/upload", consumes={MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<String> uploadHook(@RequestPart("bookdetails") PartialBookBody book, @RequestPart("bookimage") MultipartFile file) {
+    @PostMapping(path="owneractions/upload", consumes={MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<String> uploadHook(@RequestBody PartialBookBody book) {
         System.out.println(book);
-        Book uploaded = uploadService.upload(book, file);
+        Book uploaded = uploadService.upload(book);
         if (uploaded == null) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("The given book could not be uploaded to the server.");
         } else {

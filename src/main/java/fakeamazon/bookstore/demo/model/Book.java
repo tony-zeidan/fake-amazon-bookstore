@@ -29,7 +29,7 @@ public class Book {
     private String isbn;
 
     @Lob
-    private byte[] picture;
+    private String picture;
 
     private String description;
 
@@ -61,11 +61,11 @@ public class Book {
         this.isbn = isbn;
     }
 
-    public byte[] getPicture() {
+    public String getPicture() {
         return picture;
     }
 
-    public void setPicture(byte[] picture) {
+    public void setPicture(String picture) {
         this.picture = picture;
     }
 
@@ -95,6 +95,6 @@ public class Book {
 
     @Override
     public String toString() {
-        return String.format("BOOKOBJ: (name=%s, isbn=%s, publisher=%s, quantity=%d, description=%s, picture=%s)", this.name, this.isbn, this.publisher, this.quantity, this.description, Arrays.toString(this.picture));
+        return String.format("BOOKOBJ: (name=%s, isbn=%s, publisher=%s, quantity=%d, description=%s, picture=%s)", this.name, this.isbn, this.publisher, this.quantity, this.description, this.picture);
     }
 }

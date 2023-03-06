@@ -14,19 +14,14 @@ public class BookOwnerUploadService {
     @Autowired
     private BookRepository bookRepo;
 
-    public Book upload(PartialBookBody book, MultipartFile file) {
+    public Book upload(PartialBookBody book) {
         Book toAdd = new Book();
         toAdd.setName(book.getName());
         toAdd.setDescription(book.getDescription());
         toAdd.setIsbn(book.getIsbn());
         toAdd.setQuantity(book.getQuantity());
         toAdd.setPublisher(book.getPublisher());
-        try {
-            toAdd.setPicture(file.getBytes());
-        } catch (IOException e) {
-            // the image may not be able to be read for whatever reason
-            return null;
-        }
+        toAdd.setPicture(book.getPicture());
         return bookRepo.save(toAdd);
     }
 }
