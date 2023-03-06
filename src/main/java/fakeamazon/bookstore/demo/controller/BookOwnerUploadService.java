@@ -4,8 +4,6 @@ import fakeamazon.bookstore.demo.model.Book;
 import fakeamazon.bookstore.demo.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -17,7 +15,6 @@ public class BookOwnerUploadService {
     private BookRepository bookRepo;
 
     public Book upload(PartialBookBody book, MultipartFile file) {
-
         Book toAdd = new Book();
         toAdd.setName(book.getName());
         toAdd.setDescription(book.getDescription());

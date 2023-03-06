@@ -1,25 +1,39 @@
 package fakeamazon.bookstore.demo.controller;
 
 import fakeamazon.bookstore.demo.model.Book;
-import fakeamazon.bookstore.demo.repository.BookRepository;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
 @RestController
-@RequestMapping("/owner")
 public class BookOwnerRestController {
 
     @Autowired
     private BookOwnerUploadService uploadService;
 
-    @PostMapping("/upload")
-    public ResponseEntity<String> uploadHook(@RequestBody PartialBookBody book, @RequestParam("file") MultipartFile file) {
+    public BookOwnerRestController(BookOwnerUploadService uploadService) {
+        this.uploadService = uploadService;
+    }
+
+    @GetMapping("test")
+    public String getHook() {
+        return "<h1> HELLO </h1>";
+    }
+
+    @PostMapping("tester")
+    public String postHook() {
+        return "<h1> HELLO </h1>";
+    }
+
+    @RequestMapping(name="upload", method=RequestMethod.POST, consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity<String> uploadHook(@RequestPart("bookdetails") PartialBookBody book, @RequestPart("bookimage") MultipartFile file) {
+        System.out.println(book);
         Book uploaded = uploadService.upload(book, file);
         if (uploaded == null) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("The given book could not be uploaded to the server.");

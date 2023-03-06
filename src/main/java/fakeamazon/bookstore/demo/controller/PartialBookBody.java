@@ -16,6 +16,14 @@ public class PartialBookBody {
 
     @NotNull private String name;
 
+    public PartialBookBody() {
+        quantity = 0;
+        isbn = null;
+        description = null;
+        publisher = null;
+        name = null;
+    }
+
     public int getQuantity() {
         return quantity;
     }
