@@ -20,17 +20,7 @@ public class BookOwnerRestController {
         this.uploadService = uploadService;
     }
 
-    @GetMapping("test")
-    public String getHook() {
-        return "<h1> HELLO </h1>";
-    }
-
-    @PostMapping("tester")
-    public String postHook() {
-        return "<h1> HELLO </h1>";
-    }
-
-    @PostMapping(path="upload", consumes={MediaType.MULTIPART_FORM_DATA_VALUE})
+    @PostMapping(path="owneractions/upload", consumes={MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<String> uploadHook(@RequestPart("bookdetails") PartialBookBody book, @RequestPart("bookimage") MultipartFile file) {
         System.out.println(book);
         Book uploaded = uploadService.upload(book, file);

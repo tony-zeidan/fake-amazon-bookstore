@@ -2,6 +2,8 @@ package fakeamazon.bookstore.demo.model;
 
 import jakarta.persistence.*;
 
+import java.util.Arrays;
+
 @Entity
 public class Book {
 
@@ -89,5 +91,10 @@ public class Book {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("BOOKOBJ: (name=%s, isbn=%s, publisher=%s, quantity=%d, description=%s, picture=%s)", this.name, this.isbn, this.publisher, this.quantity, this.description, Arrays.toString(this.picture));
     }
 }
