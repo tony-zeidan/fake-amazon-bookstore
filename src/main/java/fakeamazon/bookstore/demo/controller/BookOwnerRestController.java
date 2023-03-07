@@ -23,7 +23,6 @@ public class BookOwnerRestController {
         if (uploaded == null) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("The given book could not be uploaded to the server.");
         } else {
-            System.out.println(uploaded);
             return ResponseEntity.status(HttpStatus.CREATED).body("The book " + uploaded + " was created within the system.");
         }
     }
