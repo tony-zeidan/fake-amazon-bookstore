@@ -33,16 +33,30 @@ $( document ).ready(function() {
         });
     });
 
+    let prev = $(".imagepreview");
+    let img = $("#controlpreview");
+    let btn = prev.find("button");
+
+    btn.click(function(e) {
+        e.preventDefault();
+        if (prev.is(":visible")) {
+            prev.hide();
+            img.attr("src", "");
+        }
+    })
+
     $("#bookimage").change(async function () {
         console.log("Called");
         let files = $(this).prop('files');
-        let prev = $(".imagepreview");
+
         if (files.length > 0) {
             let f = await blobToBase64(files[0])
-
-            $(".imagepreview img").attr("src", f);
+            prev.show();
+            img.attr("src", f);
         } else {
-            $(".imagepreview img").attr("src", "");
+            console.log("HERE");
+            prev.hide();
+            img.attr("src", "");
         }
 
     })

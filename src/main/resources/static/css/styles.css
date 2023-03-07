@@ -70,7 +70,7 @@ body {
 }
 
 .imagepreview {
-    visibility: hidden;
+    display: none;
     color: #B1D4E0;
     border-radius: 5px;
     background-color: #0C2D48;
@@ -78,14 +78,7 @@ body {
     margin: 10px;
 }
 
-.imagepreview img {
-    visibility: hidden;
-    padding: 5px;
-    width: 25px;
-}
-
 .imagepreview button {
-    visibility: hidden;
     color: #B1D4E0;
     border-radius: 5px;
     background-color: #0C2D48;
