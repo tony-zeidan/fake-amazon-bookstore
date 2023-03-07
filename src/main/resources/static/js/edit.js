@@ -17,8 +17,6 @@ $( document ).ready(function() {
 
 
         let imageFiles = $("#bookimage").prop('files');
-        let imageFile2 = $("#imagepreview").src;
-        console.log("image2" + imageFile2)
 
         if (imageFiles.length > 0) {
             let res = await blobToBase64(imageFiles[0]);
