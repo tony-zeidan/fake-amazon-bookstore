@@ -1,22 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Admin Bookstore</title>
+    <title>FakeAmazonBookstore - Owner Inventory</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <link th:href="@{/css/styles.css}" rel="stylesheet" />
     <script type="text/javascript" th:src="@{/js/storeAdmin.js}"></script>
 </head>
 <body>
-    <header>
+    <header class="bl-header">
         <h1>FakeAmazonBookstore - Bookstore Administrator - Inventory</h1>
     </header>
-    <nav>
+    <nav class="bl-nav">
         <ul>
-            <a href="/owner">Home</a>
-            <a href="/owner/upload">Upload</a>
+            <li><a id="active-item" href="/owner">Home</a></li>
+            <li><a href="/owner/upload">Upload</a></li>
         </ul>
     </nav>
-    <table id="booksTable">
-    </table>
+    <div class="content-div">
+        <table class="bl-table" id="booksTable">
+        </table>
+    </div>
 </body>
 </html>
