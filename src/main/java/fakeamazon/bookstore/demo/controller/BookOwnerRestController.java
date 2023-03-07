@@ -7,11 +7,15 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 public class BookOwnerRestController {
 
     @Autowired
     private BookOwnerUploadService uploadService;
+    @Autowired
+    private BookOwnerInventoryService inventoryService;
 
     public BookOwnerRestController(BookOwnerUploadService uploadService) {
         this.uploadService = uploadService;
@@ -25,5 +29,11 @@ public class BookOwnerRestController {
         } else {
             return ResponseEntity.status(HttpStatus.CREATED).body("The book " + uploaded + " was created within the system.");
         }
+    }
+
+    @PutMapping(path="owneractions/inventory", consumes={MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<Optional<Book>> updateInventory(@RequestBody Book newBook){
+        Optional<Book> updatedBook = inventoryService.updateQuantity(newBook);
+        return updatedBook.isPresent() ? ResponseEntity.status(HttpStatus.OK).body(updatedBook) : ResponseEntity.status(HttpStatus.NOT_FOUND).body(updatedBook);
     }
 }
