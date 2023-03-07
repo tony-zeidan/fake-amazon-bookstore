@@ -1,3 +1,4 @@
+console.log("Script added");
 
 document.addEventListener("DOMContentLoaded", function(event){
     $.ajax({

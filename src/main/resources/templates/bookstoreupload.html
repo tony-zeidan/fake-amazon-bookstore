@@ -3,36 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <title>FakeAmazonBookstore - Owner Upload</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script type="text/javascript" th:src="@{/js/upload.js}"></script>
+
 </head>
 <body>
-    <header>
+    <header class="bl-header">
         <h1>FakeAmazonBookstore - Bookstore Administrator - Book Upload</h1>
     </header>
-    <nav>
+    <nav class="bl-nav">
         <ul>
             <a href="/owner">Home</a>
             <a href="/owner/upload">Upload</a>
         </ul>
     </nav>
-    <form name="upl" id="uplform" action="">
+    <form name="upl" id="uplform" class="bl-form" action="">
         <fieldset>
             <legend>Upload Book</legend>
-            <label for="bookname">Name: </label>
-            <input type="text" name="name" id="bookname" /><br />
-            <label for="bookisbn">ISBN: </label>
-            <input type="text" name="isbn" id="bookisbn" /><br />
-            <label for="bookpublisher">Publisher: </label>
-            <input type="text" name="publisher" id="bookpublisher" /><br />
-            <label for="bookquantity">Initial Quantity: </label>
-            <input type="number" name="quantity" id="bookquantity" min="0" max="10000" placeholder="0"/><br />
-            <label for="bookdescription">Description: </label><br />
-            <textarea name="description" id="bookdescription"></textarea><br />
-            <label for="bookimage">Image: </label>
-            <input type="file" name="image" id="bookimage" accept="image/png, image/jpeg"/><br />
+            <div class="grid-container">
+                <div class="grid-item">
+                    <label for="bookname">Name: </label>
+                </div>
+                <div class="grid-item">
+                    <input type="text" name="name" id="bookname" />
+                </div>
+                <div class="grid-item">
+                    <label for="bookisbn">ISBN: </label>
+                </div>
+                <div class="grid-item">
+                    <input type="text" name="isbn" id="bookisbn" />
+                </div>
+                <div class="grid-item">
+                    <label for="bookpublisher">Publisher: </label>
+                </div>
+                <div class="grid-item">
+                    <input type="text" name="publisher" id="bookpublisher" />
+                </div>
+                <div class="grid-item">
+                    <label for="bookquantity">Initial Quantity: </label>
+                </div>
+                <div class="grid-item">
+                    <input type="number" name="quantity" id="bookquantity" min="0" max="10000" placeholder="0"/>
+                </div>
+                <div class="grid-item">
+                    <label for="bookdescription">Description: </label>
+                </div>
+                <div class="grid-item">
+                    <textarea name="description" id="bookdescription"></textarea>
+                </div>
+                <div class="grid-item">
+                    <label for="bookimage">Image: </label>
+                </div>
+                <div class="grid-item">
+                    <input type="file" name="image" id="bookimage" accept="image/png, image/jpeg"/>
+                </div>
+            </div>
             <img id="imagepreview"><br />
-            <input type="submit" />
+            <input type="submit" class="sub-btn" />
         </fieldset>
     </form>
 </body>

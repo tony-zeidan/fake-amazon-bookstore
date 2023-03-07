@@ -34,6 +34,7 @@ $( document ).ready(function() {
     });
 
     $("#bookimage").change(async function () {
+        console.log("Called");
         let files = $(this).prop('files');
         if (files.length > 0) {
             let f = await blobToBase64(files[0])
@@ -50,7 +51,7 @@ $( document ).ready(function() {
 
 function blobToBase64(blob) {
     return new Promise((resolve, _) => {
-        const reader = new FileReader();
+        const reader = new window.FileReader();
         reader.onloadend = () => resolve(reader.result);
         reader.readAsDataURL(blob);
     });

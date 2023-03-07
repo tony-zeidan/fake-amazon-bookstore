@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css?family=Ubuntu&display=swap');
+
+body {
+    font-family: 'Ubuntu', sans-serif;
+    background-color: #0C2D48;
+}
+
+.bl-header {
+    padding-top: 60px;
+    padding-bottom: 60px;
+    text-align: center;
+    background: #0C2D48;
+    color: white;
+    border-top: solid 3pt #00000D;
+    border-bottom: solid 3pt #00000D;
+    font-size: 22px;
+}
+
+.bl-form {
+    padding: 20px;
+    background: #0C2D48;
+}
+
+.bl-form label {
+    text-align: left;
+    color: #B1D4E0;
+}
+
+.bl-form input[type='text'],input[type='number'] {
+    border-radius: 5px;
+    border: solid 1pt #00000D;
+    background-color: #0C2D48;
+    color: white;
+}
+
+.bl-form input[type='submit'],input[type='reset'] {
+    color: #B1D4E0;
+    border-radius: 5px;
+    background-color: #0C2D48;
+    border: solid 1pt #00000D;
+}
+
+.bl-form input[type='file']::file-selector-button {
+    border-radius: 5px;
+    background-color: #0C2D48;
+    border: solid 1pt #00000D;
+    color: #B1D4E0;
+}
+
+.bl-form input[type='file'] {
+    color: white;
+}
+
+.bl-form textarea {
+    width:200px;
+    height:60px;
+    border-radius: 5px;
+    border: solid 1pt #00000D;
+    background-color: #0C2D48;
+    color: white;
+}
+
+.bl-form fieldset {
+    padding: 20px;
+    border: solid 1.5pt #00000D;
+}
+
+.bl-form legend {
+    color: #B1D4E0;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 150px 250px;
+    padding: 10px;
+    row-gap: 1em;
+}
+
+.table {
+
+}
