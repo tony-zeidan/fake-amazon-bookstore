@@ -4,6 +4,7 @@ $( document ).ready(function() {
         let formData = new FormData();
 
         formData.append("name", $("#bookname").val());
+        formData.append("quantity", $("#bookquantity").val());
         formData.append("publisher", $("#bookpublisher").val());
         formData.append("description", $("#bookdescription").val());
         formData.append("isbn", $("#bookisbn").val());
