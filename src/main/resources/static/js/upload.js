@@ -36,11 +36,13 @@ $( document ).ready(function() {
     $("#bookimage").change(async function () {
         console.log("Called");
         let files = $(this).prop('files');
+        let prev = $(".imagepreview");
         if (files.length > 0) {
             let f = await blobToBase64(files[0])
-            $("#imagepreview").attr("src", f);
+
+            $(".imagepreview img").attr("src", f);
         } else {
-            $("#imagepreview").attr("src", "");
+            $(".imagepreview img").attr("src", "");
         }
 
     })
