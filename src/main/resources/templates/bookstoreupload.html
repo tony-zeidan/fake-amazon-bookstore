@@ -22,49 +22,54 @@
         <fieldset>
             <legend>Upload Book</legend>
             <div class="grid-container">
-                <div class="grid-item">
-                    <label for="bookname">Name: </label>
+                <div>
+                <div class="grid-container">
+                    <div class="grid-item">
+                        <label for="bookname">Name: </label>
+                    </div>
+                    <div class="grid-item">
+                        <input type="text" name="name" id="bookname" />
+                    </div>
+                    <div class="grid-item">
+                        <label for="bookisbn">ISBN: </label>
+                    </div>
+                    <div class="grid-item">
+                        <input type="text" name="isbn" id="bookisbn" />
+                    </div>
+                    <div class="grid-item">
+                        <label for="bookpublisher">Publisher: </label>
+                    </div>
+                    <div class="grid-item">
+                        <input type="text" name="publisher" id="bookpublisher" />
+                    </div>
+                    <div class="grid-item">
+                        <label for="bookquantity">Initial Quantity: </label>
+                    </div>
+                    <div class="grid-item">
+                        <input type="number" name="quantity" id="bookquantity" min="0" max="10000" placeholder="0"/>
+                    </div>
+                    <div class="grid-item">
+                        <label for="bookdescription">Description: </label>
+                    </div>
+                    <div class="grid-item">
+                        <textarea name="description" id="bookdescription"></textarea>
+                    </div>
+                    <div class="grid-item">
+                        <label for="bookimage">Image: </label>
+                    </div>
+                    <div class="grid-item">
+                        <input type="file" name="image" id="bookimage" accept="image/png, image/jpeg"/>
+                    </div>
                 </div>
-                <div class="grid-item">
-                    <input type="text" name="name" id="bookname" />
+                    <input type="submit" class="sub-btn" />
                 </div>
-                <div class="grid-item">
-                    <label for="bookisbn">ISBN: </label>
+                <div class="grid-item imagepreview">
+                    <label for="controlpreview">Preview: </label><br />
+                    <button>X</button>
+                    <img id="controlpreview"><br />
                 </div>
-                <div class="grid-item">
-                    <input type="text" name="isbn" id="bookisbn" />
-                </div>
-                <div class="grid-item">
-                    <label for="bookpublisher">Publisher: </label>
-                </div>
-                <div class="grid-item">
-                    <input type="text" name="publisher" id="bookpublisher" />
-                </div>
-                <div class="grid-item">
-                    <label for="bookquantity">Initial Quantity: </label>
-                </div>
-                <div class="grid-item">
-                    <input type="number" name="quantity" id="bookquantity" min="0" max="10000" placeholder="0"/>
-                </div>
-                <div class="grid-item">
-                    <label for="bookdescription">Description: </label>
-                </div>
-                <div class="grid-item">
-                    <textarea name="description" id="bookdescription"></textarea>
-                </div>
-                <div class="grid-item">
-                    <label for="bookimage">Image: </label>
-                </div>
-                <div class="grid-item">
-                    <input type="file" name="image" id="bookimage" accept="image/png, image/jpeg"/>
-                </div>
-            </div>
-            <div class="imagepreview">
-                <button>X</button>
-                <img id="controlpreview"><br />
             </div>
 
-            <input type="submit" class="sub-btn" />
         </fieldset>
     </form>
 </body>

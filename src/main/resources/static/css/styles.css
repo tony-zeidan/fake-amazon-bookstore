@@ -90,9 +90,13 @@ body {
     position: absolute;
 }
 
+#preview-label {
+    display: none;
+}
+
 .grid-container {
     display: grid;
-    grid-template-columns: 150px 250px;
+    grid-template-columns: auto auto;
     padding: 10px;
     row-gap: 1em;
 }

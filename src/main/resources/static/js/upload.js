@@ -33,6 +33,7 @@ $( document ).ready(function() {
         });
     });
 
+    let lbl = $("#preview-label");
     let prev = $(".imagepreview");
     let img = $("#controlpreview");
     let btn = prev.find("button");
@@ -41,6 +42,7 @@ $( document ).ready(function() {
         e.preventDefault();
         if (prev.is(":visible")) {
             prev.hide();
+            lbl.hide();
             img.attr("src", "");
         }
     })
@@ -52,10 +54,12 @@ $( document ).ready(function() {
         if (files.length > 0) {
             let f = await blobToBase64(files[0])
             prev.show();
+            lbl.show();
             img.attr("src", f);
         } else {
             console.log("HERE");
             prev.hide();
+            lbl.hide();
             img.attr("src", "");
         }
 
