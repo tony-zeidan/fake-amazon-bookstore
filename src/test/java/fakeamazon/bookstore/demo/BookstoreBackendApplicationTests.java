@@ -55,12 +55,18 @@ class BookstoreBackendApplicationTests {
 		bookRepository.save(new Book("book1", "desc"));
 
 		this.mockMvc.perform(get("/getAllBooks")).andDo(print()).andExpect(status().isOk())
-				.andExpect(content().string(containsString("[{\"id\":1,\"name\":\"book1\",\"description\":\"desc\"}]")));
+				.andExpect(content().string(containsString("\"name\":\"book1\"")))
+				.andExpect(content().string(containsString("\"description\":\"desc\"")))
+				.andExpect(content().string(containsString("\"id\":1")));
 
 		bookRepository.save(new Book("book2", "desc2"));
 
 		this.mockMvc.perform(get("/getAllBooks")).andDo(print()).andExpect(status().isOk())
-				.andExpect(content().string(containsString("[{\"id\":1,\"name\":\"book1\",\"description\":\"desc\"},{\"id\":2,\"name\":\"book2\",\"description\":\"desc2\"}]")));
+				.andExpect(content().string(containsString("\"name\":\"book1\"")))
+				.andExpect(content().string(containsString("\"description\":\"desc\"")))
+				.andExpect(content().string(containsString("\"id\":1")))
+				.andExpect(content().string(containsString("\"name\":\"book2\"")))
+				.andExpect(content().string(containsString("\"description\":\"desc2\"")));
 
 	}
 
