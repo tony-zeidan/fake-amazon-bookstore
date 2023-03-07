@@ -64,7 +64,6 @@ $( document ).ready(function() {
             btn.text("+");
             img.attr("src", "");
         }
-
     })
 });
 
