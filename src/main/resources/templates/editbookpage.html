@@ -22,7 +22,6 @@
         <div>
             <span> Book ID: </span>
             <span id="bookId" th:text="${targetBook.getId()}"> </span>
-            <div id="bookquantity" th:text="${targetBook.getQuantity}" style="color: red" />
         </div>
         <label for="bookname">Name: </label>
         <input type="text" name="name" id="bookname" th:value="${targetBook.getName()}"/><br />

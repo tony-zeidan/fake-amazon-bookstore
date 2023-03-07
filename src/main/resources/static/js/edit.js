@@ -9,8 +9,8 @@ $( document ).ready(function() {
         const bookId = $("#bookId").text()
         console.log("bookID" + bookId)
         formData.append("id", bookId);
-        formData.append("name", $("#bookname").val());
-        formData.append("quantity", $("#bookquantity").val());
+        formData.append("name", $("#bookname").text());
+        formData.append("quantity", 0);
         formData.append("publisher", $("#bookpublisher").val());
         formData.append("description", $("#bookdescription").text());
         formData.append("isbn", $("#bookisbn").val());

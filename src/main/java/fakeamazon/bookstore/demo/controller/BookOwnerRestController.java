@@ -30,12 +30,12 @@ public class BookOwnerRestController {
 
     @PostMapping(path="owneractions/edit", consumes={MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<String> editHook(@RequestBody Book book, @RequestParam(value="id") String bookId) {
-        System.out.println(bookId);
         Book oldBook = bookRepoService.getBookById(Long.parseLong(bookId));
         System.out.println(oldBook.getDescription());
         if(book.getPicture()==null) {
             book.setPicture(oldBook.getPicture());
         }
+        book.setQuantity(oldBook.getQuantity());
         Book uploaded = bookRepoService.upload(book);
         if (uploaded == null) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("The given book could not be uploaded to the server.");
