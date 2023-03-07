@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>FakeAmazonBookstore - Owner Upload</title>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script type="text/javascript" th:src="@{/js/edit.js}"></script>
+    <script type="module" th:src="@{/js/edit.js}"></script>
 </head>
 <body>
 <header>
@@ -18,7 +18,12 @@
 </nav>
 <form name="editBook" id="editBook" action="">
     <fieldset>
-        <legend>Edit Book</legend>
+        <legend>Edit Book </legend>
+        <div>
+            <span> Book ID: </span>
+            <span id="bookId" th:text="${targetBook.getId()}"> </span>
+            <div id="bookquantity" th:text="${targetBook.getQuantity}" style="color: red" />
+        </div>
         <label for="bookname">Name: </label>
         <input type="text" name="name" id="bookname" th:value="${targetBook.getName()}"/><br />
         <label for="bookisbn">ISBN: </label>
@@ -26,9 +31,9 @@
         <label for="bookpublisher">Publisher: </label>
         <input type="text" name="publisher" id="bookpublisher" th:value="${targetBook.getPublisher()}"/><br />
         <label for="bookdescription">Description: </label><br />
-        <textarea name="description" id="bookdescription" th:value="${targetBook.getDescription()}"></textarea><br />
+        <textarea name="description" id="bookdescription" th:text="${targetBook.getDescription()}"></textarea><br />
         <label for="bookimage">Image: </label>
-        <input type="file" name="image" id="bookimage" accept="image/png, image/jpeg" th:src="${targetBook.getPicture()}"/><br />
+        <input type="file" name="image" id="bookimage" accept="image/png, image/jpeg" th:value="${targetBook.getPicture()}"/><br />
         <img id="imagepreview" th:src="${targetBook.getPicture()}"><br />
         <input type="submit" />
     </fieldset>

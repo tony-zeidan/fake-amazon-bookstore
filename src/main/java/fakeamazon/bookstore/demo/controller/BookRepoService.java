@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class BookOwnerUploadService {
+public class BookRepoService {
 
     @Autowired
     private BookRepository bookRepo;
@@ -14,4 +14,9 @@ public class BookOwnerUploadService {
     public Book upload(Book book) {
         return bookRepo.save(book);
     }
+
+    public Book getBookById(Long id) {
+        return bookRepo.findById(id).get();
+    }
+
 }
