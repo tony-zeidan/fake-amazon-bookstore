@@ -88,5 +88,16 @@ class BookstoreBackendApplicationTests {
 						.content(asJsonString(bookToAdd))
 						.contentType(MediaType.APPLICATION_JSON_VALUE)
 				).andExpect(status().isCreated());
+
+		this.mockMvc.perform(MockMvcRequestBuilders.get(
+				"http://localhost:8080/getAllBooks"
+		))
+				.andExpect(status().isOk())
+				.andExpect(content().string(containsString(bookToAdd.getName())))
+				.andExpect(content().string(containsString(bookToAdd.getPicture())))
+				.andExpect(content().string(containsString(bookToAdd.getDescription())))
+				.andExpect(content().string(containsString(String.valueOf(bookToAdd.getQuantity()))))
+				.andExpect(content().string(containsString(bookToAdd.getPublisher())))
+				.andExpect(content().string(containsString(bookToAdd.getIsbn())));
 	}
 }
