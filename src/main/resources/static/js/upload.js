@@ -33,13 +33,36 @@ $( document ).ready(function() {
         });
     });
 
+    let img = $(".imagepreviewdisplay");
+    let btn = $(".imagepreviewbutton");
+
+    btn.click(function(e) {
+        e.preventDefault();
+        if (img.is(":visible")) {
+            btn.text("+");
+            img.hide();
+        } else {
+            if (img.attr('src') !== "") {
+                btn.text("-");
+                img.show();
+            }
+        }
+    })
+
     $("#bookimage").change(async function () {
         let files = $(this).prop('files');
+
         if (files.length > 0) {
-            let f = await blobToBase64(files[0])
-            $("#imagepreview").attr("src", f);
+            let f = await blobToBase64(files[0]);
+            img.attr("src", f);
+            if (!img.is(":visible")) {
+                btn.text("-");
+                img.show();
+            }
         } else {
-            $("#imagepreview").attr("src", "");
+            img.hide();
+            btn.text("+");
+            img.attr("src", "");
         }
 
     })
@@ -50,7 +73,7 @@ $( document ).ready(function() {
 
 function blobToBase64(blob) {
     return new Promise((resolve, _) => {
-        const reader = new FileReader();
+        const reader = new window.FileReader();
         reader.onloadend = () => resolve(reader.result);
         reader.readAsDataURL(blob);
     });
