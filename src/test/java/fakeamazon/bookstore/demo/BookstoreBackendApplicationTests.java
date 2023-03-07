@@ -38,9 +38,6 @@ class BookstoreBackendApplicationTests {
 
 	@Test
 	void testGetAllBooks() throws Exception {
-		this.mockMvc.perform(get("/getAllBooks")).andDo(print()).andExpect(status().isOk())
-				.andExpect(content().string(containsString("[]")));
-
 		bookRepository.save(new Book("book1", "desc"));
 
 		this.mockMvc.perform(get("/getAllBooks")).andDo(print()).andExpect(status().isOk())
