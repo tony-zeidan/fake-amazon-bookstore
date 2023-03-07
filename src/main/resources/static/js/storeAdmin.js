@@ -7,7 +7,15 @@ document.addEventListener("DOMContentLoaded", function(event){
         dataType: 'json',
         success: function(data, status, xhrObject)
         {
-            if (data.length === 0) return;
+            if (data.length === 0) {
+                let alert = $(document.createElement("p"));
+                alert.text("There were no books found in your inventory!");
+                alert.attr('class', 'notfound');
+                $(".content-div").append(alert)
+                return;
+            } else {
+                $(".content-div").remove(".notfound");
+            }
 
             const table = document.querySelector("#booksTable");
             const header = document.createElement("tr");

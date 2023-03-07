@@ -16,6 +16,37 @@ body {
     font-size: 22px;
 }
 
+/* Navbar styling */
+.bl-nav {
+    display: inline;
+}
+
+.bl-nav ul {
+    display: inline;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.bl-nav li {
+    display: inline-block;
+}
+
+.bl-nav li a {
+    text-decoration: none;
+    display: block;
+    padding: 8px;
+    color: #B1D4E0;
+    background-color: #0C2D48;
+}
+
+.bl-nav li #active-item {
+    background-color: #2E8BC0;
+    font-weight: bold;
+    color: #B1D4E0;
+}
+
 /* Form styling */
 .bl-form {
     padding: 20px;
@@ -140,4 +171,9 @@ body {
 
 .bl-table #imgcol {
     width: 250px;
+}
+
+.notfound {
+    color: white;
+    font-size: 16pt;
 }
