@@ -10,7 +10,7 @@ Bookstore Owner can upload and edit Book information (ISBN, picture, description
 ![img.png](img.png)
 
 ## Current State of Project ##
-Currently, the bookstore admin page has the abilty to upload a new book,
+Currently, the bookstore admin page has the ability to upload a new book,
 and the ability to view all the books currently stored.
 
 ## Milestones ##
