@@ -33,23 +33,19 @@ $( document ).ready(function() {
         });
     });
 
-    let prev = $(".imagepreview div");
-    let img = $("#controlpreview");
-    let btn = prev.find("button");
-    var previewOpen = prev.is(":visible");
+    let img = $(".imagepreview img");
+    let btn = $(".imagepreview button");
 
     btn.click(function(e) {
         e.preventDefault();
-        if (previewOpen) {
+        if (img.is(":visible")) {
             btn.text("+");
-            prev.hide();
-            img.attr("src", "");
-            previewOpen = false;
+            img.hide();
         } else {
-            if (img.getAttribute("src") !== "") {
+            console.log("Image invis")
+            if (img.attr('src') !== "") {
                 btn.text("-");
-                prev.show();
-                previewOpen = true;
+                img.show();
             }
         }
     })
@@ -60,13 +56,12 @@ $( document ).ready(function() {
         if (files.length > 0) {
             let f = await blobToBase64(files[0]);
             img.attr("src", f);
-            if (!previewOpen) {
+            if (!img.is(":visible")) {
                 btn.text("-");
-                prev.show();
-                previewOpen = true;
+                img.show();
             }
         } else {
-            prev.hide();
+            img.hide();
             btn.text("+");
             img.attr("src", "");
         }

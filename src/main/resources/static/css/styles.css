@@ -16,9 +16,10 @@ body {
     font-size: 22px;
 }
 
+/* Form styling */
 .bl-form {
     padding: 20px;
-    background: #0C2D48;
+    background-color: #0C2D48;
 }
 
 .bl-form label {
@@ -69,13 +70,23 @@ body {
     color: #B1D4E0;
 }
 
+/* Image previews */
 .imagepreview {
-    display: none;
+    display: flex;
+    flex-direction: column;
+    min-height: 25px;
+    min-width: 25px;
+    max-width:250px;
     color: #B1D4E0;
     border-radius: 5px;
     background-color: #0C2D48;
     border: solid 1pt #00000D;
     margin: 10px;
+}
+
+.imagepreview img {
+    display: none;
+    width: 100%;
 }
 
 .imagepreview button {
@@ -90,19 +101,43 @@ body {
     position: absolute;
 }
 
-#preview-label {
-    display: none;
-}
-
 .grid-container {
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: 500px 500px;
+    padding: 10px;
+    row-gap: 1em;
+}
+
+.grid-container-inner {
+    display: grid;
+    grid-template-columns: 150px 250px;
     padding: 10px;
     row-gap: 1em;
 }
 
 
+/* Table styling */
+.bl-table {
+    background-color: #0C2D48;
+}
 
-.table {
+.bl-table th {
+    background-color: #0C2D48;
+    color: #B1D4E0;
+}
 
+.bl-table td {
+    background-color: #0C2D48;
+    color: white;
+}
+
+.bl-table input[type="number"] {
+    border-radius: 5px;
+    border: solid 1pt #00000D;
+    background-color: #0C2D48;
+    color: white;
+}
+
+.bl-table #imgcol {
+    width: 250px;
 }
