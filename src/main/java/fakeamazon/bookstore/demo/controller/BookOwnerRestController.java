@@ -1,6 +1,7 @@
 package fakeamazon.bookstore.demo.controller;
 
 import fakeamazon.bookstore.demo.model.Book;
+import fakeamazon.bookstore.demo.model.BookJsonTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,7 +19,7 @@ public class BookOwnerRestController {
     }
 
     @PostMapping(path="owneractions/upload", consumes={MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<String> uploadHook(@RequestBody PartialBookBody book) {
+    public ResponseEntity<String> uploadHook(@RequestBody BookJsonTemplate book) {
         System.out.println(book.getName());
         Book uploaded = uploadService.upload(book);
         if (uploaded == null) {

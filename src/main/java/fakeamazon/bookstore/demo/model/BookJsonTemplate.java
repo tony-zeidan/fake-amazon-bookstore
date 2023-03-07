@@ -1,8 +1,8 @@
-package fakeamazon.bookstore.demo.controller;
+package fakeamazon.bookstore.demo.model;
 
 import org.jetbrains.annotations.NotNull;
 
-public class PartialBookBody {
+public class BookJsonTemplate {
 
     private Long id;
 
@@ -18,7 +18,7 @@ public class PartialBookBody {
 
     private String picture;
 
-    public PartialBookBody() {
+    public BookJsonTemplate() {
         quantity = 0;
         isbn = null;
         description = null;
