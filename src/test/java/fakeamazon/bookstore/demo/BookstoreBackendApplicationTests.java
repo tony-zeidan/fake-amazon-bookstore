@@ -2,6 +2,8 @@ package fakeamazon.bookstore.demo;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fakeamazon.bookstore.demo.controller.PartialBookBody;
+import fakeamazon.bookstore.demo.model.Book;
+import fakeamazon.bookstore.demo.repository.BookRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
