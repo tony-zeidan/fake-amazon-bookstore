@@ -165,7 +165,7 @@ body {
 .bl-table input[type="number"] {
     border-radius: 5px;
     border: solid 1pt #00000D;
-    background-color: #0C2D48;
+    background-color: #145DA0;
     color: white;
 }
 
@@ -176,7 +176,7 @@ body {
 .bl-table button {
     color: #B1D4E0;
     border-radius: 5px;
-    background-color: #0C2D48;
+    background-color: #145DA0;
     border: solid 1pt #00000D;
 }
 
