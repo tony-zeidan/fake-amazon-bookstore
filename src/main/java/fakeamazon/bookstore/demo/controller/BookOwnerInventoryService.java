@@ -12,13 +12,15 @@ public class BookOwnerInventoryService {
     @Autowired
     private BookRepository bookRepository;
 
-    public Optional<Book> updateQuantity(Book newBook){
-        Optional<Book> currBook = bookRepository.findById(newBook.getId());
-        if (!currBook.isPresent()){
-            return Optional.empty();
-        } else {
-            //repo.save() updates book if ID matches existing book
-            return Optional.of(bookRepository.save(newBook));
+    public Optional<Book> updateQuantity(Long currId, Integer newQuantity){
+        Optional<Book> currBook = bookRepository.findById(currId);
+        if (currBook.isPresent()){
+            currBook.ifPresent(book -> {
+                book.setQuantity(newQuantity);
+                bookRepository.save(book);
+            });
+            return currBook;
         }
+        return Optional.empty();
     }
 }

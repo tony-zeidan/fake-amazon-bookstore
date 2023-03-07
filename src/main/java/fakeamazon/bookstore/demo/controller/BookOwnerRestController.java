@@ -31,9 +31,10 @@ public class BookOwnerRestController {
         }
     }
 
-    @PutMapping(path="owneractions/inventory", consumes={MediaType.APPLICATION_JSON_VALUE})
+    @PatchMapping (path="owneractions/inventory", consumes={MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<Optional<Book>> updateInventory(@RequestBody Book newBook){
-        Optional<Book> updatedBook = inventoryService.updateQuantity(newBook);
+        //All that matters is to find the book via the provided ID and change to the new quantity
+        Optional<Book> updatedBook = inventoryService.updateQuantity(newBook.getId(), newBook.getQuantity());
         return updatedBook.isPresent() ? ResponseEntity.status(HttpStatus.OK).body(updatedBook) : ResponseEntity.status(HttpStatus.NOT_FOUND).body(updatedBook);
     }
 }
