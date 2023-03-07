@@ -6,12 +6,12 @@ document.addEventListener("DOMContentLoaded", function(event){
         dataType: 'json',
         success: function(data, status, xhrObject)
         {
-            if (data.length == 0) return;
+            if (data.length === 0) return;
 
             const table = document.querySelector("#booksTable");
             const header = document.createElement("tr");
             for(let key in data[0]) {
-                const cell = document.createElement("td");
+                const cell = document.createElement("th");
                 cell.innerText = key;
                 header.appendChild(cell);
             }
@@ -21,7 +21,14 @@ document.addEventListener("DOMContentLoaded", function(event){
                 const tableRow = document.createElement("tr");
                 for(let key in data[i]) {
                     const cell = document.createElement("td");
-                    cell.innerText = data[i][key];
+                    if (key === "picture") {
+                        let imgData = document.createElement("img")
+                        imgData.src = data[i][key];
+                        cell.appendChild(imgData);
+                    } else {
+                        cell.innerText = data[i][key];
+                    }
+
                     tableRow.appendChild(cell);
                 }
                 table.appendChild(tableRow);
@@ -32,5 +39,4 @@ document.addEventListener("DOMContentLoaded", function(event){
             alert(errorThrown);
         }
     });
-    console.log("here")
 });
