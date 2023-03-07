@@ -32,4 +32,6 @@ public class BookStoreController {
 //        return ResponseEntity.ok(lst);
         return ResponseEntity.ok((List<Book>)bookRepository.findAll());
     }
+
+
 }
