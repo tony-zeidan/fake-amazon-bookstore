@@ -33,33 +33,41 @@ $( document ).ready(function() {
         });
     });
 
-    let lbl = $("#preview-label");
-    let prev = $(".imagepreview");
+    let prev = $(".imagepreview div");
     let img = $("#controlpreview");
     let btn = prev.find("button");
+    var previewOpen = prev.is(":visible");
 
     btn.click(function(e) {
         e.preventDefault();
-        if (prev.is(":visible")) {
+        if (previewOpen) {
+            btn.text("+");
             prev.hide();
-            lbl.hide();
             img.attr("src", "");
+            previewOpen = false;
+        } else {
+            if (img.getAttribute("src") !== "") {
+                btn.text("-");
+                prev.show();
+                previewOpen = true;
+            }
         }
     })
 
     $("#bookimage").change(async function () {
-        console.log("Called");
         let files = $(this).prop('files');
 
         if (files.length > 0) {
-            let f = await blobToBase64(files[0])
-            prev.show();
-            lbl.show();
+            let f = await blobToBase64(files[0]);
             img.attr("src", f);
+            if (!previewOpen) {
+                btn.text("-");
+                prev.show();
+                previewOpen = true;
+            }
         } else {
-            console.log("HERE");
             prev.hide();
-            lbl.hide();
+            btn.text("+");
             img.attr("src", "");
         }
 
