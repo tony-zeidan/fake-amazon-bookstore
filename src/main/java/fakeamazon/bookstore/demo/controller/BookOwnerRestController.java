@@ -19,7 +19,6 @@ public class BookOwnerRestController {
 
     @PostMapping(path="owneractions/upload", consumes={MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<String> uploadHook(@RequestBody Book book) {
-        System.out.println(book.getName());
         Book uploaded = uploadService.upload(book);
         if (uploaded == null) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("The given book could not be uploaded to the server.");

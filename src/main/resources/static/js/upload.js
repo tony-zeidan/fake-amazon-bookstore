@@ -9,21 +9,13 @@ $( document ).ready(function() {
         formData.append("description", $("#bookdescription").val());
         formData.append("isbn", $("#bookisbn").val());
 
-        console.log(formData.get("name"));
-        console.log(formData.get("publisher"));
-        console.log(formData.get("description"));
-        console.log(formData.get("isbn"));
-
 
         let imageFiles = $("#bookimage").prop('files');
 
         if (imageFiles.length > 0) {
             let res = await blobToBase64(imageFiles[0]);
-            console.log(res);
             formData.append("picture", res);
         }
-
-        console.log(formData.get("picture"));
 
         let object = {};
         formData.forEach((value, key) => object[key] = value);
@@ -42,7 +34,6 @@ $( document ).ready(function() {
     });
 
     $("#bookimage").change(async function () {
-        console.log("called");
         let files = $(this).prop('files');
         if (files.length > 0) {
             let f = await blobToBase64(files[0])

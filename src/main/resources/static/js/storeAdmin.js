@@ -39,5 +39,4 @@ document.addEventListener("DOMContentLoaded", function(event){
             alert(errorThrown);
         }
     });
-    console.log("here")
 });
