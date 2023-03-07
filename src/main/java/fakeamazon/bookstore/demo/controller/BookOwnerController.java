@@ -1,15 +1,22 @@
 package fakeamazon.bookstore.demo.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/owner")
+@RequestMapping("owner")
 public class BookOwnerController {
 
-    @GetMapping("/upload")
-    public String getUploadForm() {
-        return "bookstoreupload";
+    @Autowired
+    public BookOwnerController() {
     }
+
+    @GetMapping("")
+    public String getAdminBookStore(Model model) {
+        return "bookstoreadmin";
+    }
+
 }

@@ -18,6 +18,15 @@ import java.util.Base64;
 import static org.springframework.mock.http.server.reactive.MockServerHttpRequest.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import org.springframework.test.web.servlet.MockMvc;
+
+import static org.hamcrest.Matchers.containsString;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+
 @SpringBootTest
 @AutoConfigureMockMvc
 class BookstoreBackendApplicationTests {
@@ -31,6 +40,26 @@ class BookstoreBackendApplicationTests {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	@Autowired
+	private BookRepository bookRepository;
+
+	@Test
+	void testGetAllBooks() throws Exception {
+		this.mockMvc.perform(get("/getAllBooks")).andDo(print()).andExpect(status().isOk())
+				.andExpect(content().string(containsString("[]")));
+
+		bookRepository.save(new Book("book1", "desc"));
+
+		this.mockMvc.perform(get("/getAllBooks")).andDo(print()).andExpect(status().isOk())
+				.andExpect(content().string(containsString("[{\"id\":1,\"name\":\"book1\",\"description\":\"desc\"}]")));
+
+		bookRepository.save(new Book("book2", "desc2"));
+
+		this.mockMvc.perform(get("/getAllBooks")).andDo(print()).andExpect(status().isOk())
+				.andExpect(content().string(containsString("[{\"id\":1,\"name\":\"book1\",\"description\":\"desc\"},{\"id\":2,\"name\":\"book2\",\"description\":\"desc2\"}]")));
+
 	}
 
 	@Test
