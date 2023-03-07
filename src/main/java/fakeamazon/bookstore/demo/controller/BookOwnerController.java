@@ -19,4 +19,9 @@ public class BookOwnerController {
         return "bookstoreadmin";
     }
 
+    @GetMapping("upload")
+    public String getAdminUpload() {
+        return "bookstoreupload";
+    }
+
 }
