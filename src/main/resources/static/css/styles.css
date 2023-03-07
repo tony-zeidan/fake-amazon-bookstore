@@ -44,7 +44,7 @@ body {
 .bl-nav li #active-item {
     background-color: #2E8BC0;
     font-weight: bold;
-    color: #B1D4E0;
+    color: white;
 }
 
 /* Form styling */
@@ -61,20 +61,20 @@ body {
 .bl-form input[type='text'],input[type='number'] {
     border-radius: 5px;
     border: solid 1pt #00000D;
-    background-color: #0C2D48;
+    background-color: #145DA0;
     color: white;
 }
 
 .bl-form input[type='submit'],input[type='reset'] {
     color: #B1D4E0;
     border-radius: 5px;
-    background-color: #0C2D48;
+    background-color: #145DA0;
     border: solid 1pt #00000D;
 }
 
 .bl-form input[type='file']::file-selector-button {
     border-radius: 5px;
-    background-color: #0C2D48;
+    background-color: #145DA0;
     border: solid 1pt #00000D;
     color: #B1D4E0;
 }
@@ -88,7 +88,7 @@ body {
     height:60px;
     border-radius: 5px;
     border: solid 1pt #00000D;
-    background-color: #0C2D48;
+    background-color: #145DA0;
     color: white;
 }
 
@@ -110,7 +110,7 @@ body {
     max-width:250px;
     color: #B1D4E0;
     border-radius: 5px;
-    background-color: #0C2D48;
+    background-color: #145DA0;
     border: solid 1pt #00000D;
     margin: 10px;
 }
@@ -123,7 +123,7 @@ body {
 .imagepreview button {
     color: #B1D4E0;
     border-radius: 5px;
-    background-color: #0C2D48;
+    background-color: #145DA0;
     border: none;
     text-align: center;
     font-size: 10px;
@@ -165,7 +165,7 @@ body {
 .bl-table input[type="number"] {
     border-radius: 5px;
     border: solid 1pt #00000D;
-    background-color: #0C2D48;
+    background-color: #145DA0;
     color: white;
 }
 
@@ -176,7 +176,7 @@ body {
 .bl-table button {
     color: #B1D4E0;
     border-radius: 5px;
-    background-color: #0C2D48;
+    background-color: #145DA0;
     border: solid 1pt #00000D;
 }
 
