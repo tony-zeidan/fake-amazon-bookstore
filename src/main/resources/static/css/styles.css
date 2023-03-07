@@ -47,6 +47,25 @@ body {
     color: white;
 }
 
+/* General inputs */
+.bl-generalinput {
+    border-radius: 5px;
+    border: solid 1pt #00000D;
+    background-color: #145DA0;
+    color: white;
+}
+
+.bl-generalfileinput::file-selector-button {
+    border-radius: 5px;
+    background-color: #145DA0;
+    border: solid 1pt #00000D;
+    color: #B1D4E0;
+}
+
+.bl-generalfileinput {
+    color: white;
+}
+
 /* Form styling */
 .bl-form {
     padding: 20px;
@@ -58,32 +77,32 @@ body {
     color: #B1D4E0;
 }
 
-.bl-form input[type='text'],input[type='number'] {
+.bl-forminput {
     border-radius: 5px;
     border: solid 1pt #00000D;
     background-color: #145DA0;
     color: white;
 }
 
-.bl-form input[type='submit'],input[type='reset'] {
+.bl-formbutton {
     color: #B1D4E0;
     border-radius: 5px;
     background-color: #145DA0;
     border: solid 1pt #00000D;
 }
 
-.bl-form input[type='file']::file-selector-button {
+.bl-formfileinput::file-selector-button {
     border-radius: 5px;
     background-color: #145DA0;
     border: solid 1pt #00000D;
     color: #B1D4E0;
 }
 
-.bl-form input[type='file'] {
+.bl-formfileinput {
     color: white;
 }
 
-.bl-form textarea {
+.bl-formtext {
     width:200px;
     height:60px;
     border-radius: 5px;
@@ -115,12 +134,12 @@ body {
     margin: 10px;
 }
 
-.imagepreview img {
+.imagepreviewdisplay {
     display: none;
     width: 100%;
 }
 
-.imagepreview button {
+.imagepreviewbutton {
     color: #B1D4E0;
     border-radius: 5px;
     background-color: #145DA0;
@@ -159,13 +178,7 @@ body {
 
 .bl-table td {
     background-color: #0C2D48;
-    color: white;
-}
-
-.bl-table input[type="number"] {
-    border-radius: 5px;
-    border: solid 1pt #00000D;
-    background-color: #145DA0;
+    padding: 10px;
     color: white;
 }
 
@@ -173,7 +186,7 @@ body {
     width: 250px;
 }
 
-.bl-table button {
+.bl-button {
     color: #B1D4E0;
     border-radius: 5px;
     background-color: #145DA0;
