@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function(event){
                     tableRow.append(cell);
                 }
                 const editLinkCell = createEditLinkCell(id)
-                tableRow.appendChild(editLinkCell);
+                tableRow.append(editLinkCell);
                 table.appendChild(tableRow.get(0));
             }
         },
@@ -82,13 +82,12 @@ document.addEventListener("DOMContentLoaded", function(event){
 });
 
 function createEditLinkCell(bookId) {
-    const editLink = document.createElement("a")
-    editLink.title = "Edit Book"
-    editLink.href = `http://localhost:8080/owner/edit?bookId=${bookId}`
-    const linkText = document.createTextNode("Edit Book")
-    editLink.appendChild(linkText)
-    const cell = document.createElement("td");
-    cell.appendChild(editLink);
+    const editLink = $(document.createElement("a"))
+    editLink.attr("class", "editLink")
+    editLink.attr("href",`http://localhost:8080/owner/edit?bookId=${bookId}` )
+    editLink.text("Edit Book")
+    const cell = $(document.createElement("td"));
+    cell.append(editLink);
     return cell;
 }
 

@@ -184,3 +184,10 @@ body {
     color: white;
     font-size: 16pt;
 }
+
+.editLink {
+    border-radius: 5px;
+    color: white;
+    background-color: #0C2D48;
+    border: solid 1pt #00000D;
+}
