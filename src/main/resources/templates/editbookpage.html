@@ -34,40 +34,40 @@
                         <label for="bookname">Name: </label>
                     </div>
                     <div class="grid-item">
-                        <input type="text" name="name" id="bookname" th:value="${targetBook.getName()}"/>
+                        <input type="text" class="bl-forminput" name="name" id="bookname" th:value="${targetBook.getName()}"/>
                     </div>
                     <div class="grid-item">
                         <label for="bookisbn">ISBN: </label>
                     </div>
                     <div class="grid-item">
-                        <input type="text" name="isbn" id="bookisbn" th:value="${targetBook.getIsbn()}"/><br />
+                        <input type="text" name="isbn" class="bl-forminput" id="bookisbn" th:value="${targetBook.getIsbn()}"/><br />
                     </div>
                     <div class="grid-item">
                         <label for="bookpublisher">Publisher: </label>
                     </div>
                     <div class="grid-item">
-                        <input type="text" name="publisher" id="bookpublisher" th:value="${targetBook.getPublisher()}"/><br />
+                        <input type="text" name="publisher" class="bl-forminput" id="bookpublisher" th:value="${targetBook.getPublisher()}"/><br />
                     </div>
                     <div class="grid-item">
                         <label for="bookdescription">Description: </label><br />
                     </div>
                     <div class="grid-item">
-                        <textarea name="description" id="bookdescription" th:text="${targetBook.getDescription()}"></textarea><br />
+                        <textarea name="description" class="bl-formtext" id="bookdescription" th:text="${targetBook.getDescription()}"></textarea><br />
                     </div>
                     <div class="grid-item">
                         <label for="bookimage">Image: </label>
                     </div>
                     <div class="grid-item">
-                        <input type="file" name="image" id="bookimage" accept="image/png, image/jpeg" th:value="${targetBook.getPicture()}"/><br />
+                        <input type="file" name="image"  class="bl-formfileinput" id="bookimage" accept="image/png, image/jpeg" th:value="${targetBook.getPicture()}"/><br />
                     </div>
                 </div>
-                    <input type="submit" />
+                    <input class="bl-formbutton" type="submit" />
             </div>
             <div class="grid-item">
                 <label >Preview: </label><br />
                 <div class="imagepreview">
                     <button class="imagepreviewbutton" type="button">+</button>
-                    <img th:src="${targetBook.getPicture()}"><br />
+                    <img class="imagepreviewdisplay" th:src="${targetBook.getPicture()}">
                 </div>
             </div>
         </div>

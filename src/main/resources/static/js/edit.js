@@ -2,7 +2,6 @@
 // http://localhost:8080/owner/edit?bookId=1
 
 $( document ).ready(function() {
-    console.log("document loaded")
     $("form#editBook").submit(async function(e) {
         e.preventDefault();
         let formData = new FormData();
@@ -39,13 +38,45 @@ $( document ).ready(function() {
         });
     });
 
+    let img = $(".imagepreviewdisplay");
+    let btn = $(".imagepreviewbutton");
+
+    if (img.attr('src') !== "") {
+        btn.text("-");
+        img.show();
+    }
+
+    // the expand/collapse button
+
+    // this is when the expand or collapse buton is clicked
+    btn.click(function(e) {
+        e.preventDefault();
+        if (img.is(":visible")) {
+            btn.text("+");
+            img.hide();
+        } else {
+            if (img.attr('src') !== "") {
+                btn.text("-");
+                img.show();
+            }
+        }
+    })
+
+    // this is when the user selects a new file
     $("#bookimage").change(async function () {
         let files = $(this).prop('files');
+
         if (files.length > 0) {
-            let f = await blobToBase64(files[0])
-            $("#imagepreview").attr("src", f);
+            let f = await blobToBase64(files[0]);
+            img.attr("src", f);
+            if (!img.is(":visible")) {
+                btn.text("-");
+                img.show();
+            }
         } else {
-            $("#imagepreview").attr("src", "");
+            img.hide();
+            btn.text("+");
+            img.attr("src", "");
         }
     })
 });

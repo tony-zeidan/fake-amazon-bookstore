@@ -17,17 +17,17 @@ document.addEventListener("DOMContentLoaded", function(event){
                 $(".content-div").remove(".notfound");
             }
 
-            const table = document.querySelector("#booksTable");
-            const header = document.createElement("tr");
+            const table = $(document.querySelector("#booksTable"));
+            const header = $(document.createElement("tr"));
             for(let key in data[0]) {
-                const cell = document.createElement("th");
+                const cell = $(document.createElement("th"));
                 if (key === "picture") {
-                    cell.id = "imgcol";
+                    cell.attr("id","imgcol");
                 }
-                cell.innerText = key;
-                header.appendChild(cell);
+                cell.text(key);
+                header.append(cell);
             }
-            table.appendChild(header);
+            table.append(header);
             let id = 0
             for(let i = 0; i < data.length; i++) {
                 const tableRow = $(document.createElement("tr"));
@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function(event){
                 }
                 const editLinkCell = createEditLinkCell(id)
                 tableRow.append(editLinkCell);
-                table.appendChild(tableRow.get(0));
+                table.append(tableRow.get(0));
             }
         },
         error: function(jqXHR, textStatus, errorThrown)
@@ -84,9 +84,11 @@ document.addEventListener("DOMContentLoaded", function(event){
 });
 
 function createEditLinkCell(bookId) {
-    const editLink = $(document.createElement("a"))
-    editLink.attr("class", "bl-button")
-    editLink.attr("href",`http://localhost:8080/owner/edit?bookId=${bookId}` )
+    const editLink = $(document.createElement("button"))
+    editLink.addClass( "bl-button")
+    editLink.click(() => {
+        window.location.href = `http://localhost:8080/owner/edit?bookId=${bookId}`
+    })
     editLink.text("Edit Book")
     const cell = $(document.createElement("td"));
     cell.append(editLink);
