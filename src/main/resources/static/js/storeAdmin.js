@@ -3,9 +3,33 @@ console.log("Script added");
 function incrementInventory(e){
     e.preventDefault();
 
+    const inputs = $(".inc-quantity");
+
+    inputs.each(function (){
+        if($(this).val() !== "0"){
+            $.ajax({
+                type: "patch",
+                url: "owneractions/inventory",
+                contentType: 'application/json',
+                dataType: 'json',
+                data: JSON.stringify({
+                    id: $(this).data("bookId"),
+                    quantity: $(this).val()
+                }),
+                success: function(data, status, xhrObject){
+                    let updatedQuants = $(`#quantity-${data['id']}`);
+                    updatedQuants.text(data['quantity']);
+                    alert("success");
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                    alert(errorThrown);
+                }
+            });
+        }
+    })
 }
 
-document.addEventListener("DOMContentLoaded", function(event){
+$(document).ready(function(event){
     $.ajax({
         type: "get",
         url: "getAllBooks",
@@ -74,12 +98,17 @@ document.addEventListener("DOMContentLoaded", function(event){
                         tableRow.append(cell);
                     } else if (key === "quantity"){
                         cell.text(data[i][key]);
+                        cell.attr("id",`quantity-${data[i]["id"]}`);
                         tableRow.append(cell);
                         let cell2 = $(document.createElement("td"));
                         let inputNum = $(document.createElement("input"));
+                        inputNum.addClass("inc-quantity");
+
+                        //For CSS styling
+                        inputNum.addClass("bl-generalinput");
+                        inputNum.data("bookId", data[i]["id"]);
                         inputNum.attr("type", "number");
-                        inputNum.attr("class", "bl-generalinput");
-                        inputNum.attr("placeholder", "0");
+                        inputNum.attr("value", "0");
                         inputNum.attr("min", "-10000");
                         inputNum.attr("max", "10000");
                         cell2.append(inputNum);
@@ -95,7 +124,7 @@ document.addEventListener("DOMContentLoaded", function(event){
             let saveButton = $(document.createElement("button"));
             saveButton.text("Save");
             saveButton.attr("class", "bl-button");
-            saveButton.click();
+            saveButton.click(incrementInventory);
 
             $(".content-div").append(saveButton);
         },

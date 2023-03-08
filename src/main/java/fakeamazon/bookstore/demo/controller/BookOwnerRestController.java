@@ -1,6 +1,7 @@
 package fakeamazon.bookstore.demo.controller;
 
 import fakeamazon.bookstore.demo.model.Book;
+import fakeamazon.bookstore.demo.model.EditQuantity;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,13 +34,14 @@ public class BookOwnerRestController {
     }
 
     @PatchMapping (path="owneractions/inventory", consumes={MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<Book> updateInventory(@RequestBody Book newBook){
+    public ResponseEntity<Book> updateInventory(@RequestBody EditQuantity newBook){
         //All that matters is to find the book via the provided ID and change to the new quantity
         try{
             Optional<Book> updatedBook = inventoryService.updateQuantity(newBook.getId(), newBook.getQuantity());
             return ResponseEntity.of(updatedBook);
         } catch (IllegalArgumentException e){
-            return ResponseEntity.badRequest().body(null);
+            System.out.println("Error: ");
+            return ResponseEntity.ok().body(null);
         }
     }
 }
