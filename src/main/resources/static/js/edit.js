@@ -1,12 +1,16 @@
+// handle submit button click for editbookpage
+// http://localhost:8080/owner/edit?bookId=1
+
 $( document ).ready(function() {
-    $("form#uplform").submit(async function(e) {
+    $("form#editBook").submit(async function(e) {
         e.preventDefault();
         let formData = new FormData();
-
+        const bookId = $("#bookId").text()
+        console.log("bookID" + bookId)
+        formData.append("id", bookId);
         formData.append("name", $("#bookname").val());
-        formData.append("quantity", $("#bookquantity").val());
         formData.append("publisher", $("#bookpublisher").val());
-        formData.append("description", $("#bookdescription").val());
+        formData.append("description", $("#bookdescription").text());
         formData.append("isbn", $("#bookisbn").val());
 
 
@@ -19,14 +23,18 @@ $( document ).ready(function() {
 
         let object = {};
         formData.forEach((value, key) => object[key] = value);
+        console.log(object)
         let json = JSON.stringify(object);
 
         $.ajax({
-            url: "http://localhost:8080/owneractions/upload",
-            type: 'POST',
+            url: `http://localhost:8080/owneractions/edit?id=${bookId}`,
+            type: 'PATCH',
             data: json,
             success: function (data) {
-                alert(data)
+                alert(JSON.stringify(data))
+            },
+            error: function() {
+                alert("error when edit")
             },
             processData: false,
             contentType: 'application/json; charset=utf-8',
@@ -36,6 +44,14 @@ $( document ).ready(function() {
     let img = $(".imagepreviewdisplay");
     let btn = $(".imagepreviewbutton");
 
+    if (img.attr('src') !== "") {
+        btn.text("-");
+        img.show();
+    }
+
+    // the expand/collapse button
+
+    // this is when the expand or collapse buton is clicked
     btn.click(function(e) {
         e.preventDefault();
         if (img.is(":visible")) {
@@ -49,6 +65,7 @@ $( document ).ready(function() {
         }
     })
 
+    // this is when the user selects a new file
     $("#bookimage").change(async function () {
         let files = $(this).prop('files');
 
@@ -67,12 +84,9 @@ $( document ).ready(function() {
     })
 });
 
-
-
-
 export function blobToBase64(blob) {
     return new Promise((resolve, _) => {
-        const reader = new window.FileReader();
+        const reader = new FileReader();
         reader.onloadend = () => resolve(reader.result);
         reader.readAsDataURL(blob);
     });

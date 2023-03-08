@@ -28,4 +28,6 @@ public class BookStoreController {
     public ResponseEntity<List<Book>> getAllBooks() {
         return ResponseEntity.ok((List<Book>)bookRepository.findAll());
     }
+
+
 }
