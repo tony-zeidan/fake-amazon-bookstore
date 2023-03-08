@@ -38,16 +38,18 @@ document.addEventListener("DOMContentLoaded", function(event){
                     }
                     if (key === "picture") {
                         let imgPrev = $(document.createElement("div"));
-                        let imgPrevBtn = $(document.createElement("button"));
-                        let imgPrevImg = $(document.createElement("img"));
-
                         imgPrev.attr('class', 'imagepreview');
-                        imgPrevBtn.attr('type', 'button');
+                        let imgPrevBtn = $(document.createElement("button"));
+                        imgPrevBtn.attr("class", 'imagepreviewbutton');
+                        imgPrevBtn.attr("type", 'button');
                         imgPrevBtn.text('-');
-                        imgPrevImg.attr('src', data[i][key]);
-                        imgPrevImg.show();
                         imgPrev.append(imgPrevBtn);
+                        let imgPrevImg = $(document.createElement("img"));
+                        imgPrevImg.attr('src', data[i][key]);
+                        imgPrevImg.attr('class', 'imagepreviewdisplay');
                         imgPrev.append(imgPrevImg);
+                        imgPrevImg.show();
+
                         imgPrevBtn.click(function(e) {
                                 e.preventDefault();
                                 if (imgPrevImg.is(":visible")) {

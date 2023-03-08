@@ -6,7 +6,6 @@
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script type="text/javascript" th:src="@{/js/upload.js}"></script>
-
 </head>
 <body>
     <header class="bl-header">
@@ -28,46 +27,46 @@
                         <label for="bookname">Name: </label>
                     </div>
                     <div class="grid-item">
-                        <input type="text" name="name" id="bookname" />
+                        <input class="bl-forminput" type="text" name="name" id="bookname" />
                     </div>
                     <div class="grid-item">
                         <label for="bookisbn">ISBN: </label>
                     </div>
                     <div class="grid-item">
-                        <input type="text" name="isbn" id="bookisbn" />
+                        <input class="bl-forminput" type="text" name="isbn" id="bookisbn" />
                     </div>
                     <div class="grid-item">
                         <label for="bookpublisher">Publisher: </label>
                     </div>
                     <div class="grid-item">
-                        <input type="text" name="publisher" id="bookpublisher" />
+                        <input class="bl-forminput" type="text" name="publisher" id="bookpublisher" />
                     </div>
                     <div class="grid-item">
                         <label for="bookquantity">Initial Quantity: </label>
                     </div>
                     <div class="grid-item">
-                        <input type="number" name="quantity" id="bookquantity" min="0" max="10000" placeholder="0"/>
+                        <input class="bl-forminput" type="number" name="quantity" id="bookquantity" min="0" max="10000" placeholder="0"/>
                     </div>
                     <div class="grid-item">
                         <label for="bookdescription">Description: </label>
                     </div>
                     <div class="grid-item">
-                        <textarea name="description" id="bookdescription"></textarea>
+                        <textarea class="bl-formtext" name="description" id="bookdescription"></textarea>
                     </div>
                     <div class="grid-item">
                         <label for="bookimage">Image: </label>
                     </div>
                     <div class="grid-item">
-                        <input type="file" name="image" id="bookimage" accept="image/png, image/jpeg"/>
+                        <input class="bl-formfileinput" type="file" name="image" id="bookimage" accept="image/png, image/jpeg"/>
                     </div>
                 </div>
-                    <input type="submit" class="sub-btn" />
+                    <input class="bl-formbutton" type="submit" />
                 </div>
                 <div class="grid-item">
                     <label for="preview">Preview: </label><br />
                     <div class="imagepreview" id="preview">
-                        <button type="button">+</button>
-                        <img>
+                        <button class="imagepreviewbutton" type="button">+</button>
+                        <img class="imagepreviewdisplay">
                     </div>
                 </div>
 

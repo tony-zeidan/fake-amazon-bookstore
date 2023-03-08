@@ -33,8 +33,8 @@ $( document ).ready(function() {
         });
     });
 
-    let img = $(".imagepreview img");
-    let btn = $(".imagepreview button");
+    let img = $(".imagepreviewdisplay");
+    let btn = $(".imagepreviewbutton");
 
     btn.click(function(e) {
         e.preventDefault();
@@ -42,7 +42,6 @@ $( document ).ready(function() {
             btn.text("+");
             img.hide();
         } else {
-            console.log("Image invis")
             if (img.attr('src') !== "") {
                 btn.text("-");
                 img.show();
@@ -65,7 +64,6 @@ $( document ).ready(function() {
             btn.text("+");
             img.attr("src", "");
         }
-
     })
 });
 
