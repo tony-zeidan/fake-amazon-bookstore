@@ -66,6 +66,9 @@ $(document).ready(function(event){
                 const tableRow = $(document.createElement("tr"));
                 for(let key in data[i]) {
                     const cell = $(document.createElement("td"));
+                    if (key==="id") {
+                        id = data[i][key]
+                    }
                     if (key === "picture") {
                         let imgPrev = $(document.createElement("div"));
                         imgPrev.attr('class', 'imagepreview');
@@ -118,6 +121,8 @@ $(document).ready(function(event){
                         tableRow.append(cell);
                     }
                 }
+                const editLinkCell = createEditLinkCell(id)
+                tableRow.append(editLinkCell);
                 table.append(tableRow.get(0));
             }
 
@@ -134,3 +139,16 @@ $(document).ready(function(event){
         }
     });
 });
+
+function createEditLinkCell(bookId) {
+    const editLink = $(document.createElement("button"))
+    editLink.addClass( "bl-button")
+    editLink.click(() => {
+        window.location.href = `http://localhost:8080/owner/edit?bookId=${bookId}`
+    })
+    editLink.text("Edit Book")
+    const cell = $(document.createElement("td"));
+    cell.append(editLink);
+    return cell;
+}
+

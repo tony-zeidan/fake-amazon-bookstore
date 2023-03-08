@@ -14,6 +14,9 @@
     <ul>
         <li><a href="/owner">Owner Home</a></li>
         <li><a href="/user">User Home</a></li>
+        <li sec:authorize="isAnonymous()"><a href="/login">Login</a></li>
+        <li sec:authorize="isAuthenticated()"><a href="/logout">Logout</a></li>
+        <li style="color: white" sec:authorize="isAuthenticated()">Welcome, <span sec:authentication="name"></span>.</li>
     </ul>
 </nav>
 <div>
