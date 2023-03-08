@@ -2,6 +2,7 @@ package fakeamazon.bookstore.demo;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fakeamazon.bookstore.demo.model.Book;
+import fakeamazon.bookstore.demo.model.EditQuantity;
 import fakeamazon.bookstore.demo.repository.BookRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -111,5 +112,43 @@ class BookstoreBackendApplicationTests {
 		this.mockMvc.perform(MockMvcRequestBuilders.patch("http://localhost:8080/owneractions/edit?id=" + oldBook.getId()).content(asJsonString(newBook)).contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(status().isOk()).andExpect(content().string(containsString("Refactoring3")));
 
+	}
+
+	@Test
+	void testIncrementInventory() throws Exception{
+		Book newBook = new Book();
+		newBook.setName("Curious George");
+		newBook.setQuantity(300);
+		newBook.setIsbn("CuriousG11");
+
+		bookRepository.save(newBook);
+
+		Book retrieveBook = bookRepository.findByIsbn("CuriousG11");
+
+		Long sampleId = retrieveBook.getId();
+		EditQuantity updateVals = new EditQuantity();
+		updateVals.setId(sampleId);
+		//Increment inventory
+		updateVals.setQuantity(3);
+
+		this.mockMvc.perform(MockMvcRequestBuilders.patch("http://localhost:8080/owneractions/inventory")
+				.content(asJsonString(updateVals)).contentType(MediaType.APPLICATION_JSON_VALUE))
+				.andExpect(status().isOk())
+				.andExpect(content().string(containsString("\"quantity\":"+(updateVals.getQuantity() + retrieveBook.getQuantity()))));
+
+		retrieveBook = bookRepository.findByIsbn("CuriousG11");
+		//Decrement inventory
+		updateVals.setQuantity(-5);
+
+		this.mockMvc.perform(MockMvcRequestBuilders.patch("http://localhost:8080/owneractions/inventory")
+						.content(asJsonString(updateVals)).contentType(MediaType.APPLICATION_JSON_VALUE))
+				.andExpect(status().isOk())
+				.andExpect(content().string(containsString("\"quantity\":"+(updateVals.getQuantity() + retrieveBook.getQuantity()))));
+
+		//Enter invalid inventory update
+		updateVals.setQuantity(-300);
+		this.mockMvc.perform(MockMvcRequestBuilders.patch("http://localhost:8080/owneractions/inventory")
+						.content(asJsonString(updateVals)).contentType(MediaType.APPLICATION_JSON_VALUE))
+				.andExpect(status().isBadRequest());
 	}
 }

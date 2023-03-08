@@ -1,6 +1,35 @@
 console.log("Script added");
 
-document.addEventListener("DOMContentLoaded", function(event){
+function incrementInventory(e){
+    e.preventDefault();
+
+    const inputs = $(".inc-quantity");
+
+    inputs.each(function (){
+        if($(this).val() !== "0" && $(this).val() !== null){
+            $.ajax({
+                type: "patch",
+                url: "owneractions/inventory",
+                contentType: 'application/json',
+                dataType: 'json',
+                data: JSON.stringify({
+                    id: $(this).data("bookId"),
+                    quantity: $(this).val()
+                }),
+                success: function(data, status, xhrObject){
+                    let updatedQuants = $(`#quantity-${data['id']}`);
+                    updatedQuants.text(data['quantity']);
+                    alert("success");
+                },
+                error: function(jqXHR, textStatus, errorThrown){
+                    alert(errorThrown);
+                }
+            });
+        }
+    })
+}
+
+$(document).ready(function(event){
     $.ajax({
         type: "get",
         url: "getAllBooks",
@@ -21,14 +50,18 @@ document.addEventListener("DOMContentLoaded", function(event){
             const header = $(document.createElement("tr"));
             for(let key in data[0]) {
                 const cell = $(document.createElement("th"));
-                if (key === "picture") {
-                    cell.attr("id","imgcol");
-                }
                 cell.text(key);
                 header.append(cell);
+                if (key === "picture") {
+                    cell.attr("id", "imgcol");
+                } else if (key === "quantity"){
+                    const cell2 = $(document.createElement("th"));
+                    cell2.text("increment");
+                    header.append(cell2);
+                }
             }
             table.append(header);
-            let id = 0
+
             for(let i = 0; i < data.length; i++) {
                 const tableRow = $(document.createElement("tr"));
                 for(let key in data[i]) {
@@ -65,16 +98,40 @@ document.addEventListener("DOMContentLoaded", function(event){
                             }
                         )
                         cell.append(imgPrev);
+                        tableRow.append(cell);
+                    } else if (key === "quantity"){
+                        cell.text(data[i][key]);
+                        cell.attr("id",`quantity-${data[i]["id"]}`);
+                        tableRow.append(cell);
+                        let cell2 = $(document.createElement("td"));
+                        let inputNum = $(document.createElement("input"));
+                        inputNum.addClass("inc-quantity");
+
+                        //For CSS styling
+                        inputNum.addClass("bl-generalinput");
+                        inputNum.data("bookId", data[i]["id"]);
+                        inputNum.attr("type", "number");
+                        inputNum.attr("value", "0");
+                        inputNum.attr("min", "-10000");
+                        inputNum.attr("max", "10000");
+                        cell2.append(inputNum);
+                        tableRow.append(cell2);
                     } else {
                         cell.text(data[i][key]);
+                        tableRow.append(cell);
                     }
-
-                    tableRow.append(cell);
                 }
                 const editLinkCell = createEditLinkCell(id)
                 tableRow.append(editLinkCell);
                 table.append(tableRow.get(0));
             }
+
+            let saveButton = $(document.createElement("button"));
+            saveButton.text("Save");
+            saveButton.attr("class", "bl-button");
+            saveButton.click(incrementInventory);
+
+            $(".content-div").append(saveButton);
         },
         error: function(jqXHR, textStatus, errorThrown)
         {
