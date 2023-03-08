@@ -70,7 +70,7 @@ $( document ).ready(function() {
 
 
 
-export function blobToBase64(blob) {
+function blobToBase64(blob) {
     return new Promise((resolve, _) => {
         const reader = new window.FileReader();
         reader.onloadend = () => resolve(reader.result);
