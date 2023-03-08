@@ -31,7 +31,10 @@ $( document ).ready(function() {
             type: 'PATCH',
             data: json,
             success: function (data) {
-                alert(data)
+                alert(JSON.stringify(data))
+            },
+            error: function() {
+                alert("error when edit")
             },
             processData: false,
             contentType: 'application/json; charset=utf-8',

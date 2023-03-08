@@ -30,7 +30,7 @@ public class BookOwnerRestController {
     }
 
     @PatchMapping(path="owneractions/edit", consumes={MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<String> editHook(@RequestBody @NotNull Book book, @RequestParam(value="id") String bookId) {
+    public ResponseEntity<Book> editHook(@RequestBody @NotNull Book book, @RequestParam(value="id") String bookId) {
         Book oldBook = bookRepoService.getBookById(Long.parseLong(bookId));
         if(book.getPicture()==null) {
             book.setPicture(oldBook.getPicture());
@@ -38,9 +38,9 @@ public class BookOwnerRestController {
         book.setQuantity(oldBook.getQuantity());
         Book uploaded = bookRepoService.upload(book);
         if (uploaded == null) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("The given book could not be uploaded to the server.");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
         } else {
-            return ResponseEntity.status(HttpStatus.CREATED).body("The book " + uploaded + " was created within the system.");
+            return ResponseEntity.ok().body(uploaded);
         }
     }
 }
