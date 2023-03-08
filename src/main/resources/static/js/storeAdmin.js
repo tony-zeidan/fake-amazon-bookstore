@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function(event){
 
 function createEditLinkCell(bookId) {
     const editLink = $(document.createElement("a"))
-    editLink.attr("class", "editLink")
+    editLink.attr("class", "bl-button")
     editLink.attr("href",`http://localhost:8080/owner/edit?bookId=${bookId}` )
     editLink.text("Edit Book")
     const cell = $(document.createElement("td"));
