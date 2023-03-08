@@ -42,7 +42,7 @@ public class BookOwnerRestController {
             Optional<Book> updatedBook = inventoryService.updateQuantity(newBook.getId(), newBook.getQuantity());
             return ResponseEntity.of(updatedBook);
         } catch (IllegalArgumentException e){
-            return ResponseEntity.ok().body(null);
+            return ResponseEntity.badRequest().body(null);
         }
     }
 

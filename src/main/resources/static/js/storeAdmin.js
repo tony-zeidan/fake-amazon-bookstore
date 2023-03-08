@@ -6,7 +6,7 @@ function incrementInventory(e){
     const inputs = $(".inc-quantity");
 
     inputs.each(function (){
-        if($(this).val() !== "0"){
+        if($(this).val() !== "0" && $(this).val() !== null){
             $.ajax({
                 type: "patch",
                 url: "owneractions/inventory",
