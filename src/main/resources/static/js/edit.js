@@ -10,7 +10,7 @@ $( document ).ready(function() {
         formData.append("id", bookId);
         formData.append("name", $("#bookname").val());
         formData.append("publisher", $("#bookpublisher").val());
-        formData.append("description", $("#bookdescription").text());
+        formData.append("description", $("#bookdescription").val());
         formData.append("isbn", $("#bookisbn").val());
 
 
