@@ -13,12 +13,17 @@ public class BookOwnerInventoryService {
     private BookRepository bookRepository;
 
     public Optional<Book> updateQuantity(Long currId, Integer newQuantity){
-        Optional<Book> currBook = bookRepository.findById(currId);
-        currBook.ifPresent(book -> {
-            book.setQuantity(newQuantity);
-            bookRepository.save(book);
-        });
-        //Will return empty Optional<Book> if book not found with specified ID
-        return currBook;
+        Optional<Book> currBookLookup = bookRepository.findById(currId);
+        if (currBookLookup.isEmpty()) return currBookLookup;
+
+        Book currBook = currBookLookup.get();
+        if (currBook.getQuantity() + newQuantity > 0){
+            currBook.setQuantity(currBook.getQuantity() + newQuantity);
+            bookRepository.save(currBook);
+        } else {
+            throw new IllegalArgumentException();
+        }
+        //Will return empty Optional<Book> if book not found with specified ID or quantity invalid
+        return currBookLookup;
     }
 }

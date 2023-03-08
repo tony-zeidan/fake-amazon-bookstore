@@ -1,5 +1,10 @@
 console.log("Script added");
 
+function incrementInventory(e){
+    e.preventDefault();
+
+}
+
 document.addEventListener("DOMContentLoaded", function(event){
     $.ajax({
         type: "get",
@@ -17,17 +22,21 @@ document.addEventListener("DOMContentLoaded", function(event){
                 $(".content-div").remove(".notfound");
             }
 
-            const table = document.querySelector("#booksTable");
-            const header = document.createElement("tr");
+            const table = $(document.querySelector("#booksTable"));
+            const header = $(document.createElement("tr"));
             for(let key in data[0]) {
-                const cell = document.createElement("th");
+                const cell = $(document.createElement("th"));
+                cell.text(key);
+                header.append(cell);
                 if (key === "picture") {
-                    cell.id = "imgcol";
+                    cell.attr("id", "imgcol");
+                } else if (key === "quantity"){
+                    const cell2 = $(document.createElement("th"));
+                    cell2.text("increment");
+                    header.append(cell2);
                 }
-                cell.innerText = key;
-                header.appendChild(cell);
             }
-            table.appendChild(header);
+            table.append(header);
 
             for(let i = 0; i < data.length; i++) {
                 const tableRow = $(document.createElement("tr"));
@@ -62,14 +71,33 @@ document.addEventListener("DOMContentLoaded", function(event){
                             }
                         )
                         cell.append(imgPrev);
+                        tableRow.append(cell);
+                    } else if (key === "quantity"){
+                        cell.text(data[i][key]);
+                        tableRow.append(cell);
+                        let cell2 = $(document.createElement("td"));
+                        let inputNum = $(document.createElement("input"));
+                        inputNum.attr("type", "number");
+                        inputNum.attr("class", "bl-generalinput");
+                        inputNum.attr("placeholder", "0");
+                        inputNum.attr("min", "-10000");
+                        inputNum.attr("max", "10000");
+                        cell2.append(inputNum);
+                        tableRow.append(cell2);
                     } else {
                         cell.text(data[i][key]);
+                        tableRow.append(cell);
                     }
-
-                    tableRow.append(cell);
                 }
-                table.appendChild(tableRow.get(0));
+                table.append(tableRow.get(0));
             }
+
+            let saveButton = $(document.createElement("button"));
+            saveButton.text("Save");
+            saveButton.attr("class", "bl-button");
+            saveButton.click();
+
+            $(".content-div").append(saveButton);
         },
         error: function(jqXHR, textStatus, errorThrown)
         {
