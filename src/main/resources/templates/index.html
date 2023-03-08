@@ -2,18 +2,22 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>FakeAmazonBookstore - User Home</title>
+    <title>FakeAmazonBookstore - Welcome!</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 </head>
 <body>
 <header class="bl-header">
-    <h1>FakeAmazonBookstore - User - Home</h1>
+    <h1>FakeAmazonBookstore - Landing Page</h1>
 </header>
 <nav class="bl-nav">
     <ul>
-        <li><a href="/user">Home</a></li>
+        <li><a href="/owner">Owner Home</a></li>
+        <li><a href="/user">User Home</a></li>
     </ul>
 </nav>
+<div>
+    <p class="notfound">Welcome to the amazon bookstore!</p>
+</div>
 </body>
 </html>

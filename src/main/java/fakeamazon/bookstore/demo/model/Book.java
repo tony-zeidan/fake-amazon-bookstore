@@ -2,8 +2,6 @@ package fakeamazon.bookstore.demo.model;
 
 import jakarta.persistence.*;
 
-import java.util.Arrays;
-
 /**
  * Books need the following items:
  * - id: long
@@ -15,6 +13,7 @@ import java.util.Arrays;
  */
 
 @Entity
+@Table(name = "BOOK")
 public class Book {
 
     public Book() {
@@ -27,7 +26,7 @@ public class Book {
     }
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
