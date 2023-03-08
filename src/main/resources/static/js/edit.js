@@ -10,7 +10,6 @@ $( document ).ready(function() {
         console.log("bookID" + bookId)
         formData.append("id", bookId);
         formData.append("name", $("#bookname").val());
-        formData.append("quantity", 0);
         formData.append("publisher", $("#bookpublisher").val());
         formData.append("description", $("#bookdescription").text());
         formData.append("isbn", $("#bookisbn").val());
@@ -30,7 +29,7 @@ $( document ).ready(function() {
 
         $.ajax({
             url: `http://localhost:8080/owneractions/edit?id=${bookId}`,
-            type: 'POST',
+            type: 'PATCH',
             data: json,
             success: function (data) {
                 alert(data)

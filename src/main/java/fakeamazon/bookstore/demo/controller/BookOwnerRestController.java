@@ -1,6 +1,7 @@
 package fakeamazon.bookstore.demo.controller;
 
 import fakeamazon.bookstore.demo.model.Book;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -28,10 +29,9 @@ public class BookOwnerRestController {
         }
     }
 
-    @PostMapping(path="owneractions/edit", consumes={MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<String> editHook(@RequestBody Book book, @RequestParam(value="id") String bookId) {
+    @PatchMapping(path="owneractions/edit", consumes={MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<String> editHook(@RequestBody @NotNull Book book, @RequestParam(value="id") String bookId) {
         Book oldBook = bookRepoService.getBookById(Long.parseLong(bookId));
-        System.out.println(oldBook.getDescription());
         if(book.getPicture()==null) {
             book.setPicture(oldBook.getPicture());
         }
