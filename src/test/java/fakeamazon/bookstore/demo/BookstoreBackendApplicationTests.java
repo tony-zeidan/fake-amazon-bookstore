@@ -2,7 +2,7 @@ package fakeamazon.bookstore.demo;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fakeamazon.bookstore.demo.model.Book;
-import fakeamazon.bookstore.demo.model.EditQuantity;
+import fakeamazon.bookstore.demo.input.templates.BookQuantityTemplate;
 import fakeamazon.bookstore.demo.repository.BookRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -126,7 +126,7 @@ class BookstoreBackendApplicationTests {
 		Book retrieveBook = bookRepository.findByIsbn("CuriousG11");
 
 		Long sampleId = retrieveBook.getId();
-		EditQuantity updateVals = new EditQuantity();
+		BookQuantityTemplate updateVals = new BookQuantityTemplate();
 		updateVals.setId(sampleId);
 		//Increment inventory
 		updateVals.setQuantity(3);

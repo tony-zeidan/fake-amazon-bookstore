@@ -1,14 +1,14 @@
 package fakeamazon.bookstore.demo.controller;
 
 import fakeamazon.bookstore.demo.model.Book;
-import fakeamazon.bookstore.demo.model.EditQuantity;
-import org.apache.coyote.Response;
+import fakeamazon.bookstore.demo.input.templates.BookQuantityTemplate;
+import fakeamazon.bookstore.demo.services.BookOwnerInventoryService;
+import fakeamazon.bookstore.demo.services.BookRepoService;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -36,7 +36,7 @@ public class BookOwnerRestController {
     }
 
     @PatchMapping (path="owneractions/inventory", consumes={MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<Book> updateInventory(@RequestBody EditQuantity newBook){
+    public ResponseEntity<Book> updateInventory(@RequestBody BookQuantityTemplate newBook){
         //All that matters is to find the book via the provided ID and change to the new quantity
         try{
             Optional<Book> updatedBook = inventoryService.updateQuantity(newBook.getId(), newBook.getQuantity());

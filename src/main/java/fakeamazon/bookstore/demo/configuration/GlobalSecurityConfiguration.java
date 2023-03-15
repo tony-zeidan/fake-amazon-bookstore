@@ -1,5 +1,7 @@
 package fakeamazon.bookstore.demo.configuration;
 
+import fakeamazon.bookstore.demo.services.CustomerDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
@@ -21,6 +23,14 @@ import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 public class GlobalSecurityConfiguration {
+
+    private final CustomerDetailsService customerDetailsService;
+
+    @Autowired
+    public GlobalSecurityConfiguration(CustomerDetailsService customerDetailsService) {
+        this.customerDetailsService = customerDetailsService;
+    }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.formLogin(withDefaults()) /* Route /login to a boilerplate login page */
@@ -57,6 +67,11 @@ public class GlobalSecurityConfiguration {
         JdbcUserDetailsManager users = new JdbcUserDetailsManager(dataSource);
         users.createUser(user);
         users.createUser(admin);
+
+        // temporary MARK please REMOVE
+        customerDetailsService.makeCustomer(user.getUsername());
+        customerDetailsService.makeCustomer(admin.getUsername());
+
         return users;
     }
 
