@@ -201,6 +201,8 @@ body {
 /*cart*/
 .item-card {
     /* Add shadows to create the "card" effect */
+    background-color: #0C2D48;
+    color: white;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
 }
@@ -210,10 +212,14 @@ body {
 }
 
 .card-container {
+    background-color: #0C2D48;
+    color: white;
     padding: 2px 16px;
 }
 
 .cart-content {
+    background-color: #0C2D48;
+    color: white;
     display: grid;
     grid-template-rows: auto auto auto;
     gap: 25px 50px;
