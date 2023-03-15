@@ -3,6 +3,7 @@ package fakeamazon.bookstore.demo.configuration;
 import fakeamazon.bookstore.demo.services.CustomerDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -22,8 +23,9 @@ import static org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType.
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
+@ComponentScan(value="fakeamazon.bookstore.demo.services")
 public class GlobalSecurityConfiguration {
-
+    
     private final CustomerDetailsService customerDetailsService;
 
     @Autowired
