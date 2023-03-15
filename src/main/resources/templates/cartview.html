@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>FakeAmazonBookstore - User Cart</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/cart_edit.js}"></script>
+</head>
+<body>
+<header class="bl-header">
+    <h1>FakeAmazonBookstore - Bookstore User - Cart</h1>
+</header>
+<nav class="bl-nav">
+    <ul>
+        <li><a href="/owner">Home</a></li>
+        <li><a href="/user">Home</a></li>
+        <li><a id="active-item" href="/viewcart">Cart</a></li>
+    </ul>
+</nav>
+<form action="" onsubmit="commitCartChanges()">
+    <fieldset>
+        <legend class="cart-legend" th:text=`""+${username}+"'s_cart"`></legend>
+<div class="cart-content">
+    <div class="item-card" th:each="item: ${cart}" th:id=`"item-"+${item.getBook().getId()}`>
+        <img th:src="${item.getBook().getPicture()}" th:alt="${item.getBook().getIsbn()}">
+        <div class="card-container">
+            <h4><b th:text="${item.getBook().getName()}"/></h4>
+            <p><em th:text="${item.getBook().getIsbn()}"/></p>
+            <p th:text="${item.getBook().getDescription()}"></p><br />
+            <label th:for=`"quant-"+${item.getId()}`>Quantity</label>
+            <input th:id=`"quant-"+${item.getId()}` class="item-card-quantity" type="number" th:value=`"count"+${item.getQuantity()}` min="0"><br />
+            <input th:id=`"del-"+${item.getId()}` class="item-card-remove" type="checkbox">
+            <label th:for=`"del-"+${item.getId()}`>Remove</label>
+        </div>
+    </div>
+</div>
+        <input class="cart-submit" type="submit" value="Commit Changes"/>
+    </fieldset>
+</form>
+</body>
+</html>

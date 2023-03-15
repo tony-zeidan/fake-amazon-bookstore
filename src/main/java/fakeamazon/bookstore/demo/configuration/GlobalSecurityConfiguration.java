@@ -25,7 +25,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @Configuration
 @ComponentScan(value="fakeamazon.bookstore.demo.services")
 public class GlobalSecurityConfiguration {
-    
+
     private final CustomerDetailsService customerDetailsService;
 
     @Autowired
