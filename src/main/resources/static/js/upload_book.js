@@ -1,20 +1,12 @@
 $( document ).ready(function() {
     $("form#uplform").submit(async function(e) {
         e.preventDefault();
-        let formData = new FormData();
-
-        formData.append("name", $("#bookname").val());
-        formData.append("quantity", $("#bookquantity").val());
-        formData.append("publisher", $("#bookpublisher").val());
-        formData.append("description", $("#bookdescription").val());
-        formData.append("isbn", $("#bookisbn").val());
-
 
         let imageFiles = $("#bookimage").prop('files');
 
+        let res = null;
         if (imageFiles.length > 0) {
-            let res = await blobToBase64(imageFiles[0]);
-            formData.append("picture", res);
+            res = await blobToBase64(imageFiles[0]);
         }
 
         let object = {};
@@ -24,7 +16,14 @@ $( document ).ready(function() {
         $.ajax({
             url: "http://localhost:8080/owneractions/upload",
             type: 'POST',
-            data: json,
+            data: {
+                name: $("#bookname").val(),
+                quantity: $("#bookquantity").val(),
+                picture: res,
+                publisher: $("#bookpublisher").val(),
+                description: $("#bookdescription").val(),
+                isbn: $("#bookisbn").val()
+            },
             success: function (data) {
                 alert(data)
             },
