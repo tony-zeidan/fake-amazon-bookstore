@@ -25,7 +25,7 @@ $( document ).ready(function() {
                 isbn: $("#bookisbn").val()
             },
             success: function (data) {
-                alert(data)
+                alert(data);
             },
             processData: false,
             contentType: 'application/json; charset=utf-8',
