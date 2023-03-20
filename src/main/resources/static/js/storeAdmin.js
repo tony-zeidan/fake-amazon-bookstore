@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function(e){
+$(document).ready(function(event){
     const filters = document.querySelectorAll(".filter");
 
     filterGetCall();
