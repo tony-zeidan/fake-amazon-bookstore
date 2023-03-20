@@ -13,7 +13,6 @@ import jakarta.persistence.*;
  */
 
 @Entity
-@Table(name = "BOOK")
 public class Book {
 
     public Book() {

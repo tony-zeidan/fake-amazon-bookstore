@@ -10,9 +10,11 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -57,6 +59,23 @@ class BookstoreBackendApplicationTests {
 
 	}
 
+	@Test
+	void testGetAllBooksPage() throws Exception {
+		bookRepository.save(new Book("book1", "desc"));
+
+		this.mockMvc.perform(get("/getAllBooksPage?name=book")).andDo(print()).andExpect(status().isOk())
+				.andExpect(content().string(containsString("\"name\":\"book1\"")))
+				.andExpect(content().string(containsString("\"description\":\"desc\"")));
+
+		bookRepository.save(new Book("book2", "desc2"));
+
+		this.mockMvc.perform(get("/getAllBooksPage?description=desc")).andExpect(status().isOk())
+				.andExpect(content().string(containsString("\"name\":\"book1\"")))
+				.andExpect(content().string(containsString("\"description\":\"desc\"")))
+				.andExpect(content().string(containsString("\"name\":\"book2\"")))
+				.andExpect(content().string(containsString("\"description\":\"desc2\"")));
+
+	}
 	@Test
 	void testUploadBook() throws Exception {
 
