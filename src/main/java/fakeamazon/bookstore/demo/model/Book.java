@@ -2,6 +2,8 @@ package fakeamazon.bookstore.demo.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 /**
  * Books need the following items:
  * - id: long
@@ -13,8 +15,12 @@ import jakarta.persistence.*;
  */
 
 @Entity
-@Table(name = "BOOK")
+@Table(name = "books")
 public class Book {
+
+    @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name="cart_item_id", referencedColumnName="id")
+    private List<ShoppingCartItem> shoppingCartItem;
 
     public Book() {
 

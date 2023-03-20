@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -58,6 +59,7 @@ class BookstoreOwnerTests {
 	}
 
 	@Test
+	@WithMockUser(username="user222", roles={"USER"})
 	void testUploadBook() throws Exception {
 
 		Book bookToAdd = new Book();
@@ -71,14 +73,14 @@ class BookstoreOwnerTests {
 		System.out.println(asJsonString(bookToAdd));
 
 		this.mockMvc.perform(MockMvcRequestBuilders.post(
-				"http://localhost:8080/owneractions/upload")
-						.content(asJsonString(bookToAdd))
-						.contentType(MediaType.APPLICATION_JSON_VALUE)
-				).andExpect(status().isCreated());
+						"http://localhost:8080/owneractions/upload")
+				.content(asJsonString(bookToAdd))
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
+		).andExpect(status().isCreated());
 
 		this.mockMvc.perform(MockMvcRequestBuilders.get(
-				"http://localhost:8080/getAllBooks"
-		))
+						"http://localhost:8080/getAllBooks"
+				))
 				.andExpect(status().isOk())
 				.andExpect(content().string(containsString(bookToAdd.getName())))
 				.andExpect(content().string(containsString(bookToAdd.getPicture())))

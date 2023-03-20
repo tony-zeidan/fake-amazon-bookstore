@@ -8,9 +8,11 @@ import java.util.List;
 public class Customer {
 
     @Id
+    @Column(name="username")
     private String username;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @Column(name="cart")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy="customer")
     private List<ShoppingCartItem> cart;
 
     @OneToOne(cascade = CascadeType.ALL)

@@ -23,15 +23,7 @@ import static org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType.
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
-@ComponentScan(value="fakeamazon.bookstore.demo.services")
 public class GlobalSecurityConfiguration {
-
-    private final CustomerDetailsService customerDetailsService;
-
-    @Autowired
-    public GlobalSecurityConfiguration(CustomerDetailsService customerDetailsService) {
-        this.customerDetailsService = customerDetailsService;
-    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -48,7 +40,9 @@ public class GlobalSecurityConfiguration {
                 .requestMatchers("/owner/**")
                     .permitAll()
                 .requestMatchers("/owneractions/**")
-                    .permitAll();
+                    .permitAll()
+                .requestMatchers("/useractions/**")
+                .permitAll();
         http.csrf()
                 .disable();
         return http.build();
@@ -69,10 +63,6 @@ public class GlobalSecurityConfiguration {
         JdbcUserDetailsManager users = new JdbcUserDetailsManager(dataSource);
         users.createUser(user);
         users.createUser(admin);
-
-        // temporary MARK please REMOVE
-        customerDetailsService.makeCustomer(user.getUsername());
-        customerDetailsService.makeCustomer(admin.getUsername());
 
         return users;
     }

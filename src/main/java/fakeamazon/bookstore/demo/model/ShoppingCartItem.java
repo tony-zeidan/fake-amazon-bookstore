@@ -7,16 +7,22 @@ import org.springframework.data.annotation.CreatedDate;
 import java.util.Date;
 
 @Entity
+@Table(name="cart_items")
 public class ShoppingCartItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="book_id", referencedColumnName = "id", nullable = false)
     private Book book;
 
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="customer_id", referencedColumnName="username")
+    private Customer customer;
+
     @Min(1)
-    @Column(name = "QUANTITY")
+    @Column(name = "quantity")
     private int quantity;
 
     public ShoppingCartItem() {
@@ -45,5 +51,13 @@ public class ShoppingCartItem {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 }

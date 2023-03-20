@@ -29,7 +29,7 @@ public class ShoppingCartService {
         this.shoppingCartItemRepo = shoppingCartItemRepo;
     }
 
-    public Optional<ShoppingCartItem> fromTemplate(BookQuantityTemplate template) {
+    public Optional<ShoppingCartItem> fromTemplate(Customer customer, BookQuantityTemplate template) {
         Optional<Book> book = bookRepo.findById(template.getId());
         ShoppingCartItem itemConcrete = null;
         if (book.isPresent()) {
@@ -44,7 +44,7 @@ public class ShoppingCartService {
 
         Customer customer = detailsService.getCustomerDetails(auth);
 
-        Optional<ShoppingCartItem> itemMade = fromTemplate(template);
+        Optional<ShoppingCartItem> itemMade = fromTemplate(customer, template);
         if (itemMade.isPresent()) {
             ShoppingCartItem item = null;
             ShoppingCartItem itemToFind = itemMade.get();
