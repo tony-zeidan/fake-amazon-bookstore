@@ -2,21 +2,20 @@ package fakeamazon.bookstore.demo.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
-import org.springframework.data.annotation.CreatedDate;
-
-import java.util.Date;
 
 @Entity
+@Table(name="cart_items")
 public class ShoppingCartItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="book_id", referencedColumnName = "id", nullable = false)
     private Book book;
 
     @Min(1)
-    @Column(name = "QUANTITY")
+    @Column(name = "quantity")
     private int quantity;
 
     public ShoppingCartItem() {
