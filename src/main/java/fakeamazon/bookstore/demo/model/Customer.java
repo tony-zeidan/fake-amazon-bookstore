@@ -12,7 +12,7 @@ public class Customer {
     private String username;
 
     @Column(name="cart")
-    @OneToMany(cascade = CascadeType.ALL, mappedBy="customer")
+    @OneToMany(cascade = CascadeType.ALL)
     private List<ShoppingCartItem> cart;
 
     @OneToOne(cascade = CascadeType.ALL)
