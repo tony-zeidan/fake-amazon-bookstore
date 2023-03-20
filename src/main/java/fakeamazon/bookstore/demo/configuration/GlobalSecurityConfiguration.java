@@ -39,7 +39,7 @@ public class GlobalSecurityConfiguration {
                 .requestMatchers("/owneractions/**")
                     .permitAll()
                 .requestMatchers("/useractions/**")
-                .permitAll();
+                    .permitAll();
         http.csrf()
                 .disable();
         return http.build();
