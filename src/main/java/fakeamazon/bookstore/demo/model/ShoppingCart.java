@@ -5,25 +5,25 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-public class PurchaseHistory {
+public class ShoppingCart {
 
     @Id
     @GeneratedValue
     private long id;
 
     @OneToMany(cascade = CascadeType.ALL)
-    private List<PurchaseItem> history;
+    private List<ShoppingCartItem> cart;
 
-    public PurchaseHistory() {}
+    public ShoppingCart() {}
 
-    public void addToHistory(PurchaseItem purchased) {}
+    public void addToHistory(ShoppingCartItem purchased) {}
 
-    public void setHistory(List<PurchaseItem> history) {
-        this.history = history;
+    public void setHistory(List<ShoppingCartItem> history) {
+        this.cart = history;
     }
 
-    public List<PurchaseItem> getHistory() {
-        return this.history;
+    public List<ShoppingCartItem> getHistory() {
+        return this.cart;
     }
 
     public long getId() {
