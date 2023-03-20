@@ -8,6 +8,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CustomerDetailsService {
 
@@ -27,6 +29,13 @@ public class CustomerDetailsService {
 
     public Customer getCustomerDetails(Authentication auth) {
         UserDetails details = (UserDetails) auth.getPrincipal();
+        System.out.println(details);
+
+        List<Customer> customers = (List<Customer>) customerRepo.findAll();
+        for (Customer c: customers) {
+            System.out.println(c.getUsername());
+        }
+
         Customer customer = customerRepo.findByUsername(details.getUsername());
         return customer;
     }
