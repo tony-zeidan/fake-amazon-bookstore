@@ -43,6 +43,8 @@ public class GlobalSecurityConfiguration {
                     .hasRole("ADMIN")
                 .requestMatchers("/owneractions/**")
                     .hasRole("ADMIN")
+                .requestMatchers("/owneractions/getAllBooks")
+                    .permitAll()
                 .requestMatchers("/useractions/**")
                     .hasRole("USER");
         http.csrf()
