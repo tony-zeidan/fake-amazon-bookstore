@@ -193,6 +193,27 @@ body {
     border: solid 1pt #00000D;
 }
 
+.tableview {
+    margin-left: auto;
+    margin-right: auto;
+    width: 75%;
+}
+
+.tableview td, th {
+    text-align: center;
+}
+
+.desc-col {
+    width: 120px;
+}
+
+.filter-row {
+    align-content: center;
+    align-items: center;
+    vertical-align: middle;
+    text-align: center;
+}
+
 .notfound {
     color: white;
     font-size: 16pt;

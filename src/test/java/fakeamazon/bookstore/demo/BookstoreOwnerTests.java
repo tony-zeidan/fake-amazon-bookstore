@@ -69,6 +69,25 @@ class BookstoreOwnerTests {
 	}
 
 	@Test
+
+	@WithMockUser(username="admin222", roles={"ADMIN"})
+	void testGetAllBooksPage() throws Exception {
+		bookRepository.save(new Book("book1", "desc"));
+
+		this.mockMvc.perform(get("/getAllBooksPage?name=book")).andDo(print()).andExpect(status().isOk())
+				.andExpect(content().string(containsString("\"name\":\"book1\"")))
+				.andExpect(content().string(containsString("\"description\":\"desc\"")));
+
+		bookRepository.save(new Book("book2", "desc2"));
+
+		this.mockMvc.perform(get("/getAllBooksPage?description=desc")).andExpect(status().isOk())
+				.andExpect(content().string(containsString("\"name\":\"book1\"")))
+				.andExpect(content().string(containsString("\"description\":\"desc\"")))
+				.andExpect(content().string(containsString("\"name\":\"book2\"")))
+				.andExpect(content().string(containsString("\"description\":\"desc2\"")));
+
+	}
+	@Test
 	@WithMockUser(username="admin222", roles={"ADMIN"})
 	void testUploadBook() throws Exception {
 
