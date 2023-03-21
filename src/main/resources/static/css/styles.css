@@ -193,7 +193,63 @@ body {
     border: solid 1pt #00000D;
 }
 
+
+#user-books-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 2rem;
+}
+
+.user-book-container {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    background-color: #80bfff;
+    box-shadow: 0 1px 4px #0073e6;
+    margin: 30px;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.user-book-title-container {
+    justify-items: center;
+}
+
+.user-book-title-container .title-text{
+    color: #B1D4E0;
+    font-size: 1.4rem;
+    padding: 6px;
+    text-align: center;
+}
+
+.user-picture-container img {
+    max-width: 250px;
+    max-height: 400px;
+    border-radius: 1em;
+}
+
+.quantity-input-container {
+    color: cornsilk;
+    padding: 10px;
+}
+
+.quantity-input-container input {
+    width: 50px;
+}
+
+.add-to-cart-button {
+    padding: 5px;
+    background-color: cornflowerblue;
+    font-weight: bolder;
+    font-size: 18px;
+    justify-self: flex-end;
+    border-radius: 0.2em;
+    cursor: pointer
+}
+
 .notfound {
     color: white;
     font-size: 16pt;
 }
+

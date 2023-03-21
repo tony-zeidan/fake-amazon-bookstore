@@ -31,7 +31,6 @@ const displayBooks = (bookData) => {
         userBookDiv.attr('class', 'user-book-container')
 
         let userBookTitleDiv = $(document.createElement("div"))
-        userBookDiv.attr('class', 'user-book-title-container')
 
         let titleText = $(document.createElement("p"))
         titleText.text(title);
@@ -45,8 +44,26 @@ const displayBooks = (bookData) => {
         img.attr('class', 'user-book-image')
         pictureDiv.append(img)
 
+        let quantityInputDiv = $(document.createElement("div"))
+        quantityInputDiv.attr('class', 'quantity-input-container')
+
+        let quantityLabel = $(document.createElement("label"))
+        quantityLabel.text("quantity: ")
+
+        let quantityInput = $(document.createElement("input"))
+        quantityInput.attr("type", 'number')
+        quantityInput.attr('value', 0)
+
+        quantityInputDiv.append(quantityLabel, quantityInput)
+
+        let addCartButton = $(document.createElement("button"))
+        addCartButton.attr('class', 'add-to-cart-button')
+        addCartButton.text("add to cart")
+
         userBookDiv.append(userBookTitleDiv)
         userBookDiv.append(pictureDiv)
+        userBookDiv.append(quantityInputDiv)
+        userBookDiv.append(addCartButton)
         booksContainer.append(userBookDiv);
     })
 }
