@@ -1,5 +1,7 @@
 package fakeamazon.bookstore.demo.configuration;
 
+import fakeamazon.bookstore.demo.security.CustomerCreationUserDetailsManagerDecorator;
+import fakeamazon.bookstore.demo.services.CustomerDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
@@ -21,6 +23,13 @@ import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 public class GlobalSecurityConfiguration {
+
+    private final CustomerDetailsService customerDetailsService;
+
+    public GlobalSecurityConfiguration(final CustomerDetailsService customerDetailsService) {
+        this.customerDetailsService = customerDetailsService;
+    }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.formLogin(withDefaults()) /* Route /login to a boilerplate login page */
@@ -54,18 +63,10 @@ public class GlobalSecurityConfiguration {
                 .password(passwordEncoder().encode("admin"))
                 .roles("USER", "ADMIN")
                 .build();
-        JdbcUserDetailsManager users = new JdbcUserDetailsManager(dataSource);
+        UserDetailsManager users = new CustomerCreationUserDetailsManagerDecorator(new JdbcUserDetailsManager(dataSource), this.customerDetailsService);
         users.createUser(user);
         users.createUser(admin);
         return users;
-    }
-
-    @Bean
-    DataSource dataSource() {
-        return new EmbeddedDatabaseBuilder()
-                .setType(H2)
-                .addScript(JdbcDaoImpl.DEFAULT_USER_SCHEMA_DDL_LOCATION)
-                .build();
     }
 
     @Bean
