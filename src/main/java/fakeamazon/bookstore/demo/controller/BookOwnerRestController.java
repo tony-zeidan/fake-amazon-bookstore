@@ -26,16 +26,14 @@ public class BookOwnerRestController {
 
     private final BookOwnerInventoryService inventoryService;
     private final BookRepoService bookRepoService;
-    private final BookRepository bookRepository;
 
     @Autowired
-    public BookOwnerRestController(BookRepoService bookRepoService, BookOwnerInventoryService inventoryService, BookRepository bookRepository) {
-        this.bookRepository = bookRepository;
+    public BookOwnerRestController(BookRepoService bookRepoService, BookOwnerInventoryService inventoryService) {
         this.bookRepoService = bookRepoService;
         this.inventoryService = inventoryService;
     }
 
-    @PostMapping(path="upload", consumes={MediaType.APPLICATION_JSON_VALUE})
+    @PostMapping(path = "upload", consumes = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<String> uploadHook(@RequestBody Book book) {
         Book uploaded = bookRepoService.upload(book);
         if (uploaded == null) {
@@ -45,21 +43,21 @@ public class BookOwnerRestController {
         }
     }
 
-    @PatchMapping (path="inventory", consumes={MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<Book> updateInventory(@RequestBody BookQuantityTemplate newBook){
+    @PatchMapping(path = "inventory", consumes = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<Book> updateInventory(@RequestBody BookQuantityTemplate newBook) {
         //All that matters is to find the book via the provided ID and change to the new quantity
-        try{
+        try {
             Optional<Book> updatedBook = inventoryService.updateQuantity(newBook.getId(), newBook.getQuantity());
             return ResponseEntity.of(updatedBook);
-        } catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(null);
         }
     }
 
-    @PatchMapping(path="edit", consumes={MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<Book> editHook(@RequestBody @NotNull Book book, @RequestParam(value="id") String bookId) {
+    @PatchMapping(path = "edit", consumes = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<Book> editHook(@RequestBody @NotNull Book book, @RequestParam(value = "id") String bookId) {
         Book oldBook = bookRepoService.getBookById(Long.parseLong(bookId));
-        if(book.getPicture()==null) {
+        if (book.getPicture() == null) {
             book.setPicture(oldBook.getPicture());
         }
         book.setQuantity(oldBook.getQuantity());
@@ -70,31 +68,6 @@ public class BookOwnerRestController {
             return ResponseEntity.ok().body(uploaded);
         }
     }
-
-    @GetMapping(value = "getAllBooksPage", produces = "application/json")
-    public ResponseEntity<Map<String, Object>> getAllBooks(
-            @RequestParam(defaultValue = "") String name,
-            @RequestParam(defaultValue = "") String isbn,
-            @RequestParam(defaultValue = "") String description,
-            @RequestParam(defaultValue = "") String publisher,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "5") int size) {
-
-
-        Pageable paging = PageRequest.of(page, size);
-        Page<Book> booksPage = bookRepository.getFilterBooks(name, isbn, description, publisher, paging);
-
-        Map<String, Object> response = new HashMap<>();
-        response.put("books", booksPage.getContent());
-        response.put("currentPage", booksPage.getNumber());
-        response.put("totalItems", booksPage.getTotalElements());
-        response.put("totalPages", booksPage.getTotalPages());
-
-        return new ResponseEntity<>(response, HttpStatus.OK);
-    }
-
-    @GetMapping(value = "/getAllBooks", produces = "application/json")
-    public ResponseEntity<List<Book>> getAllBooks() {
-        return ResponseEntity.ok(bookRepository.findAll());
-    }
 }
+
+

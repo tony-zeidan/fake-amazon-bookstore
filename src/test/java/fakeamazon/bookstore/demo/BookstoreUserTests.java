@@ -28,7 +28,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ExtendWith(SpringExtension.class)
 @SpringBootTest
 @DirtiesContext
 @Import(TestSetup.class)
@@ -51,7 +50,7 @@ class BookstoreUserTests {
 	private BookRepository bookRepository;
 
 	@Test
-	@WithMockUser("user222")
+	@WithMockUser(username="user222", roles={"USER"})
 	void testAddToCart() throws Exception {
 
 		Book bookToAdd = new Book();

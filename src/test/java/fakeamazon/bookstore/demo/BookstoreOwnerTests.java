@@ -46,47 +46,6 @@ class BookstoreOwnerTests {
 	@Autowired
 	private BookRepository bookRepository;
 
-
-	@Test
-	@WithMockUser(username="admin222", roles={"ADMIN"})
-	void testGetAllBooks() throws Exception {
-		bookRepository.save(new Book("book1", "desc"));
-
-		this.mockMvc.perform(get("/getAllBooks")).andDo(print()).andExpect(status().isOk())
-				.andExpect(content().string(containsString("\"name\":\"book1\"")))
-				.andExpect(content().string(containsString("\"description\":\"desc\"")))
-				.andExpect(content().string(containsString("\"id\":1")));
-
-		bookRepository.save(new Book("book2", "desc2"));
-
-		this.mockMvc.perform(get("/getAllBooks")).andDo(print()).andExpect(status().isOk())
-				.andExpect(content().string(containsString("\"name\":\"book1\"")))
-				.andExpect(content().string(containsString("\"description\":\"desc\"")))
-				.andExpect(content().string(containsString("\"id\":1")))
-				.andExpect(content().string(containsString("\"name\":\"book2\"")))
-				.andExpect(content().string(containsString("\"description\":\"desc2\"")));
-
-	}
-
-	@Test
-
-	@WithMockUser(username="admin222", roles={"ADMIN"})
-	void testGetAllBooksPage() throws Exception {
-		bookRepository.save(new Book("book1", "desc"));
-
-		this.mockMvc.perform(get("/getAllBooksPage?name=book")).andDo(print()).andExpect(status().isOk())
-				.andExpect(content().string(containsString("\"name\":\"book1\"")))
-				.andExpect(content().string(containsString("\"description\":\"desc\"")));
-
-		bookRepository.save(new Book("book2", "desc2"));
-
-		this.mockMvc.perform(get("/getAllBooksPage?description=desc")).andExpect(status().isOk())
-				.andExpect(content().string(containsString("\"name\":\"book1\"")))
-				.andExpect(content().string(containsString("\"description\":\"desc\"")))
-				.andExpect(content().string(containsString("\"name\":\"book2\"")))
-				.andExpect(content().string(containsString("\"description\":\"desc2\"")));
-
-	}
 	@Test
 	@WithMockUser(username="admin222", roles={"ADMIN"})
 	void testUploadBook() throws Exception {
@@ -107,8 +66,9 @@ class BookstoreOwnerTests {
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
 		).andExpect(status().isCreated());
 
+		int size = bookRepository.findAll().size();
 		this.mockMvc.perform(MockMvcRequestBuilders.get(
-						"http://localhost:8080/getAllBooks"
+						"http://localhost:8080/bookstore/getbooks?size="+size
 				))
 				.andExpect(status().isOk())
 				.andExpect(content().string(containsString(bookToAdd.getName())))
