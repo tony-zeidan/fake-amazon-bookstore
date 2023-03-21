@@ -21,7 +21,9 @@ public class UserController {
     }
 
     @GetMapping("")
-    public String getUserIndex() {
+    public String getUserIndex(Authentication auth, Model model) {
+        Customer customer = detailsService.getCustomerDetails(auth);
+        model.addAttribute("cart", customer.getCart().size());
         return "userindex";
     }
 

@@ -38,13 +38,13 @@ public class GlobalSecurityConfiguration {
                 .requestMatchers("/*")
                     .permitAll()
                 .requestMatchers("/user/**")
-                    .permitAll()
+                    .hasRole("USER")
                 .requestMatchers("/owner/**")
-                    .permitAll()
+                    .hasRole("ADMIN")
                 .requestMatchers("/owneractions/**")
-                    .permitAll()
+                    .hasRole("ADMIN")
                 .requestMatchers("/useractions/**")
-                    .permitAll();
+                    .hasRole("USER");
         http.csrf()
                 .disable();
         return http.build();

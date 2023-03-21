@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/useractions/cart")
+@RequestMapping("useractions")
 public class UserRestController {
 
     private final ShoppingCartService shoppingCartService;
@@ -31,7 +31,7 @@ public class UserRestController {
      * @param item The body containing the book id and quantity to remove
      * @return add success -> OK, book not found -> NOT_FOUND
      */
-    @PostMapping("add")
+    @PostMapping("addtocart")
     public ResponseEntity<ShoppingCartItem> addToCart(Authentication auth, @RequestBody BookQuantityTemplate item) {
         try {
             Optional<ShoppingCartItem> itemAdded = shoppingCartService.addToCart(auth, item);
@@ -55,11 +55,12 @@ public class UserRestController {
      * @param item The body containing the book id and quantity to remove
      * @return edit success -> OK, book not found -> NOT_FOUND, edit unsuccessful otherwise -> NOT_ACCEPTABLE
      */
-    @PatchMapping("edit")
+    @PatchMapping("editcart")
     public ResponseEntity<ShoppingCartItem> editCartQuantity(Authentication auth, @RequestBody BookQuantityTemplate item) {
         try {
             // item edited could not be present, but it doesn't matter
             Optional<ShoppingCartItem> itemEdited = shoppingCartService.changeCartAmount(auth, item);
+            System.out.println(itemEdited.orElseGet(null));
             return ResponseEntity.of(itemEdited);
         } catch (ShoppingCartEditException e) {
             // quantity was bad
@@ -67,7 +68,7 @@ public class UserRestController {
         }
     }
 
-    @DeleteMapping("remove")
+    @DeleteMapping("removefromcart")
     public ResponseEntity<ShoppingCartItem> removeFromCart(Authentication auth, @RequestBody BookIdTemplate item) {
         Optional<ShoppingCartItem> itemAdded = shoppingCartService.removeCartItem(auth, item);
         return ResponseEntity.of(itemAdded);

@@ -6,7 +6,7 @@
  */
 function handleAddToCart (book_id, quantity) {
     $.ajax({
-        url: 'useractions/cart/add',
+        url: '/useractions/addtocart',
         type: 'POST',
         data: {
             'id': id,
@@ -34,8 +34,8 @@ Ensure that there is a container:
 $(document).ready(function () {
     $(".cart-selector").each(function (idx) {
         let book_id = $(this).data("book_id");
-        let btn = $(this > ".cart-selector-btn");
-        let sel = $(this > ".cart-selector-select");
+        let btn = $(this).find(".cart-selector-btn");
+        let sel = $(this).find(".cart-selector-select");
 
         btn.click(() => handleAddToCart(book_id, sel.val()));
     });

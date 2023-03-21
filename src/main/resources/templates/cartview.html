@@ -14,10 +14,15 @@
 <nav class="bl-nav">
     <ul>
         <li><a href="/user">Home</a></li>
-        <li><a id="active-item" href="/user/viewcart">View Cart</a></li>
+        <li><a id="active-item" href="/user/viewcart" th:text="'View Cart (' + ${cart.size()} + ')'"></a></li>
     </ul>
 </nav>
-<form action="" onsubmit="commitCartChanges()" class="bl-form">
+<div class="alert-box">
+    <div class="alert-content">
+        <p class="alert-text"></p>
+    </div>
+</div>
+<form action="" class="bl-form">
     <fieldset>
         <legend class="cart-legend" th:text="${username} + '’s Cart'"></legend>
         <div class="cart-content">
@@ -27,18 +32,18 @@
                     <h4><b th:text="${item.getBook().getName()}"/></h4>
                     <p><em th:text="${item.getBook().getIsbn()}"/></p>
                     <p th:text="${item.getBook().getDescription()}"></p><br />
-                    <label th:for="'quant-'+${item.getId()}">Quantity: </label>
-                    <label th:id="'quant-disp-'+${item.getId()}"  th:text="${item.getQuantity()}"></label>
-                    <label th:for="'quant-disp-'+${item.getId()}">Inc. </label>
+                    <label th:for="'quant-disp'+${item.getId()}">Quantity: </label>
+                    <label th:id="'quant-disp-'+${item.getId()}"  th:text="${item.getQuantity()}" class="item-card-quantity-display"></label>
+                    <label th:for="'quant-'+${item.getId()}">Inc. </label>
                     <input th:id="'quant-'+${item.getId()}" type="number" class="item-card-quantity bl-forminput" value="0" min="0" max="10" /><br />
                     <input th:id="'del-'+${item.getId()}" class="item-card-remove bl-forminput" type="checkbox">
                     <label th:for="'del-'+${item.getId()}">Remove </label>
                 </div>
             </div>
         </div>
-        <input class="cart-submit bl-formbutton" type="submit" value="Commit Changes"/>
+        <input class="cart-submit bl-formbutton" type="button" value="Commit Changes!"/>
     </fieldset>
-    <button type="button" class="bl-formbutton">Place Order!</button>
+    <input class="cart-order bl-formbutton" type="button" value="Place Order!" />
 </form>
 </body>
 </html>
