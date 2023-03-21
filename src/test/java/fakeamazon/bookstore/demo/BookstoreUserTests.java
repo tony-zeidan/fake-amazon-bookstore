@@ -1,16 +1,19 @@
 package fakeamazon.bookstore.demo;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import fakeamazon.bookstore.demo.configuration.TestSetup;
 import fakeamazon.bookstore.demo.input.templates.BookIdTemplate;
 import fakeamazon.bookstore.demo.input.templates.BookQuantityTemplate;
 import fakeamazon.bookstore.demo.model.Book;
 import fakeamazon.bookstore.demo.repository.BookRepository;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.event.EventListener;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.userdetails.User;
@@ -18,56 +21,22 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
+@ExtendWith(SpringExtension.class)
 @SpringBootTest
+@DirtiesContext
+@Import(TestSetup.class)
 @AutoConfigureMockMvc
 class BookstoreUserTests {
 
 	@Autowired
 	private MockMvc mockMvc;
-
-
-
-	@TestConfiguration
-	public static class TestSetup {
-
-		@Autowired
-		private UserDetailsManager detailsManager;
-
-		@Autowired
-		private PasswordEncoder encoder;
-
-		@EventListener(ApplicationReadyEvent.class)
-		public void setup() {
-
-			UserDetails user222 = User.builder()
-					.username("user222")
-					.password(encoder.encode("user222"))
-					.roles("USER")
-					.build();
-
-			UserDetails user223 = User.builder()
-					.username("user223")
-					.password(encoder.encode("user223"))
-					.roles("USER")
-					.build();
-
-			UserDetails user224 = User.builder()
-					.username("user224")
-					.password(encoder.encode("user224"))
-					.roles("USER")
-					.build();
-
-			detailsManager.createUser(user222);
-			detailsManager.createUser(user223);
-			detailsManager.createUser(user224);
-		}
-	}
 
 
 	public static String asJsonString(final Object obj) {
@@ -81,8 +50,6 @@ class BookstoreUserTests {
 	@Autowired
 	private BookRepository bookRepository;
 
-
-
 	@Test
 	@WithMockUser("user222")
 	void testAddToCart() throws Exception {
@@ -93,7 +60,7 @@ class BookstoreUserTests {
 		bookToAdd.setDescription("A book of refactoring concepts.");
 		bookToAdd.setQuantity(99);
 		bookToAdd.setPublisher("Fowler");
-		bookToAdd.setIsbn("ST193821");
+		bookToAdd.setIsbn("ST193827");
 
 		// add book and get the added entity to have its ID
 		Book added = bookRepository.save(bookToAdd);

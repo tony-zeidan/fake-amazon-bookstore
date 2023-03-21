@@ -1,15 +1,21 @@
 package fakeamazon.bookstore.demo;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import fakeamazon.bookstore.demo.configuration.TestSetup;
 import fakeamazon.bookstore.demo.model.Book;
 import fakeamazon.bookstore.demo.input.templates.BookQuantityTemplate;
 import fakeamazon.bookstore.demo.repository.BookRepository;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
+
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -19,7 +25,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
+@ExtendWith(SpringExtension.class)
+@Import(TestSetup.class)
+@DirtiesContext
 @SpringBootTest
 @AutoConfigureMockMvc
 class BookstoreOwnerTests {
@@ -38,7 +46,9 @@ class BookstoreOwnerTests {
 	@Autowired
 	private BookRepository bookRepository;
 
+
 	@Test
+	@WithMockUser(username="admin222", roles={"ADMIN"})
 	void testGetAllBooks() throws Exception {
 		bookRepository.save(new Book("book1", "desc"));
 
@@ -59,7 +69,7 @@ class BookstoreOwnerTests {
 	}
 
 	@Test
-	@WithMockUser(username="user222", roles={"USER"})
+	@WithMockUser(username="admin222", roles={"ADMIN"})
 	void testUploadBook() throws Exception {
 
 		Book bookToAdd = new Book();
@@ -91,6 +101,7 @@ class BookstoreOwnerTests {
 	}
 
 	@Test
+	@WithMockUser(username="admin223", roles={"ADMIN"})
 	void testEditBook() throws Exception{
 		Book bookToAdd = new Book();
 		bookToAdd.setName("Refactoring2");
@@ -98,9 +109,9 @@ class BookstoreOwnerTests {
 		bookToAdd.setDescription("A book of refactoring concepts.");
 		bookToAdd.setQuantity(1);
 		bookToAdd.setPublisher("Fowler");
-		bookToAdd.setIsbn("ST1938212");
+		bookToAdd.setIsbn("ST1938299");
 		bookRepository.save(bookToAdd);
-		Book oldBook = bookRepository.findByIsbn("ST1938212");
+		Book oldBook = bookRepository.findByIsbn("ST1938299");
 
 		Book newBook = new Book();
 		newBook.setId(oldBook.getId());
@@ -117,6 +128,7 @@ class BookstoreOwnerTests {
 	}
 
 	@Test
+	@WithMockUser(username="admin224", roles={"ADMIN"})
 	void testIncrementInventory() throws Exception{
 		Book newBook = new Book();
 		newBook.setName("Curious George");

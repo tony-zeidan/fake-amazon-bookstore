@@ -16,13 +16,13 @@ import java.util.Optional;
 @RestController
 public class BookOwnerRestController {
 
-    @Autowired
-    private BookOwnerInventoryService inventoryService;
-    @Autowired
-    private BookRepoService bookRepoService;
+    private final BookOwnerInventoryService inventoryService;
+    private final BookRepoService bookRepoService;
 
-    public BookOwnerRestController(BookRepoService bookRepoService) {
+    @Autowired
+    public BookOwnerRestController(BookRepoService bookRepoService, BookOwnerInventoryService inventoryService) {
         this.bookRepoService = bookRepoService;
+        this.inventoryService = inventoryService;
     }
 
     @PostMapping(path="owneractions/upload", consumes={MediaType.APPLICATION_JSON_VALUE})

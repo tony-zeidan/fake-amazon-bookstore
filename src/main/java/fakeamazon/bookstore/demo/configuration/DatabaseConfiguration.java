@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
+import org.springframework.web.context.annotation.ApplicationScope;
 
 import javax.sql.DataSource;
 
@@ -12,6 +13,7 @@ import static org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType.
 @Configuration
 public class DatabaseConfiguration {
     @Bean
+    @ApplicationScope
     DataSource dataSource() {
         return new EmbeddedDatabaseBuilder()
                 .setType(H2)

@@ -42,9 +42,7 @@ public class ShoppingCartService {
 
     public Optional<ShoppingCartItem> addToCart(Authentication auth, BookQuantityTemplate template) {
 
-        System.out.println(auth);
         Customer customer = detailsService.getCustomerDetails(auth);
-        System.out.println(customer);
 
         Optional<ShoppingCartItem> itemMade = fromTemplate(customer, template);
         if (itemMade.isPresent()) {

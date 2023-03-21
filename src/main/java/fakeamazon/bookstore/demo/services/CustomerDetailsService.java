@@ -29,13 +29,6 @@ public class CustomerDetailsService {
 
     public Customer getCustomerDetails(Authentication auth) {
         UserDetails details = (UserDetails) auth.getPrincipal();
-        System.out.println(details);
-
-        List<Customer> customers = (List<Customer>) customerRepo.findAll();
-        for (Customer c: customers) {
-            System.out.println(c.getUsername());
-        }
-
         Customer customer = customerRepo.findByUsername(details.getUsername());
         return customer;
     }
