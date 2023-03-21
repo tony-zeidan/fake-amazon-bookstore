@@ -1,7 +1,7 @@
-package fakeamazon.bookstore.demo.model;
+package fakeamazon.bookstore.demo.input.templates;
 
-public class EditQuantity {
-    private Long id;
+public class BookQuantityTemplate {
+    private long id;
     private int quantity;
 
     public Long getId() {

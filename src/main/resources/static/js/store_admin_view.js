@@ -77,7 +77,7 @@ function filterGetCall() {
     if (page.currentPage) url.searchParams.set("page", page.currentPage);
     $.ajax({
         type: "get",
-        url: "getAllBooksPage?"+url.searchParams.toString(),
+        url: "/bookstore/getbooks?"+url.searchParams.toString(),
         dataType: 'json',
         success: function(data, status, xhrObject)
         {
