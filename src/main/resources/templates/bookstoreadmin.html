@@ -17,9 +17,33 @@
             <li><a href="/owner/upload">Upload</a></li>
         </ul>
     </nav>
+    <table class="bl-table" id="booksTable">
+        <tr><th>id</th><th>name</th><th>quantity</th><th>increment</th><th>isbn</th><th id="imgcol">picture</th><th>description</th><th>publisher</th></tr>
+        <tr>
+            <td></td>
+            <td>
+                <input id="nameFilter" class="filter bl-generalinput">
+            </td>
+            <td></td>
+            <td></td>
+            <td>
+                <input id="isbnFilter" class="filter bl-generalinput">
+            </td>
+            <td></td>
+            <td>
+                <input id="descriptionFilter" class="filter bl-generalinput">
+            </td>
+            <td>
+                <input id="publisherFilter" class="filter bl-generalinput">
+            </td>
+        </tr>
+    </table>
+
     <div class="content-div">
-        <table class="bl-table" id="booksTable">
-        </table>
+        <p id="alert" class="notfound">No books found!</p>
+        <button class="bl-button" id ="saveButton">save</button>
+        <button class="bl-button" id="prevButton">prev</button>
+        <button class="bl-button" id="nextButton">next</button>
     </div>
 </body>
 </html>
