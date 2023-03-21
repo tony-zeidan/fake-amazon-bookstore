@@ -12,10 +12,10 @@ public class Customer {
     private String username;
 
     @Column(name="cart")
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
     private List<ShoppingCartItem> cart;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
     private PurchaseHistory history;
 
     public Customer() {}

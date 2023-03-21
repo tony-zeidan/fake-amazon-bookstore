@@ -2,6 +2,7 @@ package fakeamazon.bookstore.demo.security;
 
 import fakeamazon.bookstore.demo.model.Customer;
 import fakeamazon.bookstore.demo.services.CustomerDetailsService;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.provisioning.UserDetailsManager;

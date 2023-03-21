@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>FakeAmazonBookstore - User Cart</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/edit_cart.js}"></script>
+</head>
+<body>
+<header class="bl-header">
+    <h1>FakeAmazonBookstore - Bookstore User - Cart</h1>
+</header>
+<nav class="bl-nav">
+    <ul>
+        <li><a href="/user">Home</a></li>
+        <li><a id="active-item" href="/user/viewcart" th:text="'View Cart (' + ${cart.size()} + ')'"></a></li>
+    </ul>
+</nav>
+<div class="alert-box">
+    <div class="alert-content">
+        <p class="alert-text"></p>
+    </div>
+</div>
+<form action="" class="bl-form">
+    <fieldset>
+        <legend class="cart-legend" th:text="${username} + '’s Cart'"></legend>
+        <div class="cart-content">
+            <div class="item-card" th:each="item: ${cart}" th:id="'book-'+${item.getBook().getId()}" th:data-book="${item.getBook().getId()}">
+                <img class="item-card-img" th:src="${item.getBook().getPicture()}" th:alt="${item.getBook().getIsbn()}">
+                <div class="card-container">
+                    <h4><b th:text="${item.getBook().getName()}"/></h4>
+                    <p><em th:text="${item.getBook().getIsbn()}"/></p>
+                    <p th:text="${item.getBook().getDescription()}"></p><br />
+                    <label th:for="'quant-disp'+${item.getId()}">Quantity: </label>
+                    <label th:id="'quant-disp-'+${item.getId()}"  th:text="${item.getQuantity()}" class="item-card-quantity-display"></label>
+                    <label th:for="'quant-'+${item.getId()}">Inc. </label>
+                    <input th:id="'quant-'+${item.getId()}" type="number" class="item-card-quantity bl-forminput" value="0" min="0" max="10" /><br />
+                    <input th:id="'del-'+${item.getId()}" class="item-card-remove bl-forminput" type="checkbox">
+                    <label th:for="'del-'+${item.getId()}">Remove </label>
+                </div>
+            </div>
+        </div>
+        <input class="cart-submit bl-formbutton" type="button" value="Commit Changes!"/>
+    </fieldset>
+    <input class="cart-order bl-formbutton" type="button" value="Place Order!" />
+</form>
+</body>
+</html>

@@ -4,11 +4,9 @@ import fakeamazon.bookstore.demo.security.CustomerCreationUserDetailsManagerDeco
 import fakeamazon.bookstore.demo.services.CustomerDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
@@ -18,7 +16,6 @@ import org.thymeleaf.extras.springsecurity6.dialect.SpringSecurityDialect;
 
 import javax.sql.DataSource;
 
-import static org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType.H2;
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
@@ -36,16 +33,30 @@ public class GlobalSecurityConfiguration {
             .logout()
                 .logoutSuccessUrl("/");
         http.authorizeHttpRequests()
+                .requestMatchers("/bookstore")
+                    .authenticated()
+                .requestMatchers("/bookstore/**")
+                    .authenticated()
                 .requestMatchers("/css/**", "/js/**")
                     .permitAll()
-                .requestMatchers("/*")
+                .requestMatchers("/")
                     .permitAll()
+                .requestMatchers("/error")
+                    .permitAll()
+                .requestMatchers("/user/registration")
+                    .permitAll()
+                .requestMatchers("/user")
+                    .hasRole("USER")
                 .requestMatchers("/user/**")
-                    .permitAll()
+                    .hasRole("USER")
+                .requestMatchers("/owner")
+                    .hasRole("ADMIN")
                 .requestMatchers("/owner/**")
-                    .permitAll()
+                    .hasRole("ADMIN")
                 .requestMatchers("/owneractions/**")
-                    .permitAll();
+                    .hasRole("ADMIN")
+                .requestMatchers("/useractions/**")
+                    .hasRole("USER");
         http.csrf()
                 .disable();
         return http.build();
@@ -58,6 +69,7 @@ public class GlobalSecurityConfiguration {
                 .password(passwordEncoder().encode("password"))
                 .roles("USER")
                 .build();
+
         UserDetails admin = User.builder()
                 .username("admin")
                 .password(passwordEncoder().encode("admin"))
@@ -66,6 +78,7 @@ public class GlobalSecurityConfiguration {
         UserDetailsManager users = new CustomerCreationUserDetailsManagerDecorator(new JdbcUserDetailsManager(dataSource), this.customerDetailsService);
         users.createUser(user);
         users.createUser(admin);
+
         return users;
     }
 

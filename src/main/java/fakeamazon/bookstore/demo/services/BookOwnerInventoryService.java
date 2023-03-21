@@ -1,4 +1,4 @@
-package fakeamazon.bookstore.demo.controller;
+package fakeamazon.bookstore.demo.services;
 
 import fakeamazon.bookstore.demo.model.Book;
 import fakeamazon.bookstore.demo.repository.BookRepository;
@@ -9,8 +9,12 @@ import java.util.Optional;
 
 @Service
 public class BookOwnerInventoryService {
+    private final BookRepository bookRepository;
+
     @Autowired
-    private BookRepository bookRepository;
+    public BookOwnerInventoryService(BookRepository bookRepository) {
+        this.bookRepository = bookRepository;
+    }
 
     public Optional<Book> updateQuantity(Long currId, Integer newQuantity){
         Optional<Book> currBookLookup = bookRepository.findById(currId);

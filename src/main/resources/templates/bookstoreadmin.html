@@ -5,7 +5,7 @@
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <link th:href="@{/css/styles.css}" rel="stylesheet" />
-    <script type="text/javascript" th:src="@{/js/storeAdmin.js}"></script>
+    <script type="text/javascript" th:src="@{/js/store_admin_view.js}"></script>
 </head>
 <body>
     <header class="bl-header">
@@ -13,13 +13,14 @@
     </header>
     <nav class="bl-nav">
         <ul>
+            <li><a href="/">Exit</a></li>
             <li><a id="active-item" href="/owner">Home</a></li>
             <li><a href="/owner/upload">Upload</a></li>
         </ul>
     </nav>
-    <table class="bl-table" id="booksTable">
-        <tr><th>id</th><th>name</th><th>quantity</th><th>increment</th><th>isbn</th><th id="imgcol">picture</th><th>description</th><th>publisher</th></tr>
-        <tr>
+    <table class="bl-table tableview" id="booksTable">
+        <tr><th>id</th><th>name</th><th>quantity</th><th>increment</th><th>isbn</th><th id="imgcol">picture</th><th class="desc-col">description</th><th>publisher</th></tr>
+        <tr class="filter-row">
             <td></td>
             <td>
                 <input id="nameFilter" class="filter bl-generalinput">

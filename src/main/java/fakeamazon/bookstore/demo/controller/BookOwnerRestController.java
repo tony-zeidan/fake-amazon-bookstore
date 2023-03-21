@@ -1,31 +1,39 @@
 package fakeamazon.bookstore.demo.controller;
 
 import fakeamazon.bookstore.demo.model.Book;
-import fakeamazon.bookstore.demo.model.EditQuantity;
-import org.apache.coyote.Response;
+import fakeamazon.bookstore.demo.input.templates.BookQuantityTemplate;
+import fakeamazon.bookstore.demo.repository.BookRepository;
+import fakeamazon.bookstore.demo.services.BookOwnerInventoryService;
+import fakeamazon.bookstore.demo.services.BookRepoService;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("owneractions")
 public class BookOwnerRestController {
 
-    @Autowired
-    private BookOwnerInventoryService inventoryService;
-    @Autowired
-    private BookRepoService bookRepoService;
+    private final BookOwnerInventoryService inventoryService;
+    private final BookRepoService bookRepoService;
 
-    public BookOwnerRestController(BookRepoService bookRepoService) {
+    @Autowired
+    public BookOwnerRestController(BookRepoService bookRepoService, BookOwnerInventoryService inventoryService) {
         this.bookRepoService = bookRepoService;
+        this.inventoryService = inventoryService;
     }
 
-    @PostMapping(path="owneractions/upload", consumes={MediaType.APPLICATION_JSON_VALUE})
+    @PostMapping(path = "upload", consumes = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<String> uploadHook(@RequestBody Book book) {
         Book uploaded = bookRepoService.upload(book);
         if (uploaded == null) {
@@ -35,21 +43,21 @@ public class BookOwnerRestController {
         }
     }
 
-    @PatchMapping (path="owneractions/inventory", consumes={MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<Book> updateInventory(@RequestBody EditQuantity newBook){
+    @PatchMapping(path = "inventory", consumes = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<Book> updateInventory(@RequestBody BookQuantityTemplate newBook) {
         //All that matters is to find the book via the provided ID and change to the new quantity
-        try{
+        try {
             Optional<Book> updatedBook = inventoryService.updateQuantity(newBook.getId(), newBook.getQuantity());
             return ResponseEntity.of(updatedBook);
-        } catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(null);
         }
     }
 
-    @PatchMapping(path="owneractions/edit", consumes={MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<Book> editHook(@RequestBody @NotNull Book book, @RequestParam(value="id") String bookId) {
+    @PatchMapping(path = "edit", consumes = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<Book> editHook(@RequestBody @NotNull Book book, @RequestParam(value = "id") String bookId) {
         Book oldBook = bookRepoService.getBookById(Long.parseLong(bookId));
-        if(book.getPicture()==null) {
+        if (book.getPicture() == null) {
             book.setPicture(oldBook.getPicture());
         }
         book.setQuantity(oldBook.getQuantity());
@@ -61,3 +69,5 @@ public class BookOwnerRestController {
         }
     }
 }
+
+
