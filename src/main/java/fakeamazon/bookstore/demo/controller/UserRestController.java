@@ -60,7 +60,6 @@ public class UserRestController {
         try {
             // item edited could not be present, but it doesn't matter
             Optional<ShoppingCartItem> itemEdited = shoppingCartService.changeCartAmount(auth, item);
-            System.out.println(itemEdited.orElseGet(null));
             return ResponseEntity.of(itemEdited);
         } catch (ShoppingCartEditException e) {
             // quantity was bad
