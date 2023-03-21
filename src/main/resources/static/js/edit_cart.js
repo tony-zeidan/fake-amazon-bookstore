@@ -1,6 +1,7 @@
 function commitCartChanges() {
-    $("item-card").each(function (ind) {
-        let id = $(this).id;
+    $(".item-card").each(function (ind) {
+        let id = $(this).id.data("book");
+        console.log("BOOK ID " + id);
         let quant = $(this > "item-card-quantity").val();
         let del = $(this > "item-card-remove").checked;
 

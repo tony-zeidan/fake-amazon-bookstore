@@ -201,10 +201,12 @@ body {
 /*cart*/
 .item-card {
     /* Add shadows to create the "card" effect */
+    width: 300px;
     background-color: #0C2D48;
     color: white;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
+    margin-bottom: 5px;
 }
 
 .item-card:hover {
@@ -212,15 +214,24 @@ body {
 }
 
 .card-container {
+    width: 100%;
     background-color: #0C2D48;
     color: white;
     padding: 2px 16px;
+
 }
 
 .cart-content {
+    width: 100%;
     background-color: #0C2D48;
     color: white;
     display: grid;
-    grid-template-rows: auto auto auto;
+    grid-template-columns: auto auto auto auto auto;
     gap: 25px 50px;
+
+}
+
+.item-card-img {
+    width: 300px;
+    height: 400px;
 }
