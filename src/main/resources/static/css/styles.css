@@ -207,6 +207,8 @@ body {
     background-color: #80bfff;
     box-shadow: 0 1px 4px #0073e6;
     margin: 30px;
+    width: 300px;
+    height: 630px;
     padding: 20px;
     border-radius: 5px;
 }
@@ -215,16 +217,16 @@ body {
     justify-items: center;
 }
 
-.user-book-title-container .title-text{
-    color: #B1D4E0;
+.title-text{
+    color: floralwhite;
     font-size: 1.4rem;
     padding: 6px;
     text-align: center;
 }
 
 .user-picture-container img {
-    max-width: 250px;
-    max-height: 400px;
+    height: 400px;
+    width: 100%;
     border-radius: 1em;
 }
 
@@ -237,11 +239,42 @@ body {
     width: 50px;
 }
 
+.filter-bar {
+    display: flex;
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
+    justify-content: space-between;
+    box-sizing: border-box;
+}
+
+.filter-box {
+    text-align: center;
+    align-items: center;
+    height: 80px;
+}
+
+.user-filter-button {
+    align-items: center;
+    text-align: center;
+}
+
+.filter-box p {
+    color: cornsilk;
+    font-weight: bold;
+}
+
+.filter-input-container {
+    display: flex;
+    gap: 8px;
+}
+
 .add-to-cart-button {
     padding: 5px;
     background-color: cornflowerblue;
     font-weight: bolder;
     font-size: 18px;
+    width: 100%;
     justify-self: flex-end;
     border-radius: 0.2em;
     cursor: pointer
