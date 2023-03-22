@@ -6,14 +6,14 @@ function finishPurchase () {
          alert("Transaction has been processed.");
       },
       error: function(jqXHR, textStatus, errorThrown){
-         alert(errorThrown);
+         alert("Your transaction has been denied.");
       }
    });
 }
 
 $(document).ready(function () {
-   const placeOrderButton = document.querySelector("#placeOrder");
-   placeOrderButton.addEventListener("click", evt => {
+   const placeOrderButton = $("#placeOrder");
+   placeOrderButton.click(evt => {
       finishPurchase();
    });
 });

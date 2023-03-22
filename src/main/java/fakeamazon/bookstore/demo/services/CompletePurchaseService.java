@@ -57,9 +57,8 @@ public class CompletePurchaseService {
         for (ShoppingCartItem item : cart){
             int itemQuantity = item.getQuantity();
             Book itemBook = item.getBook();
-            int bookQuantity = itemBook.getQuantity();
 
-            Optional<Book> quantityResponse = inventoryService.updateQuantity(itemBook.getId(), bookQuantity - itemQuantity);
+            Optional<Book> quantityResponse = inventoryService.updateQuantity(itemBook.getId(), -itemQuantity);
 
             //Book not found for some reason, therefore quantity not updated
             if (!quantityResponse.isPresent()){

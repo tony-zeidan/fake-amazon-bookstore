@@ -39,6 +39,12 @@ public class TestSetup {
                 .roles("USER")
                 .build();
 
+        UserDetails user225 = User.builder()
+                .username("user225")
+                .password(encoder.encode("user225"))
+                .roles("USER")
+                .build();
+
         UserDetails admin222 = User.builder()
                 .username("admin222")
                 .password(encoder.encode("admin224"))
@@ -60,6 +66,7 @@ public class TestSetup {
         detailsManager.createUser(user222);
         detailsManager.createUser(user223);
         detailsManager.createUser(user224);
+        detailsManager.createUser(user225);
         detailsManager.createUser(admin222);
         detailsManager.createUser(admin223);
         detailsManager.createUser(admin224);

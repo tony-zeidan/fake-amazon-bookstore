@@ -15,6 +15,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @RestController
@@ -84,7 +85,9 @@ public class UserRestController {
             Optional<PurchaseHistory> currPurchaseHistory = completePurchaseService.completePurchase(auth);
             return ResponseEntity.of(currPurchaseHistory);
         } catch (IllegalArgumentException e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(null);
+        } catch (NoSuchElementException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
     
