@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -71,5 +72,11 @@ public class UserRestController {
     public ResponseEntity<ShoppingCartItem> removeFromCart(Authentication auth, @RequestBody BookIdTemplate item) {
         Optional<ShoppingCartItem> itemAdded = shoppingCartService.removeCartItem(auth, item);
         return ResponseEntity.of(itemAdded);
+    }
+
+    @GetMapping("getcartitems")
+    public ResponseEntity<List<ShoppingCartItem>> getCartItems(Authentication auth) {
+        List<ShoppingCartItem> items = shoppingCartService.getItemsForCustomer(auth);
+        return ResponseEntity.ok().body(items);
     }
 }
