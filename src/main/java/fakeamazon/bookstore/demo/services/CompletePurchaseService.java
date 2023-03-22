@@ -6,8 +6,13 @@ import fakeamazon.bookstore.demo.repository.PurchaseHistoryRepository;
 import java.util.*;
 
 import fakeamazon.bookstore.demo.repository.PurchaseItemRepository;
+import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Service;
 
+@Service
+@Transactional
 public class CompletePurchaseService {
 
     private final PurchaseItemRepository purchaseItemRepository;
@@ -19,6 +24,7 @@ public class CompletePurchaseService {
 
     private final ShoppingCartService cartService;
 
+    @Autowired
     public CompletePurchaseService(CustomerDetailsService userService, ShoppingCartService cartService, PurchaseHistoryRepository pHRepo, PurchaseItemRepository pIRepo, BookOwnerInventoryService inventoryService){
         this.purchaseHistoryRepository = pHRepo;
         this.purchaseItemRepository = pIRepo;

@@ -229,4 +229,61 @@ class BookstoreUserTests {
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
 		).andExpect(status().isNotFound());
 	}
+
+	@Test
+	@WithMockUser("user225")
+	void testClearCart() throws Exception{
+		Book newBook1 = new Book();
+		newBook1.setQuantity(10);
+		bookRepository.save(newBook1);
+
+		Book newBook2 = new Book();
+		newBook2.setQuantity(5);
+		bookRepository.save(newBook2);
+
+		BookQuantityTemplate toCartTemplate = new BookQuantityTemplate();
+		toCartTemplate.setId(newBook1.getId());
+		toCartTemplate.setQuantity(4);
+
+		BookQuantityTemplate toCartTemplate2 = new BookQuantityTemplate();
+		toCartTemplate.setId(newBook2.getId());
+		toCartTemplate.setQuantity(2);
+
+		this.mockMvc.perform(MockMvcRequestBuilders.post(
+						"http://localhost:8080/useractions/addtocart")
+				.content(asJsonString(toCartTemplate))
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
+		).andExpect(status().isCreated());
+
+		this.mockMvc.perform(MockMvcRequestBuilders.post(
+						"http://localhost:8080/useractions/addtocart")
+				.content(asJsonString(toCartTemplate2))
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
+		).andExpect(status().isCreated());
+
+		this.mockMvc.perform(MockMvcRequestBuilders.delete("http://localhost:8080/useractions/completeorder")).andExpect(status().isOk());
+
+		//TODO: Check if cart is empty
+
+		//Add books to cart again
+		this.mockMvc.perform(MockMvcRequestBuilders.post(
+						"http://localhost:8080/useractions/addtocart")
+				.content(asJsonString(toCartTemplate))
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
+		).andExpect(status().isCreated());
+
+		this.mockMvc.perform(MockMvcRequestBuilders.post(
+						"http://localhost:8080/useractions/addtocart")
+				.content(asJsonString(toCartTemplate2))
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
+		).andExpect(status().isCreated());
+
+		newBook1.setQuantity(4);
+		newBook2.setQuantity(1);
+		bookRepository.save(newBook1);
+		bookRepository.save(newBook2);
+
+		//Order should no longer be processed since inventory has been updated
+		this.mockMvc.perform(MockMvcRequestBuilders.delete("http://localhost:8080/useractions/completeorder")).andExpect(status().isBadRequest());
+	}
 }
