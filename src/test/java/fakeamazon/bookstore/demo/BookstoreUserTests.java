@@ -250,8 +250,8 @@ class BookstoreUserTests {
 		toCartTemplate.setQuantity(4);
 
 		BookQuantityTemplate toCartTemplate2 = new BookQuantityTemplate();
-		toCartTemplate.setId(newBook2.getId());
-		toCartTemplate.setQuantity(2);
+		toCartTemplate2.setId(newBook2.getId());
+		toCartTemplate2.setQuantity(2);
 
 		this.mockMvc.perform(MockMvcRequestBuilders.post(
 						"http://localhost:8080/useractions/addtocart")
@@ -268,7 +268,7 @@ class BookstoreUserTests {
 		this.mockMvc.perform(MockMvcRequestBuilders.delete("http://localhost:8080/useractions/completeorder")).andExpect(status().isOk());
 
 		//Check if cart is empty
-		this.mockMvc.perform(MockMvcRequestBuilders.get("http://localhost:8080/useractions/getcartitems")).andExpect(content().string(""));
+		this.mockMvc.perform(MockMvcRequestBuilders.get("http://localhost:8080/useractions/getcartitems")).andExpect(content().string("[]"));
 
 		//Add books to cart again
 		this.mockMvc.perform(MockMvcRequestBuilders.post(
@@ -289,7 +289,7 @@ class BookstoreUserTests {
 		bookRepository.save(newBook2);
 
 		//Order should no longer be processed since inventory has been updated
-		this.mockMvc.perform(MockMvcRequestBuilders.delete("http://localhost:8080/useractions/completeorder")).andExpect(status().isBadRequest());
+		this.mockMvc.perform(MockMvcRequestBuilders.delete("http://localhost:8080/useractions/completeorder")).andExpect(status().isNotFound());
 	}
 
 	@Test
