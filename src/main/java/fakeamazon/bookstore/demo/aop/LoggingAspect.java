@@ -27,30 +27,20 @@ public class LoggingAspect {
 
     }
 
-    @AfterThrowing(pointcut="logPointcut()", throwing="e")
-    public void logAfterThrowing(JoinPoint point, Throwable e) {
-        log.error(point.getSignature().getName() + " had an error " + e.getCause() + e.getMessage());
-    }
-
     @Before("logServiceOperationPointcut()")
     public void logServiceEntry(JoinPoint point){
 
     }
 
     @Around("logServiceOperationPointcut()")
-    public void logServiceEntryExit(ProceedingJoinPoint point){
+    public Object logServiceEntryExit(ProceedingJoinPoint point) throws Throwable {
         String name = point.getSignature().getDeclaringType().getSimpleName() + ":" + point.getSignature().getName();
         log.info("Service function entered: " + name);
         StopWatch watch = new StopWatch(name);
         watch.start();
-        try {
-            point.proceed();
-        } catch (Throwable e) {
-            log.info("Error with logging service.");
-            watch.stop();
-            return;
-        }
+        Object result = point.proceed();
         watch.stop();
         log.info("Service function exited: " + name + " the time taken was: " + watch.prettyPrint());
+        return result;
     }
 }

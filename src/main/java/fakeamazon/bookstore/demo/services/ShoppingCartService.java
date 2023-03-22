@@ -1,5 +1,6 @@
 package fakeamazon.bookstore.demo.services;
 
+import fakeamazon.bookstore.demo.aop.LoggedServiceOperation;
 import fakeamazon.bookstore.demo.exceptions.ShoppingCartAddException;
 import fakeamazon.bookstore.demo.exceptions.ShoppingCartEditException;
 import fakeamazon.bookstore.demo.input.templates.BookIdTemplate;
@@ -19,6 +20,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Service
+
 @Transactional
 public class ShoppingCartService {
 
@@ -51,6 +53,7 @@ public class ShoppingCartService {
         return Optional.ofNullable(itemConcrete);
     }
 
+    @LoggedServiceOperation
     public Optional<ShoppingCartItem> addToCart(Authentication auth, BookQuantityTemplate template) {
 
         Customer customer = detailsService.getCustomerDetails(auth);
@@ -64,9 +67,11 @@ public class ShoppingCartService {
                 item.setQuantity(item.getQuantity()+itemToFind.getQuantity());
                 shoppingCartItemRepo.save(item);
                 detailsService.saveCustomer(customer);
+                System.out.println("CASE1");
                 return Optional.empty();
             } else {
                 customer.getCart().add(itemToFind);
+                System.out.println("CASE2");
                 shoppingCartItemRepo.save(itemToFind);
                 detailsService.saveCustomer(customer);
                 return Optional.of(itemToFind);
@@ -76,6 +81,7 @@ public class ShoppingCartService {
         }
     }
 
+    @LoggedServiceOperation
     public Optional<ShoppingCartItem> changeCartAmount(Authentication auth, BookQuantityTemplate template) {
         Customer customer = detailsService.getCustomerDetails(auth);
         ShoppingCartItem item = shoppingCartItemRepo.findShoppingCartItemByBook_IdAndCustomer_Username(template.getId(), customer.getUsername());
@@ -113,7 +119,7 @@ public class ShoppingCartService {
         return Optional.of(item);
     }
 
-
+    @LoggedServiceOperation
     public Optional<ShoppingCartItem> removeCartItem(Authentication auth, BookIdTemplate template) {
         Customer customer = detailsService.getCustomerDetails(auth);
 
@@ -123,6 +129,7 @@ public class ShoppingCartService {
         return Optional.ofNullable(item);
     }
 
+    @LoggedServiceOperation
     public Customer clearCart(Customer currUser) {
         List<ShoppingCartItem> currCart = currUser.getCart();
         List<ShoppingCartItem> updatedCart = new ArrayList<>(currUser.getCart());
