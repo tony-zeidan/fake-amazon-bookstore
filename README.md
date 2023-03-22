@@ -7,7 +7,7 @@ Bookstore Owner can upload and edit Book information (ISBN, picture, description
 
 
 ## Database schema ##
-![ERD.png](ERD.png)
+![ERD.png](ERD.PNG)
 
 ## UML Diagram ##
 ![BookOwnerRestController.png](BookOwnerRestController.png)
