@@ -243,7 +243,7 @@ class BookstoreUserTests {
 		bookToAdd.setDescription("A book of refactoring concepts.");
 		bookToAdd.setQuantity(99);
 		bookToAdd.setPublisher("Fowler");
-		bookToAdd.setIsbn("ST193827");
+		bookToAdd.setIsbn("ST19382999");
 
 		// add book and get the added entity to have its ID
 		Book added = bookRepository.save(bookToAdd);
