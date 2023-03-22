@@ -33,8 +33,6 @@ public class BookstoreBackendApplication {
 		Customer customer = customerRepo.findByUsername("user");
 		List<Book> books = bookRepo.findAll();
 		for (Book b: books) {
-			System.out.println("ADDED: " + b.getId());
-
 			ShoppingCartItem item = new ShoppingCartItem();
 			item.setCustomer(customer);
 			item.setQuantity(1);
@@ -44,9 +42,6 @@ public class BookstoreBackendApplication {
 			customer.addToCart(item);
 		}
 		customerRepo.save(customer);
-
-		List<ShoppingCartItem> items = (List<ShoppingCartItem>) itemRepo.findAll();
-		System.out.println(items);
 	}
 
 	public static void main(String[] args) {

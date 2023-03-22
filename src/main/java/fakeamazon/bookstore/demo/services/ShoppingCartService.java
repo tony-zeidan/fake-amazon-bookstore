@@ -47,10 +47,7 @@ public class ShoppingCartService {
     public Optional<ShoppingCartItem> addToCart(Authentication auth, BookQuantityTemplate template) {
 
         Customer customer = detailsService.getCustomerDetails(auth);
-
         Optional<ShoppingCartItem> itemMade = fromTemplate(template);
-
-        System.out.println("PRESENT: " + itemMade.isPresent());
 
         if (itemMade.isPresent()) {
             ShoppingCartItem item = null;
