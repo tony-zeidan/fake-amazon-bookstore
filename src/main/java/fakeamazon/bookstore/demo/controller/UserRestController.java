@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -85,5 +86,11 @@ public class UserRestController {
         } catch (IllegalArgumentException e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
+    }
+    
+    @GetMapping("getcartitems")
+    public ResponseEntity<List<ShoppingCartItem>> getCartItems(Authentication auth) {
+        List<ShoppingCartItem> items = shoppingCartService.getItemsForCustomer(auth);
+        return ResponseEntity.ok().body(items);
     }
 }
