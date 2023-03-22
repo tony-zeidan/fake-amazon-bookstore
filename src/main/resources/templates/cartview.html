@@ -35,7 +35,7 @@
                     <label th:for="'quant-disp'+${item.getId()}">Quantity: </label>
                     <label th:id="'quant-disp-'+${item.getId()}"  th:text="${item.getQuantity()}" class="item-card-quantity-display"></label>
                     <label th:for="'quant-'+${item.getId()}">Inc. </label>
-                    <input th:id="'quant-'+${item.getId()}" type="number" class="item-card-quantity bl-forminput" value="0" min="0" max="10" /><br />
+                    <input th:id="'quant-'+${item.getId()}" type="number" class="item-card-quantity bl-forminput" value="0" th:min="'-' + ${item.getQuantity()}" max="10" /><br />
                     <input th:id="'del-'+${item.getId()}" class="item-card-remove bl-forminput" type="checkbox">
                     <label th:for="'del-'+${item.getId()}">Remove </label>
                 </div>
