@@ -43,15 +43,26 @@ public class CompletePurchaseService {
 
         List<PurchaseItem> newPurchaseItems = new ArrayList<>();
 
+        //Have to make sure all items in the cart are valid before updating the quantities
+        for (ShoppingCartItem item: cart){
+            int itemQuantity = item.getQuantity();
+            Book itemBook = item.getBook();
+            int bookQuantity = itemBook.getQuantity();
+
+            if (itemQuantity > bookQuantity){
+                throw new NoSuchElementException();
+            }
+        }
+
         for (ShoppingCartItem item : cart){
             int itemQuantity = item.getQuantity();
             Book itemBook = item.getBook();
-            int bookQuantity = item.getQuantity();
+            int bookQuantity = itemBook.getQuantity();
 
             Optional<Book> quantityResponse = inventoryService.updateQuantity(itemBook.getId(), bookQuantity - itemQuantity);
 
             //Book not found for some reason, therefore quantity not updated
-            if (quantityResponse.isPresent()){
+            if (!quantityResponse.isPresent()){
                 throw new NoSuchElementException();
             } else {
                 //Not saving the purchase item to the repo and purchase history right away because the entire transaction should be invalid if one of them fails
