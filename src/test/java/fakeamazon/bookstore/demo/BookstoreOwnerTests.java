@@ -58,8 +58,6 @@ class BookstoreOwnerTests {
 		bookToAdd.setPublisher("Fowler");
 		bookToAdd.setIsbn("ST193821");
 
-		System.out.println(asJsonString(bookToAdd));
-
 		this.mockMvc.perform(MockMvcRequestBuilders.post(
 						"http://localhost:8080/owneractions/upload")
 				.content(asJsonString(bookToAdd))

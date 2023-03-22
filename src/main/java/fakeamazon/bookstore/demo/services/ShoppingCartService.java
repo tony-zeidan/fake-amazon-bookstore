@@ -7,14 +7,18 @@ import fakeamazon.bookstore.demo.input.templates.BookQuantityTemplate;
 import fakeamazon.bookstore.demo.model.*;
 import fakeamazon.bookstore.demo.repository.BookRepository;
 import fakeamazon.bookstore.demo.repository.ShoppingCartItemRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class ShoppingCartService {
 
     private final CustomerDetailsService detailsService;
@@ -29,7 +33,7 @@ public class ShoppingCartService {
         this.shoppingCartItemRepo = shoppingCartItemRepo;
     }
 
-    public Optional<ShoppingCartItem> fromTemplate(Customer customer, BookQuantityTemplate template) {
+    public Optional<ShoppingCartItem> fromTemplate(BookQuantityTemplate template) {
         Optional<Book> book = bookRepo.findById(template.getId());
         ShoppingCartItem itemConcrete = null;
         if (book.isPresent()) {
@@ -43,8 +47,8 @@ public class ShoppingCartService {
     public Optional<ShoppingCartItem> addToCart(Authentication auth, BookQuantityTemplate template) {
 
         Customer customer = detailsService.getCustomerDetails(auth);
+        Optional<ShoppingCartItem> itemMade = fromTemplate(template);
 
-        Optional<ShoppingCartItem> itemMade = fromTemplate(customer, template);
         if (itemMade.isPresent()) {
             ShoppingCartItem item = null;
             ShoppingCartItem itemToFind = itemMade.get();
@@ -63,6 +67,7 @@ public class ShoppingCartService {
             }
 
             if (!found) {
+                itemToFind.setCustomer(customer);
                 customer.getCart().add(itemToFind);
                 item = shoppingCartItemRepo.save(itemToFind);
             }
@@ -116,21 +121,13 @@ public class ShoppingCartService {
         return Optional.ofNullable(found);
     }
 
+
     public Optional<ShoppingCartItem> removeCartItem(Authentication auth, BookIdTemplate template) {
         Customer customer = detailsService.getCustomerDetails(auth);
-        List<ShoppingCartItem> cart = customer.getCart();
-        ShoppingCartItem found = null;
-        for (ShoppingCartItem item : cart) {
-            if (item.getBook().getId() == template.getId()) {
-                found = item;
-                break;
-            }
-        }
-        if (found != null) {
-            customer.getCart().remove(found);
-            shoppingCartItemRepo.delete(found);
-        }
-        detailsService.saveCustomer(customer);
-        return Optional.ofNullable(found);
+
+        ShoppingCartItem item = shoppingCartItemRepo.findShoppingCartItemByBook_IdAndCustomer_Username(template.getId(), customer.getUsername());
+        shoppingCartItemRepo.deleteShoppingCartItemByBook_IdAndCustomer_Username(template.getId(), customer.getUsername());
+
+        return Optional.ofNullable(item);
     }
 }
