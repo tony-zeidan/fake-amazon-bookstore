@@ -4,7 +4,9 @@ import fakeamazon.bookstore.demo.exceptions.ShoppingCartAddException;
 import fakeamazon.bookstore.demo.exceptions.ShoppingCartEditException;
 import fakeamazon.bookstore.demo.input.templates.BookIdTemplate;
 import fakeamazon.bookstore.demo.input.templates.BookQuantityTemplate;
+import fakeamazon.bookstore.demo.model.PurchaseHistory;
 import fakeamazon.bookstore.demo.model.ShoppingCartItem;
+import fakeamazon.bookstore.demo.services.CompletePurchaseService;
 import fakeamazon.bookstore.demo.services.ShoppingCartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,10 +21,12 @@ import java.util.Optional;
 public class UserRestController {
 
     private final ShoppingCartService shoppingCartService;
+    private final CompletePurchaseService completePurchaseService;
 
     @Autowired
-    public UserRestController(ShoppingCartService shoppingCartService) {
+    public UserRestController(ShoppingCartService shoppingCartService, CompletePurchaseService completePurchaseService) {
         this.shoppingCartService = shoppingCartService;
+        this.completePurchaseService = completePurchaseService;
     }
 
     /**
@@ -71,5 +75,15 @@ public class UserRestController {
     public ResponseEntity<ShoppingCartItem> removeFromCart(Authentication auth, @RequestBody BookIdTemplate item) {
         Optional<ShoppingCartItem> itemAdded = shoppingCartService.removeCartItem(auth, item);
         return ResponseEntity.of(itemAdded);
+    }
+
+    @DeleteMapping("completeorder")
+    public ResponseEntity<PurchaseHistory> completeOrder(Authentication auth) {
+        try{
+            Optional<PurchaseHistory> currPurchaseHistory = completePurchaseService.completePurchase(auth);
+            return ResponseEntity.of(currPurchaseHistory);
+        } catch (IllegalArgumentException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
     }
 }

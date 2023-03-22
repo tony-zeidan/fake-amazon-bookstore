@@ -16,7 +16,7 @@ public class PurchaseHistory {
 
     public PurchaseHistory() {}
 
-    public void addToHistory(PurchaseItem purchased) {}
+    public void addToHistory(PurchaseItem purchased) {this.history.add(purchased);}
 
     public void setHistory(List<PurchaseItem> history) {
         this.history = history;
