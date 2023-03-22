@@ -193,6 +193,92 @@ body {
     border: solid 1pt #00000D;
 }
 
+#user-books-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 2rem;
+}
+
+.user-book-container {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    background-color: #80bfff;
+    box-shadow: 0 1px 4px #0073e6;
+    margin: 30px;
+    width: 300px;
+    height: 630px;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.user-book-title-container {
+    justify-items: center;
+}
+
+.title-text{
+    color: floralwhite;
+    font-size: 1.4rem;
+    padding: 6px;
+    text-align: center;
+}
+
+.user-picture-container img {
+    height: 400px;
+    width: 100%;
+    border-radius: 1em;
+}
+
+.quantity-input-container {
+    color: cornsilk;
+    padding: 10px;
+}
+
+.quantity-input-container input {
+    width: 50px;
+}
+
+.filter-bar {
+    display: flex;
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
+    justify-content: space-between;
+    box-sizing: border-box;
+}
+
+.filter-box {
+    text-align: center;
+    align-items: center;
+    height: 80px;
+}
+
+.user-filter-button {
+    align-items: center;
+    text-align: center;
+}
+
+.filter-box p {
+    color: cornsilk;
+    font-weight: bold;
+}
+
+.filter-input-container {
+    display: flex;
+    gap: 8px;
+}
+
+.add-to-cart-button {
+    padding: 5px;
+    background-color: cornflowerblue;
+    font-weight: bolder;
+    font-size: 18px;
+    width: 100%;
+    justify-self: flex-end;
+    border-radius: 0.2em;
+    cursor: pointer
+}
 .tableview {
     margin-left: auto;
     margin-right: auto;
@@ -218,8 +304,6 @@ body {
     color: white;
     font-size: 16pt;
 }
-
-/*cart*/
 .item-card {
     /* Add shadows to create the "card" effect */
     width: 300px;

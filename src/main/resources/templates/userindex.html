@@ -5,6 +5,7 @@
     <title>FakeAmazonBookstore - User Home</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/userPage.js}"></script>
 </head>
 <body>
 <header class="bl-header">
@@ -17,5 +18,42 @@
         <li><a href="/user/viewcart" th:text="'View Cart (' + ${cart} + ')'"></a></li>
     </ul>
 </nav>
+
+<div class="filter-bar">
+    <div class="filter-input-container">
+        <div class="filter-box">
+            <p>Name</p>
+            <input type="text" class="bl-generalinput" id="userNameFilter">
+        </div>
+
+        <div class="filter-box">
+            <p>Isbn</p>
+            <input type="text" class="bl-generalinput" id="userIsbnFilter">
+        </div>
+
+        <div class="filter-box">
+            <p>Description</p>
+            <input type="text" class="bl-generalinput" id="userDescriptionFilter">
+        </div>
+
+        <div class="filter-box">
+            <p>Publisher</p>
+            <input type="text" class="bl-generalinput" id="userPublisherFilter">
+        </div>
+    </div>
+    <div class="user-filter-button">
+        <button class="bl-button" id="user-search-button"> Search </button>
+    </div>
+</div>
+
+<div id="user-books-container">
+
+</div>
+
+<div class="content-div">
+    <button class="bl-button" id="prevButton">prev</button>
+    <button class="bl-button" id="nextButton">next</button>
+</div>
+
 </body>
 </html>
