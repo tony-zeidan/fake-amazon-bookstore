@@ -31,9 +31,10 @@ public class BookstoreBackendApplication {
 	@EventListener(ApplicationReadyEvent.class)
 	public void addToCart() {
 		Customer customer = customerRepo.findByUsername("user");
-		List<Book> books = (List<Book>) bookRepo.findAll();
+		List<Book> books = bookRepo.findAll();
 		for (Book b: books) {
 			ShoppingCartItem item = new ShoppingCartItem();
+			item.setCustomer(customer);
 			item.setQuantity(1);
 			item.setBook(b);
 			itemRepo.save(item);

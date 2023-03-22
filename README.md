@@ -7,13 +7,34 @@ Bookstore Owner can upload and edit Book information (ISBN, picture, description
 
 
 ## Database schema ##
-![img.png](img.png)
+![ERD.png](ERD.PNG)
+
+## UML Diagram ##
+![BookOwnerRestController.png](BookOwnerRestController.png)
 
 ## Current State of Project ##
-Currently, the bookstore admin page has the ability to upload a new book,
-and the ability to view all the books stored. The admin is also able to edit the quantity of the inventory he/she has
-and edit the details of individual books. A user authentication scheme has been set up to protect specified URLs
-of the application.
+### Functionality
+Currently, the bookstore admin page has the following abilities:
+ - Access the administrative view, the bookstore view, and the user cart page
+ - Upload a new book, with a specified name, description, ISBN, and quantity in stock
+ - Modify the stock of a particular book
+ - Remove books entirely from the bookstore
+ - View all the books stored in the bookstore
+
+
+The bookstore user page also has the following abilities:
+ - Access the bookstore view and the user cart page
+ - Add items to their cart
+ - View cart items
+ - Change quantities of specific items in cart
+ - Remove items completely from cart
+
+
+Guests finally have the following abilities:
+ - Access the homepage
+ - Register for a new unique account
+ - Login with user account credentials
+ - Logout from account
 
 ## Milestones ##
 Milestone 1: Early prototype. Give a 10-15 minute demo during the lab on March 8h.

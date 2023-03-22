@@ -11,8 +11,10 @@ public class ShoppingCartItem {
     private Long id;
 
     @ManyToOne(fetch=FetchType.EAGER)
-    @JoinColumn(name="book_id", referencedColumnName = "id", nullable = false)
     private Book book;
+
+    @ManyToOne
+    private Customer customer;
 
     @Min(1)
     @Column(name = "quantity")
@@ -44,5 +46,13 @@ public class ShoppingCartItem {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 }

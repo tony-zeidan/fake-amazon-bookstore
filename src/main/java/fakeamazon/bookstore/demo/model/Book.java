@@ -18,7 +18,7 @@ import java.util.List;
 @Table(name = "books")
 public class Book {
 
-    @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name="cart_item_id", referencedColumnName="id")
     private List<ShoppingCartItem> shoppingCartItem;
 
@@ -110,5 +110,13 @@ public class Book {
     @Override
     public String toString() {
         return String.format("BOOKOBJ: (name=%s, isbn=%s, publisher=%s, quantity=%d, description=%s, picture=%s)", this.name, this.isbn, this.publisher, this.quantity, this.description, this.picture);
+    }
+
+    public List<ShoppingCartItem> getShoppingCartItem() {
+        return shoppingCartItem;
+    }
+
+    public void setShoppingCartItem(List<ShoppingCartItem> shoppingCartItem) {
+        this.shoppingCartItem = shoppingCartItem;
     }
 }
