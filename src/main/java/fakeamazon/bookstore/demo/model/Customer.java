@@ -1,5 +1,6 @@
 package fakeamazon.bookstore.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -12,10 +13,11 @@ public class Customer {
     private String username;
 
     @Column(name="cart")
-    @OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+    @OneToMany(fetch=FetchType.EAGER, mappedBy = "customer")
+    @JsonIgnore
     private List<ShoppingCartItem> cart;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL)
     private PurchaseHistory history;
 
     public Customer() {}

@@ -49,8 +49,6 @@ $( document ).ready(function() {
         img.show();
     }
 
-    // the expand/collapse button
-
     // this is when the expand or collapse buton is clicked
     btn.click(function(e) {
         e.preventDefault();
