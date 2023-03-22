@@ -6,6 +6,7 @@
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script type="text/javascript" th:src="@{/js/edit_cart.js}"></script>
+    <script type="text/javascript" th:src="@{/js/place_order.js}"></script>
 </head>
 <body>
 <header class="bl-header">
@@ -43,7 +44,7 @@
         </div>
         <input class="cart-submit bl-formbutton" type="button" value="Commit Changes!"/>
     </fieldset>
-    <input class="cart-order bl-formbutton" type="button" value="Place Order!" />
+    <input class="cart-order bl-formbutton" type="button" value="Place Order!" id="placeOrder"/>
 </form>
 </body>
 </html>

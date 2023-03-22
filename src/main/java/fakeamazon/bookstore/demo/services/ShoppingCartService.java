@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
@@ -120,5 +121,16 @@ public class ShoppingCartService {
         shoppingCartItemRepo.deleteShoppingCartItemByBook_IdAndCustomer_Username(template.getId(), customer.getUsername());
 
         return Optional.ofNullable(item);
+    }
+
+    public Customer clearCart(Customer currUser) {
+        List<ShoppingCartItem> currCart = currUser.getCart();
+        List<ShoppingCartItem> updatedCart = new ArrayList<>(currUser.getCart());
+        for (ShoppingCartItem item: updatedCart) {
+            currCart.remove(item);
+            shoppingCartItemRepo.delete(item);
+        }
+        currUser.setCart(currCart);
+        return currUser;
     }
 }
