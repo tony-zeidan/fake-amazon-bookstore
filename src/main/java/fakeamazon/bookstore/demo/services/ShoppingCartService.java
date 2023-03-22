@@ -33,6 +33,11 @@ public class ShoppingCartService {
         this.shoppingCartItemRepo = shoppingCartItemRepo;
     }
 
+    public List<ShoppingCartItem> getItemsForCustomer(Authentication auth) {
+        Customer customer = detailsService.getCustomerDetails(auth);
+        return shoppingCartItemRepo.findAllByCustomer_Username(customer.getUsername());
+    }
+
     public Optional<ShoppingCartItem> fromTemplate(Customer customer, BookQuantityTemplate template) {
         Optional<Book> book = bookRepo.findById(template.getId());
         ShoppingCartItem itemConcrete = null;
