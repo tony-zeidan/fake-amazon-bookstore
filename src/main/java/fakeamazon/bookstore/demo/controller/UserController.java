@@ -62,6 +62,7 @@ public class UserController {
     public String getUserCartPage(Authentication auth, Model model) {
         Customer customer = detailsService.getCustomerDetails(auth);
         model.addAttribute("username", customer.getUsername());
+        System.out.println(customer.getCart());
         model.addAttribute("cart", customer.getCart());
         return "cartview";
     }
