@@ -1,5 +1,6 @@
 package fakeamazon.bookstore.demo.services;
 
+import fakeamazon.bookstore.demo.exceptions.QuantityInvalidException;
 import fakeamazon.bookstore.demo.model.Book;
 import fakeamazon.bookstore.demo.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class BookOwnerInventoryService {
             currBook.setQuantity(currBook.getQuantity() + newQuantity);
             bookRepository.save(currBook);
         } else {
-            throw new IllegalArgumentException();
+            throw new QuantityInvalidException(currBook.getName());
         }
         //Will return empty Optional<Book> if book not found with specified ID or quantity invalid
         return currBookLookup;

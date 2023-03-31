@@ -1,23 +1,17 @@
 package fakeamazon.bookstore.demo.controller;
 
+import fakeamazon.bookstore.demo.exceptions.QuantityInvalidException;
 import fakeamazon.bookstore.demo.model.Book;
 import fakeamazon.bookstore.demo.input.templates.BookQuantityTemplate;
-import fakeamazon.bookstore.demo.repository.BookRepository;
 import fakeamazon.bookstore.demo.services.BookOwnerInventoryService;
 import fakeamazon.bookstore.demo.services.BookRepoService;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -49,8 +43,8 @@ public class BookOwnerRestController {
         try {
             Optional<Book> updatedBook = inventoryService.updateQuantity(newBook.getId(), newBook.getQuantity());
             return ResponseEntity.of(updatedBook);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(null);
+        } catch (QuantityInvalidException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).header("ErrorResponse", e.getMessage()).body(null);
         }
     }
 

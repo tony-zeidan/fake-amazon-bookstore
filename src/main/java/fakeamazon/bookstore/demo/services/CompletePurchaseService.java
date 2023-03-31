@@ -1,5 +1,7 @@
 package fakeamazon.bookstore.demo.services;
 
+import fakeamazon.bookstore.demo.exceptions.NoSuchBookException;
+import fakeamazon.bookstore.demo.exceptions.QuantityInvalidException;
 import fakeamazon.bookstore.demo.model.*;
 import fakeamazon.bookstore.demo.repository.PurchaseHistoryRepository;
 
@@ -50,7 +52,7 @@ public class CompletePurchaseService {
             int bookQuantity = itemBook.getQuantity();
 
             if (itemQuantity > bookQuantity){
-                throw new NoSuchElementException();
+                throw new QuantityInvalidException(itemBook.getName());
             }
         }
 
@@ -62,7 +64,7 @@ public class CompletePurchaseService {
 
             //Book not found for some reason, therefore quantity not updated
             if (!quantityResponse.isPresent()){
-                throw new NoSuchElementException();
+                throw new NoSuchBookException(itemBook.getName());
             } else {
                 //Not saving the purchase item to the repo and purchase history right away because the entire transaction should be invalid if one of them fails
                 PurchaseItem newPurchaseItem = new PurchaseItem();
