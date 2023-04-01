@@ -359,3 +359,56 @@ body {
 .alert-text {
     color: inherit;
 }
+
+.order-items {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.order-item {
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 15px;
+}
+
+.order-item-detail-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.order-item-detail {
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+    padding: 10px;
+    color: white;
+}
+
+.order-item-image-container {
+    margin: 5px;
+    padding: 10px;
+}
+
+.order-item-detail-unit {
+    margin-top: 5px;
+}
+
+.order-item-detail-unit {
+    margin-top: 5px;
+    margin-bottom: 8px;
+}
+
+
+.hr-divider {
+    width: 96%;
+    height: 1px;
+    background-color: #cccccc;
+    margin: 0 auto;
+}
+
+.order-item-image{
+    width: 140px;
+    height: 200px;
+    border-radius: 2px;
+}

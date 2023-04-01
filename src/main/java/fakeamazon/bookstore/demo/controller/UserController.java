@@ -65,4 +65,13 @@ public class UserController {
         model.addAttribute("cart", customer.getCart());
         return "cartview";
     }
+
+    @GetMapping("history")
+    public String getUserHistoryPage(Authentication auth, Model model) {
+        Customer customer = detailsService.getCustomerDetails(auth);
+        model.addAttribute("username", customer.getUsername());
+        model.addAttribute("items", customer.getHistory().getHistory());
+        return "historyview";
+    }
+
 }

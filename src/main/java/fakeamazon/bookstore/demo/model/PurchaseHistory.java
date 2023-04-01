@@ -11,7 +11,7 @@ public class PurchaseHistory {
     @GeneratedValue
     private long id;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<PurchaseItem> history;
 
     public PurchaseHistory() {}

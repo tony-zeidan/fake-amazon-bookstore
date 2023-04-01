@@ -142,4 +142,14 @@ class BookstoreOwnerTests {
 						.content(asJsonString(updateVals)).contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(status().isBadRequest());
 	}
+
+	@Test
+	@WithMockUser(username="admin225", roles={"ADMIN"})
+	void testGetAllUsernameList() throws Exception {
+		this.mockMvc.perform(MockMvcRequestBuilders
+				.get("http://localhost:8080/owneractions/usernamelist"))
+				.andExpect(content().string(containsString("user1")))
+				.andExpect(content().string(containsString("user")))
+				.andExpect(status().isOk());
+	}
 }

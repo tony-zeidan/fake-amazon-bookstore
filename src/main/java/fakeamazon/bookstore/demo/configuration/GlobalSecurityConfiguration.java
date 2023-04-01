@@ -70,6 +70,12 @@ public class GlobalSecurityConfiguration {
                 .roles("USER")
                 .build();
 
+        UserDetails user1 = User.builder()
+                .username("user1")
+                .password(passwordEncoder().encode("password"))
+                .roles("USER")
+                .build();
+
         UserDetails admin = User.builder()
                 .username("admin")
                 .password(passwordEncoder().encode("admin"))
@@ -77,6 +83,7 @@ public class GlobalSecurityConfiguration {
                 .build();
         UserDetailsManager users = new CustomerCreationUserDetailsManagerDecorator(new JdbcUserDetailsManager(dataSource), this.customerDetailsService);
         users.createUser(user);
+        users.createUser(user1);
         users.createUser(admin);
 
         return users;

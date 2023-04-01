@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FakeAmazonBookstore - User Home</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+</head>
+<body>
+<header class="bl-header">
+    <h1>FakeAmazonBookstore - User - Order History</h1>
+</header>
+<nav class="bl-nav">
+    <ul>
+        <li><a href="/user">Home</a></li>
+        <li><a id="active-item" href="/user/viewcart" th:text="'View Order History (' + ${username} + ')'"></a></li>
+    </ul>
+</nav>
+
+</body>
+</html>
