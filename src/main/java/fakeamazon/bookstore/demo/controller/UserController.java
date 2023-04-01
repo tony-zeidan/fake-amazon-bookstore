@@ -70,7 +70,7 @@ public class UserController {
     public String getUserHistoryPage(Authentication auth, Model model) {
         Customer customer = detailsService.getCustomerDetails(auth);
         model.addAttribute("username", customer.getUsername());
-        model.addAttribute("items", customer.getHistory().getHistory());
+        model.addAttribute("items", customer.getHistory().getPurchaseItemHistory());
         return "historyview";
     }
 

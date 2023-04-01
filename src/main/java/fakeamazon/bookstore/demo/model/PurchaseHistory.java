@@ -12,18 +12,18 @@ public class PurchaseHistory {
     private long id;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<PurchaseItem> history;
+    private List<PurchaseItem> purchaseItemHistory;
 
     public PurchaseHistory() {}
 
-    public void addToHistory(PurchaseItem purchased) {this.history.add(purchased);}
+    public void addToHistory(PurchaseItem purchased) {this.purchaseItemHistory.add(purchased);}
 
-    public void setHistory(List<PurchaseItem> history) {
-        this.history = history;
+    public void setPurchaseItemHistory(List<PurchaseItem> history) {
+        this.purchaseItemHistory = history;
     }
 
-    public List<PurchaseItem> getHistory() {
-        return this.history;
+    public List<PurchaseItem> getPurchaseItemHistory() {
+        return this.purchaseItemHistory;
     }
 
     public long getId() {

@@ -19,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("owneractions")
@@ -73,11 +74,8 @@ public class BookOwnerRestController {
 
     @GetMapping(path = "usernamelist")
     public ResponseEntity<List<CustomerUsernameTemplate>>userList() {
-        LinkedList<CustomerUsernameTemplate> customersList = new LinkedList<>();
-        Iterator<Customer> customerIterator = customerRepository.findAll().iterator();
-        while(customerIterator.hasNext()) {
-            customersList.add(new CustomerUsernameTemplate((customerIterator.next().getUsername())));
-        }
+        // only getting the username attribute from the customers, who have actual purchase history.
+        List<CustomerUsernameTemplate> customersList = customerRepository.findCustomersWithPurchaseItems().stream().map(c -> new CustomerUsernameTemplate(c.getUsername())).collect(Collectors.toList());
             return ResponseEntity.ok().body(customersList);
         }
 }
