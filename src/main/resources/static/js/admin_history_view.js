@@ -6,6 +6,12 @@ $( document ).ready(function() {
         url: "/owneractions/usernamelist",
         success: function (data) {
             console.log(data)
+            data.forEach((username) => {
+                const usernameDiv = $(document.createElement("div"))
+                const usernameP = $(document.createElement("p"));
+                usernameDiv.append(usernameP);
+                nameListDiv.append(usernameDiv);
+            })
         },
         error: function (errorThrown) {
             alert(errorThrown)
