@@ -39,6 +39,10 @@ body {
     padding: 8px;
     color: #B1D4E0;
     background-color: #0C2D48;
+    cursor: pointer;
+}
+.bl-nav li a:hover{
+    background-color: #1f4d75;
 }
 
 .bl-nav li #active-item {
@@ -411,4 +415,26 @@ body {
     width: 140px;
     height: 200px;
     border-radius: 2px;
+}
+
+.user-name-list {
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+    margin-left: 40px;
+    width: 80px;
+}
+
+.user-name-list-item {
+    background-color: #B1D4E0;
+    color: #20336b;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.user-name-list-item:hover {
+    background-color: #DCEFF6; /* slightly lighter background color */
+    font-weight: bold; /* make font bold on hover */
 }

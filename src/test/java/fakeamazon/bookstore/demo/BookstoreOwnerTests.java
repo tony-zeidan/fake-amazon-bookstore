@@ -151,6 +151,7 @@ class BookstoreOwnerTests {
 				.get("http://localhost:8080/owneractions/usernamelist"))
 				.andExpect(content().string(Matchers.not(containsString("user1"))))
 				.andExpect(content().string(containsString("user")))
+				.andExpect(content().string(containsString("Nick")))
 				.andExpect(status().isOk());
 	}
 }
