@@ -28,7 +28,7 @@
                 <div class="order-item-detail">
                     <div class="order-item-detail-unit-order-date">
                         <label th:text="'Order Placed Date:  '"></label>
-                        <label th:text="${item.getCreatedAt()}"></label>
+                        <label th:text="${#dates.format(item.getCreatedAt(), 'yyyy-MM-dd HH:mm')}"></label>
                     </div>
                     <div class="order-item-detail-unit">
                         <label th:text="'Book Name:  '"></label>
