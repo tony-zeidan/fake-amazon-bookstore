@@ -5,9 +5,7 @@ $( document ).ready(function() {
         type: "get",
         url: "/owneractions/usernamelist",
         success: function (res) {
-            console.log(res)
             res.forEach((data) => {
-                console.log(data.username)
                 const usernameDiv = $(document.createElement("div"))
                 usernameDiv.click(() => {
                     window.location.href = `http://localhost:8080/owner/history?username=${data.username}`
@@ -24,4 +22,17 @@ $( document ).ready(function() {
             alert(errorThrown)
         }
     });
+
+    const searchBox = $("#username-search-input")
+    searchBox.on("input", () => {
+        const filter = searchBox.val().toLowerCase();
+        nameList.forEach((username) => {
+            const usernameDiv = $(`#user-name-list .user-name-list-item:contains('${username}')`);
+            if (username.toLowerCase().startsWith(filter)) {
+                usernameDiv.show();
+            } else {
+                usernameDiv.hide();
+            }
+        });
+    })
 })

@@ -420,7 +420,7 @@ body {
 .user-name-list {
     display: flex;
     flex-direction: column;
-    margin-top: 50px;
+    margin-top: 5px;
     margin-left: 40px;
     width: 80px;
 }
@@ -437,4 +437,24 @@ body {
 .user-name-list-item:hover {
     background-color: #DCEFF6; /* slightly lighter background color */
     font-weight: bold; /* make font bold on hover */
+}
+
+.username-search-div {
+    margin-top: 30px;
+    margin-left: 40px;
+    height: 60px;
+}
+
+#username-search-input {
+    color: #00000D;
+    width: 200px;
+    outline: none;
+    border-radius: 3px;
+    background-color: #e0f5f8;
+    font-size: 1.1rem;
+    height: 20px;
+}
+
+#username-search-input::placeholder {
+    color: #999;
 }
