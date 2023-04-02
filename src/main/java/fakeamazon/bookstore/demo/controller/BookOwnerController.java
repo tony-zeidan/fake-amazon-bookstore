@@ -4,6 +4,7 @@ import fakeamazon.bookstore.demo.model.Book;
 import fakeamazon.bookstore.demo.model.Customer;
 import fakeamazon.bookstore.demo.repository.BookRepository;
 import fakeamazon.bookstore.demo.repository.CustomerRepository;
+import fakeamazon.bookstore.demo.services.CustomerDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,7 +44,14 @@ public class BookOwnerController {
         return "editbookpage";
     }
     @GetMapping("history")
-    public String history() {
-        return "adminhistoryview";
+    public String history(@RequestParam(required = false) String username, Model model) {
+        if (username == null) {
+            return "adminhistoryview";
+        } else {
+            Customer customer = customerRepository.findByUsername(username);
+            model.addAttribute("username", customer.getUsername());
+            model.addAttribute("items", customer.getHistory().getPurchaseItemHistory());
+            return "adminhistoryviewdetail";
+        }
     }
 }
