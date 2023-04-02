@@ -268,7 +268,7 @@ class BookstoreUserTests {
 		this.mockMvc.perform(MockMvcRequestBuilders.delete("http://localhost:8080/useractions/completeorder")).andExpect(status().isOk());
 
 		//Check if cart is empty
-		this.mockMvc.perform(MockMvcRequestBuilders.get("http://localhost:8080/useractions/getcartitems")).andExpect(content().string("[]"));
+		this.mockMvc.perform(MockMvcRequestBuilders.get("http://localhost:8080/useractions/getcartitems")).andExpect(content().string("[ ]"));
 
 		//Add books to cart again
 		this.mockMvc.perform(MockMvcRequestBuilders.post(

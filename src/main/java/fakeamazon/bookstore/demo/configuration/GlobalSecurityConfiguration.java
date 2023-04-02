@@ -33,6 +33,8 @@ public class GlobalSecurityConfiguration {
             .logout()
                 .logoutSuccessUrl("/");
         http.authorizeHttpRequests()
+                .requestMatchers("/bookstore/stopRepo")
+                    .permitAll()
                 .requestMatchers("/bookstore")
                     .authenticated()
                 .requestMatchers("/bookstore/**")

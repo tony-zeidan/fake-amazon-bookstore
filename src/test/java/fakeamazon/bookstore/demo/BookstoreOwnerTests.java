@@ -126,7 +126,7 @@ class BookstoreOwnerTests {
 		this.mockMvc.perform(MockMvcRequestBuilders.patch("http://localhost:8080/owneractions/inventory")
 				.content(asJsonString(updateVals)).contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(status().isOk())
-				.andExpect(content().string(containsString("\"quantity\":"+(updateVals.getQuantity() + retrieveBook.getQuantity()))));
+				.andExpect(content().string(containsString("\"quantity\" : "+(updateVals.getQuantity() + retrieveBook.getQuantity()))));
 
 		retrieveBook = bookRepository.findByIsbn("CuriousG11");
 		//Decrement inventory
@@ -135,7 +135,7 @@ class BookstoreOwnerTests {
 		this.mockMvc.perform(MockMvcRequestBuilders.patch("http://localhost:8080/owneractions/inventory")
 						.content(asJsonString(updateVals)).contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(status().isOk())
-				.andExpect(content().string(containsString("\"quantity\":"+(updateVals.getQuantity() + retrieveBook.getQuantity()))));
+				.andExpect(content().string(containsString("\"quantity\" : "+(updateVals.getQuantity() + retrieveBook.getQuantity()))));
 
 		//Enter invalid inventory update
 		updateVals.setQuantity(-300);
