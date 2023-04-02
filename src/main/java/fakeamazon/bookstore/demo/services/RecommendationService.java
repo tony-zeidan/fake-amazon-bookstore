@@ -2,23 +2,19 @@ package fakeamazon.bookstore.demo.services;
 
 import fakeamazon.bookstore.demo.model.Book;
 import fakeamazon.bookstore.demo.model.Customer;
-import fakeamazon.bookstore.demo.repository.BookRepository;
 import fakeamazon.bookstore.demo.repository.CustomerRepository;
-import org.springframework.security.core.Authentication;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
 public class RecommendationService {
-    private final CustomerRepository customerRepo;
-    public RecommendationService(CustomerRepository customerRepo) {
-        this.customerRepo = customerRepo;
-    }
+    @Autowired
+    private CustomerRepository customerRepo;
     public ArrayList<Book> getRecommendations(Customer customer) {
         double min = 1.0;
         Customer customerRecommend = customer;
