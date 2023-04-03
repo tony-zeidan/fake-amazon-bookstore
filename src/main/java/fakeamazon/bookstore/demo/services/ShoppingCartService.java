@@ -36,6 +36,7 @@ public class ShoppingCartService {
         this.shoppingCartItemRepo = shoppingCartItemRepo;
     }
 
+    @LoggedServiceOperation
     public List<ShoppingCartItem> getItemsForCustomer(Authentication auth) {
         Customer customer = detailsService.getCustomerDetails(auth);
         return shoppingCartItemRepo.findAllByCustomer_Username(customer.getUsername());

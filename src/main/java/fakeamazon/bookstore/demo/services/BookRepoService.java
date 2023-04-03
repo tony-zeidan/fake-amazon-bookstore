@@ -1,5 +1,6 @@
 package fakeamazon.bookstore.demo.services;
 
+import fakeamazon.bookstore.demo.aop.LoggedServiceOperation;
 import fakeamazon.bookstore.demo.model.Book;
 import fakeamazon.bookstore.demo.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +16,12 @@ public class BookRepoService {
         this.bookRepo = bookRepo;
     }
 
+    @LoggedServiceOperation
     public Book upload(Book book) {
         return bookRepo.save(book);
     }
 
+    @LoggedServiceOperation
     public Book getBookById(Long id) {
         return bookRepo.findById(id).get();
     }
