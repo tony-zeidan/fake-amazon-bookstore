@@ -8,6 +8,12 @@ import java.util.List;
 
 public interface CustomerRepository extends CrudRepository<Customer, Long> {
 
+    /**
+     * Find a customer by their username.
+     *
+     * @param username Customer username
+     * @return Customer entity
+     */
     Customer findByUsername(String username);
 
     @Query("SELECT c FROM Customer c WHERE SIZE(c.history.purchaseItemHistory) > 0")

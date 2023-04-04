@@ -9,10 +9,28 @@ import java.util.List;
 
 public interface ShoppingCartItemRepository extends CrudRepository<ShoppingCartItem, Long> {
 
-    ShoppingCartItem findById(long id);
+    /**
+     * Find the shopping cart item with the given book id and the customer username.
+     *
+     * @param book_Id book ID to find
+     * @param customer_username Username to find
+     * @return The shopping cart item for the givens
+     */
     ShoppingCartItem findShoppingCartItemByBook_IdAndCustomer_Username(long book_Id, String customer_username);
-    void deleteShoppingCartItemByBook_IdAndCustomer_Username(long book_Id, String customer_username);
-    void deleteAllByCustomer(Customer customer);
 
+    /**
+     * Delete the shopping cart item with the given book id and the customer username.
+     *
+     * @param book_Id book ID to find
+     * @param customer_username Username to find
+     */
+    void deleteShoppingCartItemByBook_IdAndCustomer_Username(long book_Id, String customer_username);
+
+    /**
+     * Find all the shopping cart items for the given customer username.
+     *
+     * @param customer_username Username to find
+     * @return All the books for that user
+     */
     List<ShoppingCartItem> findAllByCustomer_Username(String customer_username);
 }

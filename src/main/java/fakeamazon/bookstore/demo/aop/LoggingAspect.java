@@ -8,30 +8,29 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StopWatch;
 
+/**
+ * Aspect for logging the entry and exit of service functions.
+ */
 @Component
 @Aspect
 public class LoggingAspect {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
+    /**
+     * Pointcut for any loggable service function.
+     */
     @Pointcut("@annotation(LoggedServiceOperation)")
     public void logServiceOperationPointcut() {
     }
 
-    @Pointcut("@annotation(Log)")
-    public void logPointcut() {
-    }
-
-    @Before("logPointcut()")
-    public void logAllMethodCallsAdvice(){
-
-    }
-
-    @Before("logServiceOperationPointcut()")
-    public void logServiceEntry(JoinPoint point){
-
-    }
-
+    /**
+     * Attempt to log entry and exit from any function annotated with @LoggedServiceOperation.
+     *
+     * @param point The JointPoint of the function (preceding)
+     * @return The return value of the function being annotated
+     * @throws Throwable If for some reason the JointPoint can't be walked through
+     */
     @Around("logServiceOperationPointcut()")
     public Object logServiceEntryExit(ProceedingJoinPoint point) throws Throwable {
         String name = point.getSignature().getDeclaringType().getSimpleName() + ":" + point.getSignature().getName();

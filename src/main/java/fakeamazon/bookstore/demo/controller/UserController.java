@@ -58,6 +58,13 @@ public class UserController {
 
     }
 
+    /**
+     * Endpoint for fetching the user index page.
+     *
+     * @param auth Spring boot authentication context
+     * @param model Spring boot model
+     * @return User index
+     */
     @GetMapping("")
     public String getUserIndex(Authentication auth, Model model) {
         Customer customer = detailsService.getCustomerDetails(auth);
@@ -65,6 +72,13 @@ public class UserController {
         return "userindex";
     }
 
+    /**
+     * Endpoint for fetching of the viewcart page.
+     *
+     * @param auth Spring boot authentication context
+     * @param model Spring boot model
+     * @return Viewcart page
+     */
     @GetMapping("viewcart")
     public String getUserCartPage(Authentication auth, Model model) {
         Customer customer = detailsService.getCustomerDetails(auth);
