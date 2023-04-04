@@ -36,12 +36,25 @@ public class ShoppingCartService {
         this.shoppingCartItemRepo = shoppingCartItemRepo;
     }
 
+    /**
+     * Retrieve the shopping cart items currently in the customer's shopping cart.
+     *
+     * @param auth Spring boot authentication context
+     * @return The list of items in the cart
+     */
     @LoggedServiceOperation
     public List<ShoppingCartItem> getItemsForCustomer(Authentication auth) {
         Customer customer = detailsService.getCustomerDetails(auth);
         return shoppingCartItemRepo.findAllByCustomer_Username(customer.getUsername());
     }
 
+    /**
+     * A function that transforms that makes a shopping cart item for the given customer.
+     *
+     * @param customer The customer to add the shopping cart item to
+     * @param template The user input template containing ID and quantity
+     * @return If present, the shopping cart item
+     */
     public Optional<ShoppingCartItem> fromTemplate(Customer customer, BookQuantityTemplate template) {
         Optional<Book> book = bookRepo.findById(template.getId());
         ShoppingCartItem itemConcrete = null;
@@ -54,6 +67,13 @@ public class ShoppingCartService {
         return Optional.ofNullable(itemConcrete);
     }
 
+    /**
+     * Add an item to the current user's cart.
+     *
+     * @param auth Spring boot authentication context
+     * @param template User input template containing book quantity and ID
+     * @return If present, the new item that was created, and if not this means the book was already present
+     */
     @LoggedServiceOperation
     public Optional<ShoppingCartItem> addToCart(Authentication auth, BookQuantityTemplate template) {
 
@@ -82,6 +102,13 @@ public class ShoppingCartService {
         }
     }
 
+    /**
+     * Change the amount of books of a specific shopping cart item in the user's cart.
+     *
+     * @param auth Spring boot authentication context
+     * @param template User input template containing ID and quantity
+     * @return Not relevant, tells whether the cart item was added correctly or not
+     */
     @LoggedServiceOperation
     public Optional<ShoppingCartItem> changeCartAmount(Authentication auth, BookQuantityTemplate template) {
         Customer customer = detailsService.getCustomerDetails(auth);
@@ -120,6 +147,13 @@ public class ShoppingCartService {
         return Optional.of(item);
     }
 
+    /**
+     * Remove an item from the user's cart.
+     *
+     * @param auth Spring boot authentication context
+     * @param template The user input template containing ID
+     * @return If present, the item removed, otherwise nothing
+     */
     @LoggedServiceOperation
     public Optional<ShoppingCartItem> removeCartItem(Authentication auth, BookIdTemplate template) {
         Customer customer = detailsService.getCustomerDetails(auth);
