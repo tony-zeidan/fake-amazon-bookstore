@@ -23,6 +23,15 @@ public class BookRepositoryImpl implements BookRepositoryCustom {
 
     public BookRepositoryImpl(){}
 
+    /**
+     * Allows for paging and filtering for the BookRepository.
+     * @param name filters the inventory based on the book's name
+     * @param isbn filters the inventory based on the book's isbn
+     * @param description filters the inventory based on the book's description
+     * @param publisher filters the inventory based on the book's publisher
+     * @param pageable the current page and size that is being requested
+     * @return The books that match the filter for the page and size
+     */
     @Override
     public Page<Book> getFilterBooks(String name, String isbn, String description, String publisher, Pageable pageable) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
