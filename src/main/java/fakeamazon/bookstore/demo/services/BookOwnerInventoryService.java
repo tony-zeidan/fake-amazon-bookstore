@@ -1,5 +1,6 @@
 package fakeamazon.bookstore.demo.services;
 
+import fakeamazon.bookstore.demo.aop.LoggedServiceOperation;
 import fakeamazon.bookstore.demo.model.Book;
 import fakeamazon.bookstore.demo.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ public class BookOwnerInventoryService {
         this.bookRepository = bookRepository;
     }
 
+    @LoggedServiceOperation
     public Optional<Book> updateQuantity(Long currId, Integer newQuantity){
         Optional<Book> currBookLookup = bookRepository.findById(currId);
         if (currBookLookup.isEmpty()) return currBookLookup;

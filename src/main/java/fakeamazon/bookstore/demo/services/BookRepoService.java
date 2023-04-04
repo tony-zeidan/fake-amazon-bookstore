@@ -1,5 +1,6 @@
 package fakeamazon.bookstore.demo.services;
 
+import fakeamazon.bookstore.demo.aop.LoggedServiceOperation;
 import fakeamazon.bookstore.demo.exceptions.BookRepoDownException;
 import fakeamazon.bookstore.demo.model.Book;
 import fakeamazon.bookstore.demo.repository.BookRepository;
@@ -26,10 +27,12 @@ public class BookRepoService {
         this.repoUp = true;
     }
 
+    @LoggedServiceOperation
     public Book upload(Book book) {
         return bookRepo.save(book);
     }
 
+    @LoggedServiceOperation
     public Book getBookById(Long id) {
         return bookRepo.findById(id).get();
     }
