@@ -33,6 +33,12 @@ public class BookOwnerRestController {
         this.inventoryService = inventoryService;
     }
 
+    /**
+     * Endpoint for the uploading of a book.
+     *
+     * @param book The book to add and all of it's details
+     * @return CREATED if book was created otherwise FORBIDDEN
+     */
     @PostMapping(path = "upload", consumes = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<String> uploadHook(@RequestBody Book book) {
         Book uploaded = bookRepoService.upload(book);

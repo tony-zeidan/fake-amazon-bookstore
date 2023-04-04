@@ -29,6 +29,13 @@ public class ShoppingCartService {
 
     private final ShoppingCartItemRepository shoppingCartItemRepo;
 
+    /**
+     * Shopping cart service that allows the modification of customer shopping carts.
+     *
+     * @param detailsService Details service to get customers
+     * @param bookRepo Book repository
+     * @param shoppingCartItemRepo ShoppingCartItem repository
+     */
     @Autowired
     public ShoppingCartService(CustomerDetailsService detailsService, BookRepository bookRepo, ShoppingCartItemRepository shoppingCartItemRepo) {
         this.detailsService = detailsService;
