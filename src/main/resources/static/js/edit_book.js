@@ -1,7 +1,5 @@
-// handle submit button click for editbookpage
-// http://localhost:8080/owner/edit?bookId=1
-
 $( document ).ready(function() {
+    // handle of submit of the edit form
     $("form#editBook").submit(async function(e) {
         e.preventDefault();
         let formData = new FormData();
@@ -26,6 +24,7 @@ $( document ).ready(function() {
         console.log(object)
         let json = JSON.stringify(object);
 
+        // submit a patch request to update the book information
         $.ajax({
             url: `http://localhost:8080/owneractions/edit?id=${bookId}`,
             type: 'PATCH',

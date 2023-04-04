@@ -87,6 +87,13 @@ public class UserController {
         return "cartview";
     }
 
+    /**
+     * Returns the purchase history view for the current customer.
+     *
+     * @param auth the Authentication object
+     * @param model the Model object to set the attribute of username and purchase history
+     * @return the name of the view that displays the purchase history
+     */
     @GetMapping("history")
     public String getUserHistoryPage(Authentication auth, Model model) {
         Customer customer = detailsService.getCustomerDetails(auth);

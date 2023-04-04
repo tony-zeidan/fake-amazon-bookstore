@@ -11,7 +11,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpServerErrorException;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,6 +31,12 @@ public class BookRepoService {
         return bookRepo.save(book);
     }
 
+    /**
+     * Retrieves a Book from the BookRepository based on the provided ID.
+     *
+     * @param id the ID of the Book to retrieve
+     * @return the Book with the provided ID
+     */
     @LoggedServiceOperation
     public Book getBookById(Long id) {
         return bookRepo.findById(id).get();
