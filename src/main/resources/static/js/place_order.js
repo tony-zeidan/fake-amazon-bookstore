@@ -3,8 +3,12 @@ function finishPurchase () {
       type: 'DELETE',
       url: '/useractions/completeorder',
       timeout: 1000,
-      success: function (data, status, xhrObject) {
-         alert("Transaction has been processed");
+      success: function (data) {
+         let runningDetails = "Purchase complete:\n";
+         for (const item of data){
+            runningDetails += '\n' + item['bookName'] + ": " + item['purchaseQuantity'];
+         }
+         alert(runningDetails);
          location.reload();
       },
       error: function(jqXHR, textStatus, errorThrown){

@@ -5,7 +5,7 @@ import fakeamazon.bookstore.demo.exceptions.ShoppingCartAddException;
 import fakeamazon.bookstore.demo.exceptions.ShoppingCartEditException;
 import fakeamazon.bookstore.demo.input.templates.BookIdTemplate;
 import fakeamazon.bookstore.demo.input.templates.BookQuantityTemplate;
-import fakeamazon.bookstore.demo.model.PurchaseHistory;
+import fakeamazon.bookstore.demo.model.PurchaseDetail;
 import fakeamazon.bookstore.demo.model.ShoppingCartItem;
 import fakeamazon.bookstore.demo.services.CompletePurchaseService;
 import fakeamazon.bookstore.demo.services.ShoppingCartService;
@@ -81,10 +81,10 @@ public class UserRestController {
     }
 
     @DeleteMapping("completeorder")
-    public ResponseEntity<PurchaseHistory> completeOrder(Authentication auth) {
+    public ResponseEntity<List<PurchaseDetail>> completeOrder(Authentication auth) {
         try {
-            Optional<PurchaseHistory> currPurchaseHistory = completePurchaseService.completePurchase(auth);
-            return ResponseEntity.of(currPurchaseHistory);
+            Optional<List<PurchaseDetail>> currPurchaseDetails = completePurchaseService.completePurchase(auth);
+            return ResponseEntity.of(currPurchaseDetails);
         } catch (QuantityInvalidException e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).header("ErrorResponse", e.getMessage()).body(null);
         } catch (NoSuchElementException e){

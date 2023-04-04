@@ -35,7 +35,7 @@ public class CompletePurchaseService {
         this.cartService = cartService;
     }
 
-    public Optional<PurchaseHistory> completePurchase(Authentication auth){
+    public Optional<List<PurchaseDetail>> completePurchase(Authentication auth){
         //Check inventory first
         Customer currUser = userService.getCustomerDetails(auth);
         PurchaseHistory currPurchaseHistory = currUser.getHistory();
@@ -89,6 +89,12 @@ public class CompletePurchaseService {
 
         userService.saveCustomer(currUser);
 
-        return Optional.of(currPurchaseHistory);
+        //List of details of books purchased that includes the name and amount
+        List<PurchaseDetail> deets = new ArrayList<>();
+        for (PurchaseItem item: currPurchaseHistory.getHistory()){
+            deets.add(new PurchaseDetail(item.getBook().getName(), item.getQuantity()));
+        }
+
+        return Optional.of(deets);
     }
 }
