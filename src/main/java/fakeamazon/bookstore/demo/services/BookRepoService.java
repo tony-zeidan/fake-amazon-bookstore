@@ -45,7 +45,7 @@ public class BookRepoService {
      * @param isbn filters the inventory based on the book's isbn
      * @param description filters the inventory based on the book's description
      * @param publisher filters the inventory based on the book's publisher
-     * @param Pageable the current page and size that is being requested
+     * @param paging the current page and size that is being requested
      * @return
      */
     @CircuitBreaker(name="CircuitBreakerService", fallbackMethod = "fallback")
@@ -68,7 +68,7 @@ public class BookRepoService {
      * @param isbn filters the inventory based on the book's isbn
      * @param description filters the inventory based on the book's description
      * @param publisher filters the inventory based on the book's publisher
-     * @param Pageable the current page and size that is being requested
+     * @param paging the current page and size that is being requested
      * @return The books that match the filter for the page and size
      * @param e the exception being thrown
      * @return
