@@ -1,5 +1,6 @@
 package fakeamazon.bookstore.demo.services;
 
+import fakeamazon.bookstore.demo.aop.LoggedServiceOperation;
 import fakeamazon.bookstore.demo.model.Book;
 import fakeamazon.bookstore.demo.model.Customer;
 import fakeamazon.bookstore.demo.repository.CustomerRepository;
@@ -15,6 +16,8 @@ import java.util.stream.Collectors;
 public class RecommendationService {
     @Autowired
     private CustomerRepository customerRepo;
+
+    @LoggedServiceOperation
     public ArrayList<Book> getRecommendations(Customer customer) {
         double min = 1.0;
         Customer customerRecommend = customer;
