@@ -93,7 +93,7 @@ public class CompletePurchaseService {
 
         //List of details of books purchased that includes the name and amount
         List<PurchaseDetail> deets = new ArrayList<>();
-        for (PurchaseItem item: currPurchaseHistory.getPurchaseItemHistory()){
+        for (PurchaseItem item: newPurchaseItems){
             deets.add(new PurchaseDetail(item.getBook().getName(), item.getQuantity()));
         }
 
