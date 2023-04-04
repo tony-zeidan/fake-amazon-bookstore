@@ -1,5 +1,6 @@
 package fakeamazon.bookstore.demo.services;
 
+import fakeamazon.bookstore.demo.aop.LoggedServiceOperation;
 import fakeamazon.bookstore.demo.model.*;
 import fakeamazon.bookstore.demo.repository.PurchaseHistoryRepository;
 
@@ -33,6 +34,7 @@ public class CompletePurchaseService {
         this.cartService = cartService;
     }
 
+    @LoggedServiceOperation
     public Optional<PurchaseHistory> completePurchase(Authentication auth){
         //Check inventory first
         Customer currUser = userService.getCustomerDetails(auth);

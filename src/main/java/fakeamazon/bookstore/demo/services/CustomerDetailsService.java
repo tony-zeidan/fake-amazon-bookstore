@@ -1,5 +1,6 @@
 package fakeamazon.bookstore.demo.services;
 
+import fakeamazon.bookstore.demo.aop.LoggedServiceOperation;
 import fakeamazon.bookstore.demo.model.Customer;
 import fakeamazon.bookstore.demo.model.PurchaseHistory;
 import fakeamazon.bookstore.demo.repository.CustomerRepository;
@@ -24,6 +25,7 @@ public class CustomerDetailsService {
         this.purchaseHistoryRepository = purchaseHistoryRepository;
     }
 
+    @LoggedServiceOperation
     public Customer makeCustomer(String username) {
         Customer customer = new Customer();
         customer.setUsername(username);         // PRIMARY KEY needs to be set
@@ -33,12 +35,14 @@ public class CustomerDetailsService {
         return customerRepo.save(customer);
     }
 
+    @LoggedServiceOperation
     public Customer getCustomerDetails(Authentication auth) {
         UserDetails details = (UserDetails) auth.getPrincipal();
         Customer customer = customerRepo.findByUsername(details.getUsername());
         return customer;
     }
 
+    @LoggedServiceOperation
     public Customer saveCustomer(Customer customer) {
         return customerRepo.save(customer);
     }

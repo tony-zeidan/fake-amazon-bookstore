@@ -1,5 +1,6 @@
 package fakeamazon.bookstore.demo.services;
 
+import fakeamazon.bookstore.demo.aop.LoggedServiceOperation;
 import fakeamazon.bookstore.demo.dto.UserDTO;
 import jakarta.transaction.Transactional;
 import org.springframework.security.core.userdetails.User;
@@ -20,6 +21,7 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    @LoggedServiceOperation
     public UserDetails registerNewUser(final UserDTO userDto) {
         if (this.userDetailsManager.userExists(userDto.getUsername())) {
             throw new IllegalArgumentException("There is already an account with the username " + userDto.getUsername() + "!");
