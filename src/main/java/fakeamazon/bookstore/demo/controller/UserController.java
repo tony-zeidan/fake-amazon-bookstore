@@ -1,8 +1,11 @@
 package fakeamazon.bookstore.demo.controller;
 
+import fakeamazon.bookstore.demo.model.Book;
 import fakeamazon.bookstore.demo.model.Customer;
 import fakeamazon.bookstore.demo.services.CustomerDetailsService;
+import fakeamazon.bookstore.demo.services.RecommendationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import fakeamazon.bookstore.demo.dto.UserDTO;
 import fakeamazon.bookstore.demo.services.UserService;
@@ -16,6 +19,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("user")
 public class UserController {
@@ -23,11 +28,13 @@ public class UserController {
     private final CustomerDetailsService detailsService;
 
     private final UserService userService;
+    private final RecommendationService recommendationService;
 
     @Autowired
-    public UserController(CustomerDetailsService detailsService, final UserService userService) {
+    public UserController(CustomerDetailsService detailsService, final UserService userService, RecommendationService recommendationService) {
         this.detailsService = detailsService;
         this.userService = userService;
+        this.recommendationService = recommendationService;
     }
 
     @GetMapping("/registration")
@@ -64,5 +71,23 @@ public class UserController {
         model.addAttribute("username", customer.getUsername());
         model.addAttribute("cart", customer.getCart());
         return "cartview";
+    }
+
+    @GetMapping("history")
+    public String getUserHistoryPage(Authentication auth, Model model) {
+        Customer customer = detailsService.getCustomerDetails(auth);
+        model.addAttribute("username", customer.getUsername());
+        model.addAttribute("items", customer.getHistory().getPurchaseItemHistory());
+        return "historyview";
+    }
+
+    @GetMapping("viewrecommendations")
+    public String getUserRecommendationsPage(Authentication auth, Model model) {
+        Customer customer = detailsService.getCustomerDetails(auth);
+        List<Book> items = recommendationService.getRecommendations(customer);
+        model.addAttribute("username", customer.getUsername());
+        model.addAttribute("cart", customer.getCart());
+        model.addAttribute("recommendations", items);
+        return "recommendationsview";
     }
 }

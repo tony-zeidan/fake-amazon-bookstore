@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>FakeAmazonBookstore - User Recommendations</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+</head>
+<body>
+<header class="bl-header">
+    <h1>FakeAmazonBookstore - Bookstore User - Recommendations</h1>
+</header>
+<nav class="bl-nav">
+    <ul>
+        <li><a href="/user">Home</a></li>
+        <li><a href="/user/viewcart" th:text="'View Cart (' + ${cart.size()} + ')'"></a></li>
+        <li><a id="active-item" href="/user/viewrecommendations">Recommmendations</a></li>
+    </ul>
+</nav>
+<div class="alert-box">
+    <div class="alert-content">
+        <p class="alert-text"></p>
+    </div>
+</div>
+<form action="" class="bl-form">
+    <fieldset>
+        <legend class="cart-legend" th:text="${username} + '’s Recommendations'"></legend>
+        <div id="user-books-container">
+            <div class="user-book-container" th:each="item: ${recommendations}" th:id="'book-'+${item.getId()}" th:data-book="${item.getId()}">
+                <div>
+                    <p class ="title-text" th:text="${item.getName()}"></p>
+                </div>
+                <div class="user-picture-container">
+                    <img class="user-book-image" th:src="${item.getPicture()}" th:alt="${item.getIsbn()}">
+                </div>
+                <div class="quantity-input-container">
+                    <label>quantity: </label>
+                    <input type="number" value = "1" class ="cart-selector-select">
+                </div>
+                <button class="add-to-cart-button cart-selector-btn">add to cart</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+</body>
+</html>

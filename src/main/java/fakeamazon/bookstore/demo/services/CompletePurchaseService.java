@@ -2,6 +2,7 @@ package fakeamazon.bookstore.demo.services;
 
 import fakeamazon.bookstore.demo.exceptions.NoSuchBookException;
 import fakeamazon.bookstore.demo.exceptions.QuantityInvalidException;
+import fakeamazon.bookstore.demo.aop.LoggedServiceOperation;
 import fakeamazon.bookstore.demo.model.*;
 import fakeamazon.bookstore.demo.repository.PurchaseHistoryRepository;
 
@@ -35,6 +36,7 @@ public class CompletePurchaseService {
         this.cartService = cartService;
     }
 
+    @LoggedServiceOperation
     public Optional<List<PurchaseDetail>> completePurchase(Authentication auth){
         //Check inventory first
         Customer currUser = userService.getCustomerDetails(auth);
@@ -91,7 +93,7 @@ public class CompletePurchaseService {
 
         //List of details of books purchased that includes the name and amount
         List<PurchaseDetail> deets = new ArrayList<>();
-        for (PurchaseItem item: currPurchaseHistory.getHistory()){
+        for (PurchaseItem item: currPurchaseHistory.getPurchaseItemHistory()){
             deets.add(new PurchaseDetail(item.getBook().getName(), item.getQuantity()));
         }
 

@@ -39,6 +39,10 @@ body {
     padding: 8px;
     color: #B1D4E0;
     background-color: #0C2D48;
+    cursor: pointer;
+}
+.bl-nav li a:hover{
+    background-color: #1f4d75;
 }
 
 .bl-nav li #active-item {
@@ -358,4 +362,99 @@ body {
 
 .alert-text {
     color: inherit;
+}
+
+.order-items {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.order-item {
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 15px;
+}
+
+.order-item-detail-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.order-item-detail {
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+    padding: 10px;
+    color: white;
+}
+
+.order-item-image-container {
+    margin: 5px;
+    padding: 10px;
+}
+
+.order-item-detail-unit {
+    margin-top: 5px;
+}
+
+.order-item-detail-unit {
+    margin-top: 5px;
+    margin-bottom: 8px;
+}
+
+
+.hr-divider {
+    width: 96%;
+    height: 1px;
+    background-color: #cccccc;
+    margin: 0 auto;
+}
+
+.order-item-image{
+    width: 140px;
+    height: 200px;
+    border-radius: 2px;
+}
+
+.user-name-list {
+    display: flex;
+    flex-direction: column;
+    margin-top: 5px;
+    margin-left: 40px;
+    width: 80px;
+}
+
+.user-name-list-item {
+    background-color: #B1D4E0;
+    color: #20336b;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.user-name-list-item:hover {
+    background-color: #DCEFF6; /* slightly lighter background color */
+    font-weight: bold; /* make font bold on hover */
+}
+
+.username-search-div {
+    margin-top: 30px;
+    margin-left: 40px;
+    height: 60px;
+}
+
+#username-search-input {
+    color: #00000D;
+    width: 200px;
+    outline: none;
+    border-radius: 3px;
+    background-color: #e0f5f8;
+    font-size: 1.1rem;
+    height: 20px;
+}
+
+#username-search-input::placeholder {
+    color: #999;
 }
