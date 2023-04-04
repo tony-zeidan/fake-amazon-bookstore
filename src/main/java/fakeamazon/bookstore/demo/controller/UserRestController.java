@@ -89,6 +89,8 @@ public class UserRestController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).header("ErrorResponse", e.getMessage()).body(null);
         } catch (NoSuchElementException e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).header("ErrorResponse", e.getMessage()).body(null);
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).header("ErrorResponse", "Unexpected error occurred: "+e.getMessage()).body(null);
         }
     }
     

@@ -2,11 +2,14 @@ function finishPurchase () {
    $.ajax({
       type: 'DELETE',
       url: '/useractions/completeorder',
-      success: function (data) {
-         alert("Transaction has been processed.");
+      timeout: 1000,
+      success: function (data, status, xhrObject) {
+         alert("Transaction has been processed");
+         location.reload();
       },
       error: function(jqXHR, textStatus, errorThrown){
-         alert("Your transaction has been denied.");
+         let errorResponse = jqXHR.getResponseHeader('ErrorResponse');
+         alert(errorResponse);
       }
    });
 }
