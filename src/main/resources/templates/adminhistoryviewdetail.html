@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FakeAmazonBookstore - User Home</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+</head>
+<body>
+<header class="bl-header">
+    <h1>FakeAmazonBookstore - User - Order History</h1>
+</header>
+<nav class="bl-nav">
+    <ul>
+        <li><a href="/owner">Home</a></li>
+        <li><a href="/owner/history" th:text="'View Order History '"></a></li>
+        <li><a id="active-item" th:text="' Order History (' + ${username} + ')'"></a></li>
+    </ul>
+</nav>
+
+<div>
+    <div class="order-items" th:each="item: ${items}" th:id="'history-item-' + ${item.getId()}">
+        <div class="order-item">
+            <div class="order-item-image-container">
+                <img class="order-item-image" th:src="${item.getBook().getPicture()}" th:alt="${item.getBook().getIsbn()}">
+            </div>
+            <div class="order-item-detail-wrapper">
+                <div class="order-item-detail">
+                    <div class="order-item-detail-unit-order-date">
+                        <label th:text="'Order Placed Date:  '"></label>
+                        <label th:text="${#dates.format(item.getCreatedAt(), 'yyyy-MM-dd HH:mm')}"></label>
+                    </div>
+                    <div class="order-item-detail-unit">
+                        <label th:text="'Book Name:  '"></label>
+                        <label th:text="${item.getBook().getName()}"></label>
+                    </div>
+                    <div class="order-item-detail-unit">
+                        <label th:text="'Quantity:  '"></label>
+                        <label th:text="${item.getQuantity()}"></label>
+                    </div>
+                    <div class="order-item-detail-unit">
+                        <label th:text="'ISBN:  '"></label>
+                        <label th:text="${item.getBook().getIsbn()}"></label>
+                    </div>
+                    <div class="order-item-detail-unit">
+                        <label th:text="'Publisher:  '"></label>
+                        <label th:text="${item.getBook().getPublisher()}"></label>
+                    </div>
+                    <div class="order-item-detail-unit">
+                        <label th:text="'Description:  '"></label>
+                        <label th:text="${item.getBook().getDescription()}"></label>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="hr-divider"/>
+    </div>
+</div>
+
+
+</body>
+</html>

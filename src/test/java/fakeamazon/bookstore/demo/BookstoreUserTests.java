@@ -327,4 +327,14 @@ class BookstoreUserTests {
 				.andExpect(content().string(containsString(bookToAdd.getPublisher())))
 				.andExpect(content().string(containsString(bookToAdd.getIsbn())));
 	}
+
+	@Test
+	@WithMockUser("Nick")
+	void testUserHistory() throws Exception {
+		this.mockMvc.perform(MockMvcRequestBuilders.get(
+						"http://localhost:8080/user/history"))
+				.andExpect(status().isOk())
+				.andExpect(content().string(containsString("9780333791035")))
+				.andExpect(content().string(containsString("The Catcher in the Rye")));
+	}
 }

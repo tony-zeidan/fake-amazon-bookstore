@@ -5,6 +5,7 @@ import fakeamazon.bookstore.demo.configuration.TestSetup;
 import fakeamazon.bookstore.demo.model.Book;
 import fakeamazon.bookstore.demo.input.templates.BookQuantityTemplate;
 import fakeamazon.bookstore.demo.repository.BookRepository;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -139,5 +140,16 @@ class BookstoreOwnerTests {
 		this.mockMvc.perform(MockMvcRequestBuilders.patch("http://localhost:8080/owneractions/inventory")
 						.content(asJsonString(updateVals)).contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(status().isBadRequest());
+	}
+
+	@Test
+	@WithMockUser(username="admin225", roles={"ADMIN"})
+	void testGetAllUsernameList() throws Exception {
+		this.mockMvc.perform(MockMvcRequestBuilders
+				.get("http://localhost:8080/owneractions/usernamelist"))
+				.andExpect(content().string(Matchers.not(containsString("user1"))))
+				.andExpect(content().string(containsString("user")))
+				.andExpect(content().string(containsString("Nick")))
+				.andExpect(status().isOk());
 	}
 }

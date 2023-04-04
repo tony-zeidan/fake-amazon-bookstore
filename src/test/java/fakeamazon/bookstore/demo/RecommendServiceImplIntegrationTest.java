@@ -65,7 +65,7 @@ public class RecommendServiceImplIntegrationTest {
         history.add(item2);
 
         PurchaseHistory bobPurchases = new PurchaseHistory();
-        bobPurchases.setHistory(history);
+        bobPurchases.setPurchaseItemHistory(history);
         bob.setHistory(bobPurchases);
 
 
@@ -85,7 +85,7 @@ public class RecommendServiceImplIntegrationTest {
         history2.add(item1);
 
         PurchaseHistory alicePurchases = new PurchaseHistory();
-        alicePurchases.setHistory(history2);
+        alicePurchases.setPurchaseItemHistory(history2);
         alice.setHistory(alicePurchases);
 
         Mockito.when(customerRepo.findAll()).thenReturn(Arrays.asList(bob,alice));

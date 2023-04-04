@@ -130,6 +130,7 @@ function handleAddToCart (book_id, quantity) {
         }),
         success: function () {
             alert("The book was added successfully!");
+            updateCartCountDisplay();
         },
         error: function() {
             alert("There was an error in processing your action (id="+book_id+", count="+quantity+")");
@@ -137,4 +138,20 @@ function handleAddToCart (book_id, quantity) {
         processData: false,
         contentType: 'application/json; charset=utf-8',
     });
+}
+
+function updateCartCountDisplay() {
+    $.ajax({
+        url: '/useractions/getcartitems',
+        type: 'GET',
+        success: (res) => {
+            console.log(res);
+            const cartCount = res.length;
+            const cartLink = $('a[href="/user/viewcart"]');
+            cartLink.text(`View Cart (${cartCount})`);
+        },
+        error: () => {
+            console.log("error updating cart count display")
+        }
+    })
 }

@@ -1,8 +1,11 @@
 package fakeamazon.bookstore.demo.controller;
 
+import fakeamazon.bookstore.demo.input.templates.CustomerUsernameTemplate;
 import fakeamazon.bookstore.demo.model.Book;
 import fakeamazon.bookstore.demo.input.templates.BookQuantityTemplate;
+import fakeamazon.bookstore.demo.model.Customer;
 import fakeamazon.bookstore.demo.repository.BookRepository;
+import fakeamazon.bookstore.demo.repository.CustomerRepository;
 import fakeamazon.bookstore.demo.services.BookOwnerInventoryService;
 import fakeamazon.bookstore.demo.services.BookRepoService;
 import org.jetbrains.annotations.NotNull;
@@ -15,10 +18,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("owneractions")
@@ -26,11 +27,13 @@ public class BookOwnerRestController {
 
     private final BookOwnerInventoryService inventoryService;
     private final BookRepoService bookRepoService;
+    private final CustomerRepository customerRepository;
 
     @Autowired
-    public BookOwnerRestController(BookRepoService bookRepoService, BookOwnerInventoryService inventoryService) {
+    public BookOwnerRestController(BookRepoService bookRepoService, BookOwnerInventoryService inventoryService, CustomerRepository customerRepository) {
         this.bookRepoService = bookRepoService;
         this.inventoryService = inventoryService;
+        this.customerRepository = customerRepository;
     }
 
     @PostMapping(path = "upload", consumes = {MediaType.APPLICATION_JSON_VALUE})
@@ -68,6 +71,13 @@ public class BookOwnerRestController {
             return ResponseEntity.ok().body(uploaded);
         }
     }
+
+    @GetMapping(path = "usernamelist")
+    public ResponseEntity<List<CustomerUsernameTemplate>>userList() {
+        // only getting the username attribute from the customers, who have actual purchase history.
+        List<CustomerUsernameTemplate> customersList = customerRepository.findCustomersWithPurchaseItems().stream().map(c -> new CustomerUsernameTemplate(c.getUsername())).collect(Collectors.toList());
+            return ResponseEntity.ok().body(customersList);
+        }
 }
 
 

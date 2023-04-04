@@ -29,16 +29,16 @@ public class RecommendationService {
             }
         }
 
-        Set<Book> customerBooks = customer.getHistory().getHistory().stream().map(x-> x.getBook()).collect(Collectors.toSet());
-        Set<Book> customerRecommendBooks = customerRecommend.getHistory().getHistory().stream().map(x-> x.getBook()).collect(Collectors.toSet());
+        Set<Book> customerBooks = customer.getHistory().getPurchaseItemHistory().stream().map(x-> x.getBook()).collect(Collectors.toSet());
+        Set<Book> customerRecommendBooks = customerRecommend.getHistory().getPurchaseItemHistory().stream().map(x-> x.getBook()).collect(Collectors.toSet());
         customerRecommendBooks.removeAll(customerBooks);
         return new ArrayList<>(customerRecommendBooks);
     }
     private double calculateJaccardDistance(Customer customer1, Customer customer2) {
-        Set<Book> customer1Books = customer1.getHistory().getHistory().stream().map(x-> x.getBook()).collect(Collectors.toSet());
+        Set<Book> customer1Books = customer1.getHistory().getPurchaseItemHistory().stream().map(x-> x.getBook()).collect(Collectors.toSet());
         if (customer1Books.size() == 0) return 1.0;
 
-        Set<Book> customer2Books = customer2.getHistory().getHistory().stream().map(x-> x.getBook()).collect(Collectors.toSet());
+        Set<Book> customer2Books = customer2.getHistory().getPurchaseItemHistory().stream().map(x-> x.getBook()).collect(Collectors.toSet());
         Set<Book> union = new HashSet<>(customer1Books);
         union.addAll(customer2Books);
         Set<Book> intersection = customer1Books.stream().filter(book->customer2Books.contains(book)).collect(Collectors.toSet());

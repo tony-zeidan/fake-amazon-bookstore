@@ -73,6 +73,14 @@ public class UserController {
         return "cartview";
     }
 
+    @GetMapping("history")
+    public String getUserHistoryPage(Authentication auth, Model model) {
+        Customer customer = detailsService.getCustomerDetails(auth);
+        model.addAttribute("username", customer.getUsername());
+        model.addAttribute("items", customer.getHistory().getPurchaseItemHistory());
+        return "historyview";
+    }
+
     @GetMapping("viewrecommendations")
     public String getUserRecommendationsPage(Authentication auth, Model model) {
         Customer customer = detailsService.getCustomerDetails(auth);
