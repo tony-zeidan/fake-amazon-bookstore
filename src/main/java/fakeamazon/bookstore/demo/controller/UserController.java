@@ -43,6 +43,12 @@ public class UserController {
         this.recommendationService = recommendationService;
     }
 
+    /**
+     * Endpoint for rendering the user registration page.
+     *
+     * @param model the Spring UI model used for rendering the view
+     * @return the name of the user registration view to render
+     */
     @GetMapping("/registration")
     public String registerUser(Model model) {
         UserDTO userDto = new UserDTO();
@@ -50,6 +56,13 @@ public class UserController {
         return "userregistration";
     }
 
+    /**
+     * Endpoint for processing user registration requests from the frontend.
+     *
+     * @param userDto the data transfer object used to fill in the newlu-created user
+     * @param bindingResult the result of the mapping of request parameters to the DTO
+     * @return the name of the view to which the user will be redirected
+     */
     @PostMapping("/registration")
     public String registerUserAccount(
             @ModelAttribute("user") @Valid UserDTO userDto,

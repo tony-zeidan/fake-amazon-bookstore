@@ -9,6 +9,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
 
+/**
+ * The service used by the application to manage the registration of new users and customers.
+ */
 @Service
 @Transactional
 public class UserService {
@@ -16,11 +19,26 @@ public class UserService {
 
     private final PasswordEncoder passwordEncoder;
 
+    /**
+     * @param userDetailsManager the core interface for loading user-specific data
+     * @param passwordEncoder the service interface used by the application for encoding passwords
+     */
     public UserService(final UserDetailsManager userDetailsManager, final PasswordEncoder passwordEncoder) {
         this.userDetailsManager = userDetailsManager;
         this.passwordEncoder = passwordEncoder;
     }
 
+    /**
+     * Register a new user and customer record in the application based on the content of the
+     * provided Data Transfer Object (DTO). Basic integrity checks are performed on the content
+     * of the DTO to ensure that the provided passwords match, and that duplicate users
+     * are not created in the system.
+     * All users created through this endpoint will belong to the user group "USER".
+     *
+     * @param userDto the DTO used to populate the details of a newly-created
+     *                user instance in the database
+     * @return the committed details of the newly-created user
+     */
     @LoggedServiceOperation
     public UserDetails registerNewUser(final UserDTO userDto) {
         if (this.userDetailsManager.userExists(userDto.getUsername())) {
