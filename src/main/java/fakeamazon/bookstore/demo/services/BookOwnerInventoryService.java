@@ -18,6 +18,13 @@ public class BookOwnerInventoryService {
         this.bookRepository = bookRepository;
     }
 
+    /**
+     * Increment or decrement the quantity of a specified book.
+     *
+     * @param currId The ID of the book requested for inventory update
+     * @param newQuantity The updated amount of that book
+     * @return The book that had its inventory updated
+     */
     @LoggedServiceOperation
     public Optional<Book> updateQuantity(Long currId, Integer newQuantity){
         Optional<Book> currBookLookup = bookRepository.findById(currId);

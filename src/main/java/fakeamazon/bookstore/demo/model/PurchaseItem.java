@@ -23,8 +23,12 @@ public class PurchaseItem {
     @Column(name = "CREATION_DATE", nullable = false, updatable = false)
     private Date createdAt;
 
+    /**
+     * PurchaseItem includes the book that was purchased by the user, and the amount of
+     * that book in that individual purchase. PurchaseItem also includes the timestamp
+     * of completion of the purchase order.
+     */
     public PurchaseItem() {
-
     }
 
     public Date getCreatedAt() {

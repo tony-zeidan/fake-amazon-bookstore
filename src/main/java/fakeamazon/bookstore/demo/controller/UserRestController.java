@@ -80,6 +80,12 @@ public class UserRestController {
         return ResponseEntity.of(itemAdded);
     }
 
+    /**
+     * Complete the purchase order request of items in the current user's shopping cart.
+     *
+     * @param auth Authentication details of the current user
+     * @return The list of items purchased in the order (book name and quantity)
+     */
     @DeleteMapping("completeorder")
     public ResponseEntity<List<PurchaseDetail>> completeOrder(Authentication auth) {
         try {
@@ -93,7 +99,13 @@ public class UserRestController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).header("ErrorResponse", "Unexpected error occurred: "+e.getMessage()).body(null);
         }
     }
-    
+
+    /**
+     * Get the books in the current user's shopping cart.
+     *
+     * @param auth Authentication details of the current user
+     * @return The list of books in the shopping cart
+     */
     @GetMapping("getcartitems")
     public ResponseEntity<List<ShoppingCartItem>> getCartItems(Authentication auth) {
         List<ShoppingCartItem> items = shoppingCartService.getItemsForCustomer(auth);

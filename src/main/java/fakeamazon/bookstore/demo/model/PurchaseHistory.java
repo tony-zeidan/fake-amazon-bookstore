@@ -14,6 +14,9 @@ public class PurchaseHistory {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<PurchaseItem> purchaseItemHistory;
 
+    /**
+     * Contains a list of items that have been previously purchased by the user.
+     */
     public PurchaseHistory() {}
 
     public void addToHistory(PurchaseItem purchased) {this.purchaseItemHistory.add(purchased);}

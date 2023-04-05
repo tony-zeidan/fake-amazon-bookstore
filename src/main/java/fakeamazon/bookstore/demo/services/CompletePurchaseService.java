@@ -27,6 +27,15 @@ public class CompletePurchaseService {
 
     private final ShoppingCartService cartService;
 
+    /**
+     * Service to handle the functionality of completing a purchase order by the current user.
+     *
+     * @param userService Service to handle queries and updates of user data.
+     * @param cartService Servcie to handle queries and updates of shopping cart items.
+     * @param pHRepo Repository that stores purchase history data.
+     * @param pIRepo Repository that stores data of a single item purchase.
+     * @param inventoryService Service to handle queries and updates of a book's inventory.
+     */
     @Autowired
     public CompletePurchaseService(CustomerDetailsService userService, ShoppingCartService cartService, PurchaseHistoryRepository pHRepo, PurchaseItemRepository pIRepo, BookOwnerInventoryService inventoryService){
         this.purchaseHistoryRepository = pHRepo;
@@ -36,6 +45,12 @@ public class CompletePurchaseService {
         this.cartService = cartService;
     }
 
+    /**
+     * Completes a purchase order of the current user's shopping cart.
+     *
+     * @param auth Authentication details of the current user
+     * @return The list of items purchased, including the names of the books and the amounts purchased
+     */
     @LoggedServiceOperation
     public Optional<List<PurchaseDetail>> completePurchase(Authentication auth){
         //Check inventory first
@@ -93,6 +108,7 @@ public class CompletePurchaseService {
 
         //List of details of books purchased that includes the name and amount
         List<PurchaseDetail> deets = new ArrayList<>();
+
         for (PurchaseItem item: newPurchaseItems){
             deets.add(new PurchaseDetail(item.getBook().getName(), item.getQuantity()));
         }

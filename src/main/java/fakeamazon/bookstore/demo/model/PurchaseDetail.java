@@ -1,9 +1,5 @@
 package fakeamazon.bookstore.demo.model;
 
-/**
- * Placeholder class for controller to return each book's name and
- * purchase quantity when the user completes a purchase.
- */
 public class PurchaseDetail {
     public String getBookName() {
         return bookName;
@@ -25,6 +21,14 @@ public class PurchaseDetail {
 
     private int purchaseQuantity;
 
+    /**
+     * Placeholder class for UserRestController to return each book's name and
+     * purchase quantity when the user completes a purchase. Prevents having to
+     * relay unnecessary data to the application.
+     *
+     * @param bookName The name of the book purchased
+     * @param purchaseQuantity The number of that book purchased
+     */
     public PurchaseDetail(String bookName, int purchaseQuantity){
         this.bookName = bookName;
         this.purchaseQuantity = purchaseQuantity;

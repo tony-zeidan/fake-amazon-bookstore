@@ -43,6 +43,12 @@ public class BookOwnerRestController {
         }
     }
 
+    /**
+     * Handle administrator request to increment or decrement the inventory value of a book.
+     *
+     * @param newBook The book requested to update inventory
+     * @return The book that has inventory updated
+     */
     @PatchMapping(path = "inventory", consumes = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<Book> updateInventory(@RequestBody BookQuantityTemplate newBook) {
         //All that matters is to find the book via the provided ID and change to the new quantity
