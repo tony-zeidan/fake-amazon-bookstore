@@ -58,7 +58,9 @@ public class GlobalSecurityConfiguration {
                 .requestMatchers("/owneractions/**")
                     .hasRole("ADMIN")
                 .requestMatchers("/useractions/**")
-                    .hasRole("USER");
+                    .hasRole("USER")
+                .requestMatchers("/api-docs", "/swagger-ui/**", "/v3/**")
+                    .authenticated();
         http.csrf()
                 .disable();
         return http.build();

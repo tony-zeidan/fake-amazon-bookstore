@@ -1,4 +1,4 @@
-package fakeamazon.bookstore.demo.controller;
+package fakeamazon.bookstore.demo.controller.rest;
 
 import fakeamazon.bookstore.demo.services.BookRepoService;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;

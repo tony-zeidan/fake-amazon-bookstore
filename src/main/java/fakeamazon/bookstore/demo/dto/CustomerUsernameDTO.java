@@ -1,9 +1,13 @@
-package fakeamazon.bookstore.demo.input.templates;
+package fakeamazon.bookstore.demo.dto;
+
+import fakeamazon.bookstore.demo.controller.rest.BookOwnerRestController;
 
 /**
- * A template class for creating a simplified Customer object with a specified username.
+ * The Data Transfer Object (DTO) used to query a simplified Customer object with a specified username;
+ *
+ * @see BookOwnerRestController#userList()
  */
-public class CustomerUsernameTemplate {
+public class CustomerUsernameDTO {
     String username;
 
     /**
@@ -12,7 +16,7 @@ public class CustomerUsernameTemplate {
      * @param username the username for the new Customer object
      */
 
-    public CustomerUsernameTemplate(String username) {
+    public CustomerUsernameDTO(String username) {
         this.username = username;
     }
 
@@ -26,7 +30,7 @@ public class CustomerUsernameTemplate {
     }
 
     /**
-     * set the username for the Customer object.
+     * @param username the username for the customer object
      */
     public void setUsername(String username) {
         this.username = username;

@@ -1,9 +1,9 @@
-package fakeamazon.bookstore.demo.controller;
+package fakeamazon.bookstore.demo.controller.rest;
 
 import fakeamazon.bookstore.demo.exceptions.ShoppingCartAddException;
 import fakeamazon.bookstore.demo.exceptions.ShoppingCartEditException;
-import fakeamazon.bookstore.demo.input.templates.BookIdTemplate;
-import fakeamazon.bookstore.demo.input.templates.BookQuantityTemplate;
+import fakeamazon.bookstore.demo.dto.BookIdDTO;
+import fakeamazon.bookstore.demo.dto.BookQuantityDTO;
 import fakeamazon.bookstore.demo.model.PurchaseHistory;
 import fakeamazon.bookstore.demo.model.ShoppingCartItem;
 import fakeamazon.bookstore.demo.services.CompletePurchaseService;
@@ -45,7 +45,7 @@ public class UserRestController {
      * @return add success -> OK, book not found -> NOT_FOUND
      */
     @PostMapping("addtocart")
-    public ResponseEntity<ShoppingCartItem> addToCart(Authentication auth, @RequestBody BookQuantityTemplate item) {
+    public ResponseEntity<ShoppingCartItem> addToCart(Authentication auth, @RequestBody BookQuantityDTO item) {
         try {
             Optional<ShoppingCartItem> itemAdded = shoppingCartService.addToCart(auth, item);
             if (itemAdded.isPresent()) {
@@ -69,7 +69,7 @@ public class UserRestController {
      * @return edit success -> OK, book not found -> NOT_FOUND, edit unsuccessful otherwise -> NOT_ACCEPTABLE
      */
     @PatchMapping("editcart")
-    public ResponseEntity<ShoppingCartItem> editCartQuantity(Authentication auth, @RequestBody BookQuantityTemplate item) {
+    public ResponseEntity<ShoppingCartItem> editCartQuantity(Authentication auth, @RequestBody BookQuantityDTO item) {
         try {
             // item edited could not be present, but it doesn't matter
             Optional<ShoppingCartItem> itemEdited = shoppingCartService.changeCartAmount(auth, item);
@@ -88,7 +88,7 @@ public class UserRestController {
      * @return The book item removed
      */
     @DeleteMapping("removefromcart")
-    public ResponseEntity<ShoppingCartItem> removeFromCart(Authentication auth, @RequestBody BookIdTemplate item) {
+    public ResponseEntity<ShoppingCartItem> removeFromCart(Authentication auth, @RequestBody BookIdDTO item) {
         Optional<ShoppingCartItem> itemRemoved = shoppingCartService.removeCartItem(auth, item);
         return ResponseEntity.of(itemRemoved);
     }
