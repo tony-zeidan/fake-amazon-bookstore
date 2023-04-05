@@ -1,9 +1,9 @@
-package fakeamazon.bookstore.demo.controller;
+package fakeamazon.bookstore.demo.controller.rest;
 
+import fakeamazon.bookstore.demo.dto.CustomerUsernameDTO;
 import fakeamazon.bookstore.demo.exceptions.QuantityInvalidException;
 import fakeamazon.bookstore.demo.model.Book;
-import fakeamazon.bookstore.demo.input.templates.BookQuantityTemplate;
-import fakeamazon.bookstore.demo.input.templates.CustomerUsernameTemplate;
+import fakeamazon.bookstore.demo.dto.BookQuantityDTO;
 import fakeamazon.bookstore.demo.repository.CustomerRepository;
 import fakeamazon.bookstore.demo.services.BookOwnerInventoryService;
 import fakeamazon.bookstore.demo.services.BookRepoService;
@@ -63,7 +63,7 @@ public class BookOwnerRestController {
      * @return The book that has inventory updated
      */
     @PatchMapping(path = "inventory", consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<Book> updateInventory(@RequestBody BookQuantityTemplate newBook) {
+    public ResponseEntity<Book> updateInventory(@RequestBody BookQuantityDTO newBook) {
         //All that matters is to find the book via the provided ID and change to the new quantity
         try {
             Optional<Book> updatedBook = inventoryService.updateQuantity(newBook.getId(), newBook.getQuantity());
@@ -101,9 +101,9 @@ public class BookOwnerRestController {
      * @return a response containing the list of usernames
      */
     @GetMapping(path = "usernamelist")
-    public ResponseEntity<List<CustomerUsernameTemplate>>userList() {
+    public ResponseEntity<List<CustomerUsernameDTO>>userList() {
         // only getting the username attribute from the customers, who have actual purchase history.
-        List<CustomerUsernameTemplate> customersList = customerRepository.findCustomersWithPurchaseItems().stream().map(c -> new CustomerUsernameTemplate(c.getUsername())).collect(Collectors.toList());
+        List<CustomerUsernameDTO> customersList = customerRepository.findCustomersWithPurchaseItems().stream().map(c -> new CustomerUsernameDTO(c.getUsername())).collect(Collectors.toList());
             return ResponseEntity.ok().body(customersList);
         }
 }

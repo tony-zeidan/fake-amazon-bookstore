@@ -2,8 +2,8 @@ package fakeamazon.bookstore.demo;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fakeamazon.bookstore.demo.configuration.TestSetup;
-import fakeamazon.bookstore.demo.input.templates.BookIdTemplate;
-import fakeamazon.bookstore.demo.input.templates.BookQuantityTemplate;
+import fakeamazon.bookstore.demo.dto.BookIdDTO;
+import fakeamazon.bookstore.demo.dto.BookQuantityDTO;
 import fakeamazon.bookstore.demo.model.Book;
 import fakeamazon.bookstore.demo.repository.BookRepository;
 import org.junit.jupiter.api.Test;
@@ -72,7 +72,7 @@ class BookstoreUserTests {
 		// add book and get the added entity to have its ID
 		Book added = bookRepository.save(bookToAdd);
 
-		BookQuantityTemplate toCartTemplate = new BookQuantityTemplate();
+		BookQuantityDTO toCartTemplate = new BookQuantityDTO();
 		toCartTemplate.setId(added.getId());
 		toCartTemplate.setQuantity(50);
 
@@ -120,7 +120,7 @@ class BookstoreUserTests {
 		// add book and get the added entity to have its ID
 		Book added = bookRepository.save(bookToAdd);
 
-		BookQuantityTemplate toCartTemplate = new BookQuantityTemplate();
+		BookQuantityDTO toCartTemplate = new BookQuantityDTO();
 		toCartTemplate.setId(added.getId());
 		toCartTemplate.setQuantity(50);
 
@@ -200,11 +200,11 @@ class BookstoreUserTests {
 		Book added = bookRepository.save(bookToAdd);
 		Book added2 = bookRepository.save(bookToAdd2);
 
-		BookQuantityTemplate toCartTemplate = new BookQuantityTemplate();
+		BookQuantityDTO toCartTemplate = new BookQuantityDTO();
 		toCartTemplate.setId(added.getId());
 		toCartTemplate.setQuantity(50);
 
-		BookQuantityTemplate toCartTemplate2 = new BookQuantityTemplate();
+		BookQuantityDTO toCartTemplate2 = new BookQuantityDTO();
 		toCartTemplate2.setId(added2.getId());
 		toCartTemplate2.setQuantity(50);
 
@@ -222,10 +222,10 @@ class BookstoreUserTests {
 		).andExpect(status().isCreated());
 
 		// remove the book
-		BookIdTemplate toRemoveCart = new BookIdTemplate();
+		BookIdDTO toRemoveCart = new BookIdDTO();
 		toRemoveCart.setId(added.getId());
 
-		BookIdTemplate toRemoveCart2 = new BookIdTemplate();
+		BookIdDTO toRemoveCart2 = new BookIdDTO();
 		toRemoveCart2.setId(added2.getId());
 
 		this.mockMvc.perform(MockMvcRequestBuilders.delete(
@@ -275,11 +275,11 @@ class BookstoreUserTests {
 		newBook2.setIsbn("SHBN938211111");
 		newBook2 = bookRepository.save(newBook2);
 
-		BookQuantityTemplate toCartTemplate = new BookQuantityTemplate();
+		BookQuantityDTO toCartTemplate = new BookQuantityDTO();
 		toCartTemplate.setId(newBook1.getId());
 		toCartTemplate.setQuantity(4);
 
-		BookQuantityTemplate toCartTemplate2 = new BookQuantityTemplate();
+		BookQuantityDTO toCartTemplate2 = new BookQuantityDTO();
 		toCartTemplate2.setId(newBook2.getId());
 		toCartTemplate2.setQuantity(2);
 
@@ -343,7 +343,7 @@ class BookstoreUserTests {
 		// add book and get the added entity to have its ID
 		Book added = bookRepository.save(bookToAdd);
 
-		BookQuantityTemplate toCartTemplate = new BookQuantityTemplate();
+		BookQuantityDTO toCartTemplate = new BookQuantityDTO();
 		toCartTemplate.setId(added.getId());
 		toCartTemplate.setQuantity(50);
 

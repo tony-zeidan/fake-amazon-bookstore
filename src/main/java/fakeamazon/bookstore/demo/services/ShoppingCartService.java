@@ -3,8 +3,8 @@ package fakeamazon.bookstore.demo.services;
 import fakeamazon.bookstore.demo.aop.LoggedServiceOperation;
 import fakeamazon.bookstore.demo.exceptions.ShoppingCartAddException;
 import fakeamazon.bookstore.demo.exceptions.ShoppingCartEditException;
-import fakeamazon.bookstore.demo.input.templates.BookIdTemplate;
-import fakeamazon.bookstore.demo.input.templates.BookQuantityTemplate;
+import fakeamazon.bookstore.demo.dto.BookIdDTO;
+import fakeamazon.bookstore.demo.dto.BookQuantityDTO;
 import fakeamazon.bookstore.demo.model.*;
 import fakeamazon.bookstore.demo.repository.BookRepository;
 import fakeamazon.bookstore.demo.repository.ShoppingCartItemRepository;
@@ -14,9 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -62,7 +60,7 @@ public class ShoppingCartService {
      * @param template The user input template containing ID and quantity
      * @return If present, the shopping cart item
      */
-    public Optional<ShoppingCartItem> fromTemplate(Customer customer, BookQuantityTemplate template) {
+    public Optional<ShoppingCartItem> fromTemplate(Customer customer, BookQuantityDTO template) {
         Optional<Book> book = bookRepo.findById(template.getId());
         ShoppingCartItem itemConcrete = null;
         if (book.isPresent()) {
@@ -82,7 +80,7 @@ public class ShoppingCartService {
      * @return If present, the new item that was created, and if not this means the book was already present
      */
     @LoggedServiceOperation
-    public Optional<ShoppingCartItem> addToCart(Authentication auth, BookQuantityTemplate template) {
+    public Optional<ShoppingCartItem> addToCart(Authentication auth, BookQuantityDTO template) {
 
         Customer customer = detailsService.getCustomerDetails(auth);
         Optional<ShoppingCartItem> itemMade = fromTemplate(customer, template);
@@ -117,7 +115,7 @@ public class ShoppingCartService {
      * @return Not relevant, tells whether the cart item was added correctly or not
      */
     @LoggedServiceOperation
-    public Optional<ShoppingCartItem> changeCartAmount(Authentication auth, BookQuantityTemplate template) {
+    public Optional<ShoppingCartItem> changeCartAmount(Authentication auth, BookQuantityDTO template) {
         Customer customer = detailsService.getCustomerDetails(auth);
         ShoppingCartItem item = shoppingCartItemRepo.findShoppingCartItemByBook_IdAndCustomer_Username(template.getId(), customer.getUsername());
 
@@ -162,7 +160,7 @@ public class ShoppingCartService {
      * @return If present, the item removed, otherwise nothing
      */
     @LoggedServiceOperation
-    public Optional<ShoppingCartItem> removeCartItem(Authentication auth, BookIdTemplate template) {
+    public Optional<ShoppingCartItem> removeCartItem(Authentication auth, BookIdDTO template) {
         Customer customer = detailsService.getCustomerDetails(auth);
 
         ShoppingCartItem item = shoppingCartItemRepo.findShoppingCartItemByBook_IdAndCustomer_Username(template.getId(), customer.getUsername());

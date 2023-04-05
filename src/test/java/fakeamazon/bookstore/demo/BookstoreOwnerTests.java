@@ -3,7 +3,7 @@ package fakeamazon.bookstore.demo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fakeamazon.bookstore.demo.configuration.TestSetup;
 import fakeamazon.bookstore.demo.model.Book;
-import fakeamazon.bookstore.demo.input.templates.BookQuantityTemplate;
+import fakeamazon.bookstore.demo.dto.BookQuantityDTO;
 import fakeamazon.bookstore.demo.repository.BookRepository;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
@@ -140,7 +140,7 @@ class BookstoreOwnerTests {
 		Book retrieveBook = bookRepository.findByIsbn("CuriousG11");
 
 		Long sampleId = retrieveBook.getId();
-		BookQuantityTemplate updateVals = new BookQuantityTemplate();
+		BookQuantityDTO updateVals = new BookQuantityDTO();
 		updateVals.setId(sampleId);
 		//Increment inventory
 		updateVals.setQuantity(3);
