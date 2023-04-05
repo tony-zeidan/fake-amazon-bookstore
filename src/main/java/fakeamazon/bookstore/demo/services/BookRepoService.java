@@ -20,6 +20,11 @@ public class BookRepoService {
     private final BookRepository bookRepo;
     private boolean repoUp;
 
+    /**
+     * Book repo service for adding, fetching and editing books.
+     *
+     * @param bookRepo Repo to provide services for
+     */
     @Autowired
     public BookRepoService(BookRepository bookRepo) {
         this.bookRepo = bookRepo;

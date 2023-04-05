@@ -9,6 +9,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.UserDetailsManager;
 
+/**
+ * Test configuration for users.
+ */
 @TestConfiguration
 public class TestSetup {
 
@@ -18,6 +21,9 @@ public class TestSetup {
     @Autowired
     private PasswordEncoder encoder;
 
+    /**
+     * Upon testing, create mock users.
+     */
     @EventListener(ApplicationReadyEvent.class)
     public void setup() {
 

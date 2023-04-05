@@ -24,6 +24,9 @@ import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/**
+ * Test suite for bookstore owner-related functionality.
+ */
 @ExtendWith(SpringExtension.class)
 @Import(TestSetup.class)
 @DirtiesContext
@@ -34,6 +37,15 @@ class BookstoreOwnerTests {
 	@Autowired
 	private MockMvc mockMvc;
 
+	@Autowired
+	private BookRepository bookRepository;
+
+	/**
+	 * Converts an object to a JSON string.
+	 *
+	 * @param obj The object to convert
+	 * @return As a JSON string
+	 */
 	public static String asJsonString(final Object obj) {
 		try {
 			return new ObjectMapper().writeValueAsString(obj);
@@ -42,9 +54,11 @@ class BookstoreOwnerTests {
 		}
 	}
 
-	@Autowired
-	private BookRepository bookRepository;
-
+	/**
+	 * Tests the ability of an owner to upload a book.
+	 *
+	 * @throws Exception If the user couldn't be found
+	 */
 	@Test
 	@WithMockUser(username="admin222", roles={"ADMIN"})
 	void testUploadBook() throws Exception {
@@ -76,6 +90,11 @@ class BookstoreOwnerTests {
 				.andExpect(content().string(containsString(bookToAdd.getIsbn())));
 	}
 
+	/**
+	 * Tests the ability of the bookstore owner to edit book details.
+	 *
+	 * @throws Exception If the user couldn't be found
+	 */
 	@Test
 	@WithMockUser(username="admin223", roles={"ADMIN"})
 	void testEditBook() throws Exception{
@@ -103,6 +122,11 @@ class BookstoreOwnerTests {
 
 	}
 
+	/**
+	 * Tests the ability of the bookstore owner to edit quantities of inventory.
+	 *
+	 * @throws Exception If the user couldn't be found
+	 */
 	@Test
 	@WithMockUser(username="admin224", roles={"ADMIN"})
 	void testIncrementInventory() throws Exception{
@@ -142,6 +166,11 @@ class BookstoreOwnerTests {
 				.andExpect(status().isBadRequest());
 	}
 
+	/**
+	 * Tests the ability of the bookstore owner to get all users registered.
+	 *
+	 * @throws Exception If the user couldn't be found
+	 */
 	@Test
 	@WithMockUser(username="admin225", roles={"ADMIN"})
 	void testGetAllUsernameList() throws Exception {

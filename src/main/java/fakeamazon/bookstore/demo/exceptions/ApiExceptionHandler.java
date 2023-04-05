@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
 public class ApiExceptionHandler {
+
+    /**
+     * Circuit breaker error handler.
+     */
     @ExceptionHandler({CallNotPermittedException.class})
     @ResponseStatus(HttpStatus.SERVICE_UNAVAILABLE)
     public void handleCallNotPermittedException() {
