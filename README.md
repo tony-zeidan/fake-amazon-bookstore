@@ -31,10 +31,17 @@ The bookstore user page also has the following abilities:
 
 
 Guests finally have the following abilities:
+ - See their purchase history (NEW)
+ - See a recommendations page (NEW)
  - Access the homepage
  - Register for a new unique account
  - Login with user account credentials
  - Logout from account
+
+The system:
+ - Integrated with AOP for logging (NEW)
+ - Better documentation of endpoints (NEW)
+ - More descriptive display of failures / more user-friendly (NEW)
 
 ## Milestones ##
 Milestone 1: Early prototype. Give a 10-15 minute demo during the lab on March 8h.
