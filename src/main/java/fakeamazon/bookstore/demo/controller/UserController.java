@@ -102,6 +102,12 @@ public class UserController {
         return "historyview";
     }
 
+    /**
+     * Endpoint for Getting a customers recommendation page.
+     * @param auth Spring boot authentication context
+     * @param model Spring boot model for recommendation page
+     * @return
+     */
     @GetMapping("viewrecommendations")
     public String getUserRecommendationsPage(Authentication auth, Model model) {
         Customer customer = detailsService.getCustomerDetails(auth);

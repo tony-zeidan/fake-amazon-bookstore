@@ -42,6 +42,17 @@ public class BookRepoService {
         return bookRepo.findById(id).get();
     }
 
+    /**
+     * Service that gets All books with filtering and paging. This also contains the
+     * integration of the circuit breaker.
+     *
+     * @param name filters the inventory based on the book's name
+     * @param isbn filters the inventory based on the book's isbn
+     * @param description filters the inventory based on the book's description
+     * @param publisher filters the inventory based on the book's publisher
+     * @param paging the current page and size that is being requested
+     * @return
+     */
     @CircuitBreaker(name="CircuitBreakerService", fallbackMethod = "fallback")
     public Map<String, Object> getAllBooks(String name, String isbn, String description, String publisher, Pageable paging) {
         if (!repoUp)throw new BookRepoDownException(HttpStatus.INTERNAL_SERVER_ERROR, "This is a remote exception");
@@ -56,10 +67,26 @@ public class BookRepoService {
         return response;
     }
 
+    /**
+     * Fall back method to test the circuit breaker pattern.
+     * @param name filters the inventory based on the book's name
+     * @param isbn filters the inventory based on the book's isbn
+     * @param description filters the inventory based on the book's description
+     * @param publisher filters the inventory based on the book's publisher
+     * @param paging the current page and size that is being requested
+     * @return The books that match the filter for the page and size
+     * @param e the exception being thrown
+     * @return
+     */
     public Map<String, Object> fallback(String name, String isbn, String description, String publisher, Pageable paging, Exception e) {
         System.out.println(e);
         return null;
     }
+
+    /**
+     * Dummy method to show the circuit in action, where it either causes getAllBooks to work properly
+     * or throw exceptions.
+     */
     public void toggleRepo() {
         repoUp = !repoUp;
     }
