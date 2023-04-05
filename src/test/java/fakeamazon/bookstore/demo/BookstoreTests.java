@@ -21,6 +21,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/**
+ * Test suite for general bookstore functions.
+ */
 @ExtendWith(SpringExtension.class)
 @Import(TestSetup.class)
 @DirtiesContext
@@ -35,6 +38,11 @@ class BookstoreTests {
     @Autowired
     private BookRepository bookRepository;
 
+    /**
+     * Tests the ability of anyone in the bookstore to get all books with filters.
+     *
+     * @throws Exception
+     */
     @Test
     @WithMockUser(username="user222")
     void testGetAllBooksWithFilter() throws Exception {

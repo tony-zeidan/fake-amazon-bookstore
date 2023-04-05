@@ -3,16 +3,11 @@ package fakeamazon.bookstore.demo.controller;
 import fakeamazon.bookstore.demo.input.templates.CustomerUsernameTemplate;
 import fakeamazon.bookstore.demo.model.Book;
 import fakeamazon.bookstore.demo.input.templates.BookQuantityTemplate;
-import fakeamazon.bookstore.demo.model.Customer;
-import fakeamazon.bookstore.demo.repository.BookRepository;
 import fakeamazon.bookstore.demo.repository.CustomerRepository;
 import fakeamazon.bookstore.demo.services.BookOwnerInventoryService;
 import fakeamazon.bookstore.demo.services.BookRepoService;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +24,13 @@ public class BookOwnerRestController {
     private final BookRepoService bookRepoService;
     private final CustomerRepository customerRepository;
 
+    /**
+     * Bookstore owner-related functions.
+     *
+     * @param bookRepoService Book service to modify books
+     * @param inventoryService Inventory service to modify inventory of books
+     * @param customerRepository Customer repository to get customers
+     */
     @Autowired
     public BookOwnerRestController(BookRepoService bookRepoService, BookOwnerInventoryService inventoryService, CustomerRepository customerRepository) {
         this.bookRepoService = bookRepoService;
@@ -63,6 +65,13 @@ public class BookOwnerRestController {
         }
     }
 
+    /**
+     * Endpoint for editing the details of a book.
+     *
+     * @param book The new book details
+     * @param bookId The book to apply these details to
+     * @return OK if the book was edited and FORBIDDEN otherwise
+     */
     @PatchMapping(path = "edit", consumes = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<Book> editHook(@RequestBody @NotNull Book book, @RequestParam(value = "id") String bookId) {
         Book oldBook = bookRepoService.getBookById(Long.parseLong(bookId));

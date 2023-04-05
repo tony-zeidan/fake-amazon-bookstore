@@ -19,6 +19,11 @@ public class BookStoreRestController {
 
     private final BookRepoService bookRepoService;
 
+    /**
+     * The bookstore controller for all REST-related functions.
+     *
+     * @param bookRepoService The book service for getting books
+     */
     @Autowired
     public BookStoreRestController(BookRepoService bookRepoService) {
         this.bookRepoService = bookRepoService;
@@ -50,6 +55,9 @@ public class BookStoreRestController {
     }
 
 
+    /**
+     * Toggle bookstore repo.
+     */
     @GetMapping(value = "toggleRepo")
     public void toggleRepo() {
         bookRepoService.toggleRepo();

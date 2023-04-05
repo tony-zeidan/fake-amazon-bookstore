@@ -21,6 +21,9 @@ import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/**
+ * Test suite for bookstore user-related functionality.
+ */
 @SpringBootTest
 @DirtiesContext
 @Import(TestSetup.class)
@@ -30,7 +33,16 @@ class BookstoreUserTests {
 	@Autowired
 	private MockMvc mockMvc;
 
+	@Autowired
+	private BookRepository bookRepository;
 
+
+	/**
+	 * Converts an object to a JSON string.
+	 *
+	 * @param obj The object to convert
+	 * @return As a JSON string
+	 */
 	public static String asJsonString(final Object obj) {
 		try {
 			return new ObjectMapper().writeValueAsString(obj);
@@ -39,9 +51,12 @@ class BookstoreUserTests {
 		}
 	}
 
-	@Autowired
-	private BookRepository bookRepository;
 
+	/**
+	 * Tests the ability to add items to cart.
+	 *
+	 * @throws Exception If user details couldn't be found
+	 */
 	@Test
 	@WithMockUser(username="user222", roles={"USER"})
 	void testAddToCart() throws Exception {
@@ -85,6 +100,11 @@ class BookstoreUserTests {
 		).andExpect(status().isOk());
 	}
 
+	/**
+	 * Tests the ability to edit quantities in cart.
+	 *
+	 * @throws Exception If user details couldn't be found
+	 */
 	@Test
 	@WithMockUser("user223")
 	void testEditInCart() throws Exception {
@@ -151,6 +171,11 @@ class BookstoreUserTests {
 		).andExpect(status().isNotFound());
 	}
 
+	/**
+	 * Testing removal of items from the user's cart.
+	 *
+	 * @throws Exception If user details couldn't be found
+	 */
 	@Test
 	@WithMockUser("user224")
 	void testRemoveFromCart() throws Exception {
@@ -223,6 +248,11 @@ class BookstoreUserTests {
 		).andExpect(status().isNotFound());
 	}
 
+	/**
+	 * Tests the ability to clear the cart.
+	 *
+	 * @throws Exception If the user can't be found
+	 */
 	@Test
 	@DirtiesContext
 	@WithMockUser("user225")
@@ -292,6 +322,11 @@ class BookstoreUserTests {
 		this.mockMvc.perform(MockMvcRequestBuilders.delete("http://localhost:8080/useractions/completeorder")).andExpect(status().isNotFound());
 	}
 
+	/**
+	 * Tests the ability to get all cart items.
+	 *
+	 * @throws Exception If the user couldn't be found
+	 */
 	@Test
 	@DirtiesContext
 	@WithMockUser(username="user222", roles={"USER"})
@@ -328,6 +363,11 @@ class BookstoreUserTests {
 				.andExpect(content().string(containsString(bookToAdd.getIsbn())));
 	}
 
+	/**
+	 * Tests the ability to get user history.
+	 *
+	 * @throws Exception If the user couldn't be found
+	 */
 	@Test
 	@WithMockUser("Nick")
 	void testUserHistory() throws Exception {

@@ -26,10 +26,16 @@ import java.util.List;
 public class UserController {
 
     private final CustomerDetailsService detailsService;
-
     private final UserService userService;
     private final RecommendationService recommendationService;
 
+    /**
+     * User controller for all page-related functions.
+     *
+     * @param detailsService Details service to get customer entities
+     * @param userService User service to create new users
+     * @param recommendationService Recommendation service to get recommended books
+     */
     @Autowired
     public UserController(CustomerDetailsService detailsService, final UserService userService, RecommendationService recommendationService) {
         this.detailsService = detailsService;
