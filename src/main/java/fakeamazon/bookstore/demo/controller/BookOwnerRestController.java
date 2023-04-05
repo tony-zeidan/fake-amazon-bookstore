@@ -26,6 +26,13 @@ public class BookOwnerRestController {
     private final BookRepoService bookRepoService;
     private final CustomerRepository customerRepository;
 
+    /**
+     * Bookstore owner-related functions.
+     *
+     * @param bookRepoService Book service to modify books
+     * @param inventoryService Inventory service to modify inventory of books
+     * @param customerRepository Customer repository to get customers
+     */
     @Autowired
     public BookOwnerRestController(BookRepoService bookRepoService, BookOwnerInventoryService inventoryService, CustomerRepository customerRepository) {
         this.bookRepoService = bookRepoService;
@@ -33,6 +40,12 @@ public class BookOwnerRestController {
         this.customerRepository = customerRepository;
     }
 
+    /**
+     * Endpoint for the uploading of a book.
+     *
+     * @param book The book to add and all of it's details
+     * @return CREATED if book was created otherwise FORBIDDEN
+     */
     @PostMapping(path = "upload", consumes = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<String> uploadHook(@RequestBody Book book) {
         Book uploaded = bookRepoService.upload(book);
@@ -60,6 +73,13 @@ public class BookOwnerRestController {
         }
     }
 
+    /**
+     * Endpoint for editing the details of a book.
+     *
+     * @param book The new book details
+     * @param bookId The book to apply these details to
+     * @return OK if the book was edited and FORBIDDEN otherwise
+     */
     @PatchMapping(path = "edit", consumes = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<Book> editHook(@RequestBody @NotNull Book book, @RequestParam(value = "id") String bookId) {
         Book oldBook = bookRepoService.getBookById(Long.parseLong(bookId));
@@ -75,6 +95,11 @@ public class BookOwnerRestController {
         }
     }
 
+    /**
+     * Returns a list of customer's username who have made purchases.
+     *
+     * @return a response containing the list of usernames
+     */
     @GetMapping(path = "usernamelist")
     public ResponseEntity<List<CustomerUsernameTemplate>>userList() {
         // only getting the username attribute from the customers, who have actual purchase history.

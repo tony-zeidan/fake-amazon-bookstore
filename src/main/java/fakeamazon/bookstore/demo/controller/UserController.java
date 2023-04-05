@@ -26,10 +26,16 @@ import java.util.List;
 public class UserController {
 
     private final CustomerDetailsService detailsService;
-
     private final UserService userService;
     private final RecommendationService recommendationService;
 
+    /**
+     * User controller for all page-related functions.
+     *
+     * @param detailsService Details service to get customer entities
+     * @param userService User service to create new users
+     * @param recommendationService Recommendation service to get recommended books
+     */
     @Autowired
     public UserController(CustomerDetailsService detailsService, final UserService userService, RecommendationService recommendationService) {
         this.detailsService = detailsService;
@@ -58,6 +64,13 @@ public class UserController {
 
     }
 
+    /**
+     * Endpoint for fetching the user index page.
+     *
+     * @param auth Spring boot authentication context
+     * @param model Spring boot model
+     * @return User index
+     */
     @GetMapping("")
     public String getUserIndex(Authentication auth, Model model) {
         Customer customer = detailsService.getCustomerDetails(auth);
@@ -65,6 +78,13 @@ public class UserController {
         return "userindex";
     }
 
+    /**
+     * Endpoint for fetching of the viewcart page.
+     *
+     * @param auth Spring boot authentication context
+     * @param model Spring boot model
+     * @return Viewcart page
+     */
     @GetMapping("viewcart")
     public String getUserCartPage(Authentication auth, Model model) {
         Customer customer = detailsService.getCustomerDetails(auth);
@@ -73,6 +93,13 @@ public class UserController {
         return "cartview";
     }
 
+    /**
+     * Returns the purchase history view for the current customer.
+     *
+     * @param auth the Authentication object
+     * @param model the Model object to set the attribute of username and purchase history
+     * @return the name of the view that displays the purchase history
+     */
     @GetMapping("history")
     public String getUserHistoryPage(Authentication auth, Model model) {
         Customer customer = detailsService.getCustomerDetails(auth);
@@ -81,6 +108,12 @@ public class UserController {
         return "historyview";
     }
 
+    /**
+     * Endpoint for Getting a customers recommendation page.
+     * @param auth Spring boot authentication context
+     * @param model Spring boot model for recommendation page
+     * @return
+     */
     @GetMapping("viewrecommendations")
     public String getUserRecommendationsPage(Authentication auth, Model model) {
         Customer customer = detailsService.getCustomerDetails(auth);

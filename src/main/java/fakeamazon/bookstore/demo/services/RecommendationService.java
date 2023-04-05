@@ -1,5 +1,6 @@
 package fakeamazon.bookstore.demo.services;
 
+import fakeamazon.bookstore.demo.aop.LoggedServiceOperation;
 import fakeamazon.bookstore.demo.model.Book;
 import fakeamazon.bookstore.demo.model.Customer;
 import fakeamazon.bookstore.demo.repository.CustomerRepository;
@@ -15,6 +16,13 @@ import java.util.stream.Collectors;
 public class RecommendationService {
     @Autowired
     private CustomerRepository customerRepo;
+
+    /**
+     * Gets the books to recommend for the customer.
+     * @param customer the customer that needs recommendations.
+     * @return ArrayList<Book> that are the recommended books.
+     */
+    @LoggedServiceOperation
     public ArrayList<Book> getRecommendations(Customer customer) {
         double min = 1.0;
         Customer customerRecommend = customer;
@@ -34,6 +42,14 @@ public class RecommendationService {
         customerRecommendBooks.removeAll(customerBooks);
         return new ArrayList<>(customerRecommendBooks);
     }
+
+    /**
+     * Calculates the Jaccard Distance of two customers to determine the best fitting recommendation.
+     *
+     * @param customer1 customer that needs recommendations.
+     * @param customer2 customer that is being compared to.
+     * @return double a value from 1 to 0 that represents its fitness to be the recommendation.
+     */
     private double calculateJaccardDistance(Customer customer1, Customer customer2) {
         Set<Book> customer1Books = customer1.getHistory().getPurchaseItemHistory().stream().map(x-> x.getBook()).collect(Collectors.toSet());
         if (customer1Books.size() == 0) return 1.0;

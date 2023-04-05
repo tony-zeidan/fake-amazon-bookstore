@@ -23,6 +23,9 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * Test suite for recommendation-related functionality.
+ */
 @RunWith(SpringRunner.class)
 @ContextConfiguration
 public class RecommendServiceImplIntegrationTest {
@@ -42,6 +45,10 @@ public class RecommendServiceImplIntegrationTest {
 
     private Customer bob;
     private Customer alice;
+
+    /**
+     * Setup books and users.
+     */
     @Before
     public void setUp() {
         bob = new Customer();
@@ -92,6 +99,9 @@ public class RecommendServiceImplIntegrationTest {
 
     }
 
+    /**
+     * Test the ability of the system to provide accurate recommendations based on Jaccard distance.
+     */
     @Test
     public void RecommendServiceTest() {
         List<Book> books = recommendationService.getRecommendations(bob);

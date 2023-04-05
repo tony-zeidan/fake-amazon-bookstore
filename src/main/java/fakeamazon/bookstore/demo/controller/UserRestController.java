@@ -26,6 +26,12 @@ public class UserRestController {
     private final ShoppingCartService shoppingCartService;
     private final CompletePurchaseService completePurchaseService;
 
+    /**
+     * The controller for user related actions.
+     *
+     * @param shoppingCartService The service that allows modification of user cart
+     * @param completePurchaseService The service that allows purchasing
+     */
     @Autowired
     public UserRestController(ShoppingCartService shoppingCartService, CompletePurchaseService completePurchaseService) {
         this.shoppingCartService = shoppingCartService;
@@ -33,6 +39,7 @@ public class UserRestController {
     }
 
     /**
+     *  Allows the user to add an item to their cart.
      *
      * @param auth Authentication context of the current user
      * @param item The body containing the book id and quantity to remove
@@ -74,10 +81,17 @@ public class UserRestController {
         }
     }
 
+    /**
+     * Endpoint to allow the removal of items from a user's cart.
+     *
+     * @param auth Spring boot authentication context
+     * @param item The user input template containing ID to remove
+     * @return The book item removed
+     */
     @DeleteMapping("removefromcart")
     public ResponseEntity<ShoppingCartItem> removeFromCart(Authentication auth, @RequestBody BookIdTemplate item) {
-        Optional<ShoppingCartItem> itemAdded = shoppingCartService.removeCartItem(auth, item);
-        return ResponseEntity.of(itemAdded);
+        Optional<ShoppingCartItem> itemRemoved = shoppingCartService.removeCartItem(auth, item);
+        return ResponseEntity.of(itemRemoved);
     }
 
     /**

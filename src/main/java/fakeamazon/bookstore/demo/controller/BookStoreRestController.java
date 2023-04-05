@@ -19,12 +19,28 @@ public class BookStoreRestController {
 
     private final BookRepoService bookRepoService;
 
+    /**
+     * The bookstore controller for all REST-related functions.
+     *
+     * @param bookRepoService The book service for getting books
+     */
     @Autowired
     public BookStoreRestController(BookRepoService bookRepoService) {
         this.bookRepoService = bookRepoService;
     }
 
 
+    /**
+     * Gets all books from the inventory allowing for filtering and paging.
+     *
+     * @param name filters the inventory based on the book's name
+     * @param isbn filters the inventory based on the book's isbn
+     * @param description filters the inventory based on the book's description
+     * @param publisher filters the inventory based on the book's publisher
+     * @param page the current page that is being requested
+     * @param size the number of books that should be returned.
+     * @return The books that match the filter for the page and size
+     */
     @GetMapping(value = "getbooks", produces = "application/json")
     public ResponseEntity<Map<String, Object>> getAllBooks(
             @RequestParam(defaultValue = "") String name,
@@ -39,6 +55,9 @@ public class BookStoreRestController {
     }
 
 
+    /**
+     * Toggle bookstore repo.
+     */
     @GetMapping(value = "toggleRepo")
     public void toggleRepo() {
         bookRepoService.toggleRepo();
