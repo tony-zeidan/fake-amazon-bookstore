@@ -1,10 +1,11 @@
 package fakeamazon.bookstore.demo.controller.rest;
 
+import fakeamazon.bookstore.demo.exceptions.QuantityInvalidException;
 import fakeamazon.bookstore.demo.exceptions.ShoppingCartAddException;
 import fakeamazon.bookstore.demo.exceptions.ShoppingCartEditException;
 import fakeamazon.bookstore.demo.dto.BookIdDTO;
 import fakeamazon.bookstore.demo.dto.BookQuantityDTO;
-import fakeamazon.bookstore.demo.model.PurchaseHistory;
+import fakeamazon.bookstore.demo.model.PurchaseDetail;
 import fakeamazon.bookstore.demo.model.ShoppingCartItem;
 import fakeamazon.bookstore.demo.services.CompletePurchaseService;
 import fakeamazon.bookstore.demo.services.ShoppingCartService;
@@ -93,18 +94,32 @@ public class UserRestController {
         return ResponseEntity.of(itemRemoved);
     }
 
+    /**
+     * Complete the purchase order request of items in the current user's shopping cart.
+     *
+     * @param auth Authentication details of the current user
+     * @return The list of items purchased in the order (book name and quantity)
+     */
     @DeleteMapping("completeorder")
-    public ResponseEntity<PurchaseHistory> completeOrder(Authentication auth) {
-        try{
-            Optional<PurchaseHistory> currPurchaseHistory = completePurchaseService.completePurchase(auth);
-            return ResponseEntity.of(currPurchaseHistory);
-        } catch (IllegalArgumentException e){
-            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(null);
+    public ResponseEntity<List<PurchaseDetail>> completeOrder(Authentication auth) {
+        try {
+            Optional<List<PurchaseDetail>> currPurchaseDetails = completePurchaseService.completePurchase(auth);
+            return ResponseEntity.of(currPurchaseDetails);
+        } catch (QuantityInvalidException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).header("ErrorResponse", e.getMessage()).body(null);
         } catch (NoSuchElementException e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).header("ErrorResponse", e.getMessage()).body(null);
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).header("ErrorResponse", "Unexpected error occurred: "+e.getMessage()).body(null);
         }
     }
-    
+
+    /**
+     * Get the books in the current user's shopping cart.
+     *
+     * @param auth Authentication details of the current user
+     * @return The list of books in the shopping cart
+     */
     @GetMapping("getcartitems")
     public ResponseEntity<List<ShoppingCartItem>> getCartItems(Authentication auth) {
         List<ShoppingCartItem> items = shoppingCartService.getItemsForCustomer(auth);

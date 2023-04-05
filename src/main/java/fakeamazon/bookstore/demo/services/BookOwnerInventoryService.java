@@ -1,5 +1,6 @@
 package fakeamazon.bookstore.demo.services;
 
+import fakeamazon.bookstore.demo.exceptions.QuantityInvalidException;
 import fakeamazon.bookstore.demo.aop.LoggedServiceOperation;
 import fakeamazon.bookstore.demo.model.Book;
 import fakeamazon.bookstore.demo.repository.BookRepository;
@@ -17,6 +18,13 @@ public class BookOwnerInventoryService {
         this.bookRepository = bookRepository;
     }
 
+    /**
+     * Increment or decrement the quantity of a specified book.
+     *
+     * @param currId The ID of the book requested for inventory update
+     * @param newQuantity The updated amount of that book
+     * @return The book that had its inventory updated
+     */
     @LoggedServiceOperation
     public Optional<Book> updateQuantity(Long currId, Integer newQuantity){
         Optional<Book> currBookLookup = bookRepository.findById(currId);
@@ -27,7 +35,7 @@ public class BookOwnerInventoryService {
             currBook.setQuantity(currBook.getQuantity() + newQuantity);
             bookRepository.save(currBook);
         } else {
-            throw new IllegalArgumentException();
+            throw new QuantityInvalidException(currBook.getName());
         }
         //Will return empty Optional<Book> if book not found with specified ID or quantity invalid
         return currBookLookup;

@@ -1,6 +1,7 @@
 package fakeamazon.bookstore.demo.controller.rest;
 
 import fakeamazon.bookstore.demo.dto.CustomerUsernameDTO;
+import fakeamazon.bookstore.demo.exceptions.QuantityInvalidException;
 import fakeamazon.bookstore.demo.model.Book;
 import fakeamazon.bookstore.demo.dto.BookQuantityDTO;
 import fakeamazon.bookstore.demo.repository.CustomerRepository;
@@ -13,6 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -54,14 +56,20 @@ public class BookOwnerRestController {
         }
     }
 
+    /**
+     * Handle administrator request to increment or decrement the inventory value of a book.
+     *
+     * @param newBook The book requested to update inventory
+     * @return The book that has inventory updated
+     */
     @PatchMapping(path = "inventory", consumes = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<Book> updateInventory(@RequestBody BookQuantityDTO newBook) {
         //All that matters is to find the book via the provided ID and change to the new quantity
         try {
             Optional<Book> updatedBook = inventoryService.updateQuantity(newBook.getId(), newBook.getQuantity());
             return ResponseEntity.of(updatedBook);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(null);
+        } catch (QuantityInvalidException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).header("ErrorResponse", e.getMessage()).body(null);
         }
     }
 

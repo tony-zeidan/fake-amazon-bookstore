@@ -2,11 +2,18 @@ function finishPurchase () {
    $.ajax({
       type: 'DELETE',
       url: '/useractions/completeorder',
+      timeout: 1000,
       success: function (data) {
-         alert("Transaction has been processed.");
+         let runningDetails = "Purchase complete:\n";
+         for (const item of data){
+            runningDetails += '\n' + item['bookName'] + ": " + item['purchaseQuantity'];
+         }
+         alert(runningDetails);
+         location.reload();
       },
       error: function(jqXHR, textStatus, errorThrown){
-         alert("Your transaction has been denied.");
+         let errorResponse = jqXHR.getResponseHeader('ErrorResponse');
+         alert(errorResponse);
       }
    });
 }
