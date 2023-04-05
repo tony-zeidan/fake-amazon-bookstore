@@ -10,7 +10,7 @@ Bookstore Owner can upload and edit Book information (ISBN, picture, description
 ![ERD.png](ERD.PNG)
 
 ## UML Diagram ##
-![BookOwnerRestController.png](BookOwnerRestController.png)
+![bookstore-uml.png](fake-amazon-bookstore-uml.png)
 
 ## Current State of Project ##
 ### Functionality
