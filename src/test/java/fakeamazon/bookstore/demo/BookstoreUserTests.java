@@ -289,7 +289,7 @@ class BookstoreUserTests {
 		bookRepository.save(newBook2);
 
 		//Order should no longer be processed since inventory has been updated
-		this.mockMvc.perform(MockMvcRequestBuilders.delete("http://localhost:8080/useractions/completeorder")).andExpect(status().isNotFound());
+		this.mockMvc.perform(MockMvcRequestBuilders.delete("http://localhost:8080/useractions/completeorder")).andExpect(status().isBadRequest());
 	}
 
 	@Test

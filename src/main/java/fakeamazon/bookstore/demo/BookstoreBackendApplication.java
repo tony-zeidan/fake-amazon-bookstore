@@ -47,7 +47,7 @@ public class BookstoreBackendApplication {
 		customerRepo.save(customer);
 	}
 
-//	@EventListener(ApplicationReadyEvent.class)
+	@EventListener(ApplicationReadyEvent.class)
 	public void addToOrderHistory() {
 		Customer customer = customerRepo.findByUsername("user");
 		Customer customer1 = customerRepo.findByUsername("Nick");
