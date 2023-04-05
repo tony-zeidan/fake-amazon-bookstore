@@ -1,5 +1,7 @@
 package fakeamazon.bookstore.demo.services;
 
+import fakeamazon.bookstore.demo.exceptions.NoSuchBookException;
+import fakeamazon.bookstore.demo.exceptions.QuantityInvalidException;
 import fakeamazon.bookstore.demo.aop.LoggedServiceOperation;
 import fakeamazon.bookstore.demo.model.*;
 import fakeamazon.bookstore.demo.repository.PurchaseHistoryRepository;
@@ -25,6 +27,15 @@ public class CompletePurchaseService {
 
     private final ShoppingCartService cartService;
 
+    /**
+     * Service to handle the functionality of completing a purchase order by the current user.
+     *
+     * @param userService Service to handle queries and updates of user data.
+     * @param cartService Servcie to handle queries and updates of shopping cart items.
+     * @param pHRepo Repository that stores purchase history data.
+     * @param pIRepo Repository that stores data of a single item purchase.
+     * @param inventoryService Service to handle queries and updates of a book's inventory.
+     */
     @Autowired
     public CompletePurchaseService(CustomerDetailsService userService, ShoppingCartService cartService, PurchaseHistoryRepository pHRepo, PurchaseItemRepository pIRepo, BookOwnerInventoryService inventoryService){
         this.purchaseHistoryRepository = pHRepo;
@@ -34,8 +45,14 @@ public class CompletePurchaseService {
         this.cartService = cartService;
     }
 
+    /**
+     * Completes a purchase order of the current user's shopping cart.
+     *
+     * @param auth Authentication details of the current user
+     * @return The list of items purchased, including the names of the books and the amounts purchased
+     */
     @LoggedServiceOperation
-    public Optional<PurchaseHistory> completePurchase(Authentication auth){
+    public Optional<List<PurchaseDetail>> completePurchase(Authentication auth){
         //Check inventory first
         Customer currUser = userService.getCustomerDetails(auth);
         PurchaseHistory currPurchaseHistory = currUser.getHistory();
@@ -52,7 +69,7 @@ public class CompletePurchaseService {
             int bookQuantity = itemBook.getQuantity();
 
             if (itemQuantity > bookQuantity){
-                throw new NoSuchElementException();
+                throw new QuantityInvalidException(itemBook.getName());
             }
         }
 
@@ -64,7 +81,7 @@ public class CompletePurchaseService {
 
             //Book not found for some reason, therefore quantity not updated
             if (!quantityResponse.isPresent()){
-                throw new NoSuchElementException();
+                throw new NoSuchBookException(itemBook.getName());
             } else {
                 //Not saving the purchase item to the repo and purchase history right away because the entire transaction should be invalid if one of them fails
                 PurchaseItem newPurchaseItem = new PurchaseItem();
@@ -89,6 +106,13 @@ public class CompletePurchaseService {
 
         userService.saveCustomer(currUser);
 
-        return Optional.of(currPurchaseHistory);
+        //List of details of books purchased that includes the name and amount
+        List<PurchaseDetail> deets = new ArrayList<>();
+
+        for (PurchaseItem item: newPurchaseItems){
+            deets.add(new PurchaseDetail(item.getBook().getName(), item.getQuantity()));
+        }
+
+        return Optional.of(deets);
     }
 }
