@@ -47,6 +47,9 @@ public class BookstoreBackendApplication {
 		customerRepo.save(customer);
 	}
 
+	/**
+	 * Adds purchase items to the purchase history of two customers when the application is ready.
+	 */
 	@EventListener(ApplicationReadyEvent.class)
 	public void addToOrderHistory() {
 		Customer customer = customerRepo.findByUsername("user");

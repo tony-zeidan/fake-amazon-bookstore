@@ -43,6 +43,13 @@ public class BookOwnerController {
         model.addAttribute("targetBook", targetBook);
         return "editbookpage";
     }
+    /**
+     * Returns a view for a Customer's purchase history or an admin view of all username who has purchase history.
+     *
+     * @param username (optional) the username which the admin wants to view their history
+     * @param model the Model object to add attributes to for the view
+     * @return name of the view
+     */
     @GetMapping("history")
     public String history(@RequestParam(required = false) String username, Model model) {
         if (username == null) {

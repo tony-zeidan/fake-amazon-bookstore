@@ -1,6 +1,8 @@
 $( document ).ready(function() {
     const nameListDiv = $("#user-name-list");
     let nameList = [];
+
+    // fetch a list of username who has purchase history
     $.ajax({
         type: "get",
         url: "/owneractions/usernamelist",
@@ -23,6 +25,7 @@ $( document ).ready(function() {
         }
     });
 
+    // set up the responsive filter
     const searchBox = $("#username-search-input")
     searchBox.on("input", () => {
         const filter = searchBox.val().toLowerCase();

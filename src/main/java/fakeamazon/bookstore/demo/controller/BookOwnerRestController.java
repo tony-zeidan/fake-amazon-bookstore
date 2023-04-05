@@ -78,6 +78,11 @@ public class BookOwnerRestController {
         }
     }
 
+    /**
+     * Returns a list of customer's username who have made purchases.
+     *
+     * @return a response containing the list of usernames
+     */
     @GetMapping(path = "usernamelist")
     public ResponseEntity<List<CustomerUsernameTemplate>>userList() {
         // only getting the username attribute from the customers, who have actual purchase history.
